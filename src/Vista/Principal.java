@@ -100,7 +100,7 @@ public class Principal extends javax.swing.JFrame {
         autores.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         autores.setForeground(new java.awt.Color(0, 51, 255));
         autores.setText("Comisaria  Rubén & Christian");
-        autores.setToolTipText("");
+        autores.setToolTipText("Autores");
         autores.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 autoresMouseDragged(evt);
