@@ -6,7 +6,6 @@
 package Inicio;
 
 import Vista.Principal;
-import javax.swing.JFrame;
 
 /**
  *
