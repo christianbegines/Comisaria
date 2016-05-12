@@ -250,7 +250,7 @@ public class Principal extends javax.swing.JFrame {
         listaPolicias.setBackground(new java.awt.Color(255, 255, 255));
         listaPolicias.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         listaPolicias.setForeground(new java.awt.Color(0, 102, 204));
-        listaPolicias.setText("LISTA POLICIAS");
+        listaPolicias.setText("POLICIAS");
 
         orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
 
