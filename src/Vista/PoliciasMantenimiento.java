@@ -16,7 +16,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
      */
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-         this.setLocation(500, 500);
+        this.setLocation(500, 500);
         initComponents();
     }
 

@@ -15,7 +15,9 @@ import java.awt.Toolkit;
  * @author daw1
  */
 public class Principal extends javax.swing.JFrame {
-Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
+
+    Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
+
     /**
      * Creates new form Principal
      */
@@ -24,7 +26,7 @@ Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png
         this.setUndecorated(true);
         this.setLocation(500, 500);
         initComponents();
-        
+
 //        if (this.estadoConexion.getText().equalsIgnoreCase("sin conexión")) {
 //            this.gestionarMultas.setEnabled(false);
 //            this.gestionarPolicias.setEnabled(false);
@@ -259,32 +261,32 @@ Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png
     }// </editor-fold>//GEN-END:initComponents
 
     private void gestionarPoliciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarPoliciasActionPerformed
-        PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this,true);
+        PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
         ventanaPolicias.setVisible(true);
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
-         MultasListado ventanaMultas = new MultasListado(this,true);
+        MultasListado ventanaMultas = new MultasListado(this, true);
         ventanaMultas.setVisible(true);
     }//GEN-LAST:event_gestionarMultasActionPerformed
 
     private void menuCerrarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCerrarMouseDragged
-        
- Point point = MouseInfo.getPointerInfo().getLocation()   ; 
-    setLocation(point.x - x, point.y - y)   ; 
+
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_menuCerrarMouseDragged
 
     private void menuCerrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCerrarMousePressed
-            this.x = evt.getX  ()  ; 
-        this.y = evt.getY ()  ; 
+        this.x = evt.getX();
+        this.y = evt.getY();
     }//GEN-LAST:event_menuCerrarMousePressed
 
     private void cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseClicked
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_cerrarMouseClicked
 
     private void minimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarMouseClicked
-        this.setExtendedState(ICONIFIED); 
+        this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_minimizarMouseClicked
 
     /**
@@ -307,7 +309,7 @@ Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -315,8 +317,8 @@ Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png
             new Principal().setVisible(true);
         });
     }
-int x=0;
-int y=0;
+    int x = 0;
+    int y = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BD;
     private javax.swing.JLabel cerrar;
