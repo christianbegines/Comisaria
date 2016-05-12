@@ -153,7 +153,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Vista/multa.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="LISTIN MULTAS"/>
+                <Property name="text" type="java.lang.String" value="LISTA MULTAS"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -168,7 +168,7 @@
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder/>
               </Border>
-              <Color PropertyName="color" blue="99" green="99" red="99" type="rgb"/>
+              <Color PropertyName="color" blue="66" green="66" red="66" type="rgb"/>
             </TitledBorder>
           </Border>
         </Property>
