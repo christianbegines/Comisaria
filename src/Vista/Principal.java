@@ -43,7 +43,7 @@ public class Principal extends javax.swing.JFrame {
         menuCerrar = new javax.swing.JPanel();
         minimizar = new javax.swing.JLabel();
         cerrar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        autores = new javax.swing.JLabel();
         panelMain = new javax.swing.JPanel();
         gestionarPolicias = new javax.swing.JButton();
         gestionarMultas = new javax.swing.JButton();
@@ -97,10 +97,20 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 51, 255));
-        jLabel2.setText("Comisaria  Rubén & Christian");
-        jLabel2.setToolTipText("");
+        autores.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        autores.setForeground(new java.awt.Color(0, 51, 255));
+        autores.setText("Comisaria  Rubén & Christian");
+        autores.setToolTipText("Autores");
+        autores.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                autoresMouseDragged(evt);
+            }
+        });
+        autores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                autoresMousePressed(evt);
+            }
+        });
 
         panelMain.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -235,7 +245,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(minimizar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .add(autores, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(cerrar)
                 .addContainerGap())
@@ -247,7 +257,7 @@ public class Principal extends javax.swing.JFrame {
                 .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(cerrar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(minimizar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, autores, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelMain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -296,10 +306,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizarMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        JDBC c = new JDBC();
-        this.conn = c.nuevaConexion();
+        this.conn = new JDBC().nuevaConexion();
         if (this.conn == null) {
-
             this.gestionarMultas.setToolTipText("Sin conexión");
             this.gestionarPolicias.setToolTipText("Sin conexión");
             this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
@@ -310,6 +318,16 @@ public class Principal extends javax.swing.JFrame {
             this.estadoConexion.setForeground(Color.green);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void autoresMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoresMouseDragged
+         Point point = MouseInfo.getPointerInfo().getLocation();
+        setLocation(point.x - x, point.y - y);
+    }//GEN-LAST:event_autoresMouseDragged
+
+    private void autoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoresMousePressed
+        this.x = evt.getX();
+        this.y = evt.getY();
+    }//GEN-LAST:event_autoresMousePressed
 
     /**
      * @param args the command line arguments
@@ -340,17 +358,17 @@ public class Principal extends javax.swing.JFrame {
         });
     }
     private Connection conn;
-    private Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
+    private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
     private int x = 0;
     private int y = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BD;
+    private javax.swing.JLabel autores;
     private javax.swing.JLabel cerrar;
     private javax.swing.JLabel estadoConexion;
     private javax.swing.JButton gestionarMultas;
     private javax.swing.JButton gestionarPolicias;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel menuCerrar;
     private javax.swing.JLabel minimizar;
     private java.awt.Panel panelConexion;
