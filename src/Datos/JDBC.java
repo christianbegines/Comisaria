@@ -5,10 +5,31 @@
  */
 package Datos;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author daw1
  */
 public class JDBC {
-    
+
+    private Connection con;
+    private String bD = "comisaria";
+    private String usr = "root";
+    private String pass = "root";
+    private String url = "jdbc:mysql://localhost:3306/" + bD;
+
+    public Connection nuevaConexion() {
+        try {
+            this.con = DriverManager.getConnection(url, usr, pass);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error conectando a la base de datos", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+        }
+        return this.con;
+    }
 }
