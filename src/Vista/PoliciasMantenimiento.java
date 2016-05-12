@@ -33,15 +33,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
-        jTextField1 = new javax.swing.JTextField();
         menuCerrar = new javax.swing.JPanel();
         cerrar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-
-        jMenu1.setText("jMenu1");
-
-        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -102,8 +96,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(menuCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addComponent(menuCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,8 +164,6 @@ private int y;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cerrar;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel menuCerrar;
     // End of variables declaration//GEN-END:variables
 }
