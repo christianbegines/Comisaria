@@ -28,7 +28,7 @@ public class JDBC {
         try {
             this.con = DriverManager.getConnection(url, usr, pass);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error conectando a la base de datos\n \nChristian cabrooon importa el SQL al workbench", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Christian cabrooon importa el SQL al workbench", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
         return this.con;
     }
