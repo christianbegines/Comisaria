@@ -6,9 +6,13 @@
 package Modelo;
 
 /**
- *
- * @author daw1
+ * Objeto que corresponde con la tabla policias en la BD
+ * @author Rubén Soler
  */
 public class Policia {
+    private int idPolicia;
+    private int numeroDePlaca;
+    private String nombre;
+    
     
 }
