@@ -296,10 +296,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizarMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        JDBC c = new JDBC();
-        this.conn = c.nuevaConexion();
+        this.conn = new JDBC().nuevaConexion();
         if (this.conn == null) {
-
             this.gestionarMultas.setToolTipText("Sin conexión");
             this.gestionarPolicias.setToolTipText("Sin conexión");
             this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
@@ -340,7 +338,7 @@ public class Principal extends javax.swing.JFrame {
         });
     }
     private Connection conn;
-    private Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
+    private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
     private int x = 0;
     private int y = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
