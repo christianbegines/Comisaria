@@ -278,12 +278,12 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gestionarPoliciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarPoliciasActionPerformed
-        PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
+        MultasLista ventanaPolicias = new MultasLista(this, true);
         ventanaPolicias.setVisible(true);
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
-        MultasListado ventanaMultas = new MultasListado(this, true);
+        PoliciasMantenimiento ventanaMultas = new PoliciasMantenimiento(this, true);
         ventanaMultas.setVisible(true);
     }//GEN-LAST:event_gestionarMultasActionPerformed
 
