@@ -104,7 +104,7 @@
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/ruben/Escritorio/policia-logo.jpg"/>
+                  <Image iconType="3" name="/Vista/img/policia-logo.jpg"/>
                 </Property>
               </Properties>
             </Component>
