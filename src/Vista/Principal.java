@@ -5,19 +5,22 @@
  */
 package Vista;
 
+import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Toolkit;
 
 /**
  *
  * @author daw1
  */
 public class Principal extends javax.swing.JFrame {
-
+Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
     /**
      * Creates new form Principal
      */
     public Principal() {
+        this.setIconImage(i);
         this.setUndecorated(true);
         this.setLocation(500, 500);
         initComponents();
@@ -51,6 +54,7 @@ public class Principal extends javax.swing.JFrame {
         BD = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Comisaria Rubén & Christian");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
