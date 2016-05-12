@@ -128,7 +128,7 @@
               <Color blue="ff" green="33" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Comisaria  Rub&#xe9;n &amp; Christian"/>
-            <Property name="toolTipText" type="java.lang.String" value="Autores"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="panelMain">

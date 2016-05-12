@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class JDBC {
 
     private Connection con;
-    private String bD = "comisari";
+    private String bD = "comisaria";
     private String usr = "root";
     private String pass = "root";
     private String url = "jdbc:mysql://localhost:3306/" + bD;
