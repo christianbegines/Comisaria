@@ -48,10 +48,16 @@ public class Principal extends javax.swing.JFrame {
         gestionarPolicias = new javax.swing.JButton();
         gestionarMultas = new javax.swing.JButton();
         panelDerecha = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
         panelConexion = new java.awt.Panel();
         estadoConexion = new javax.swing.JLabel();
         BD = new javax.swing.JLabel();
+        panelOrden = new javax.swing.JPanel();
+        ordenarPor = new javax.swing.JLabel();
+        listaPolicias = new javax.swing.JLabel();
+        orden = new javax.swing.JComboBox<>();
+        panelTabla = new javax.swing.JScrollPane();
+        tablaPolicias = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comisaria Rubén & Christian");
@@ -150,12 +156,53 @@ public class Principal extends javax.swing.JFrame {
 
         panelDerecha.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/policia-logo.png"))); // NOI18N
-        jLabel1.setText(" ");
-        jLabel1.setToolTipText("Cuerpo Nacional de Policia");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        org.jdesktop.layout.GroupLayout panelDerechaLayout = new org.jdesktop.layout.GroupLayout(panelDerecha);
+        panelDerecha.setLayout(panelDerechaLayout);
+        panelDerechaLayout.setHorizontalGroup(
+            panelDerechaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 0, Short.MAX_VALUE)
+        );
+        panelDerechaLayout.setVerticalGroup(
+            panelDerechaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 273, Short.MAX_VALUE)
+        );
+
+        logo.setBackground(new java.awt.Color(255, 255, 255));
+        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/policia.jpg"))); // NOI18N
+        logo.setText(" ");
+        logo.setToolTipText("Cuerpo Nacional de Policia");
+        logo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        org.jdesktop.layout.GroupLayout panelMainLayout = new org.jdesktop.layout.GroupLayout(panelMain);
+        panelMain.setLayout(panelMainLayout);
+        panelMainLayout.setHorizontalGroup(
+            panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, panelMainLayout.createSequentialGroup()
+                .add(29, 29, 29)
+                .add(panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(gestionarPolicias, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 277, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(gestionarMultas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 277, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(72, 72, 72)
+                .add(panelDerecha, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(62, 62, 62)
+                .add(logo)
+                .add(23, 23, 23))
+        );
+        panelMainLayout.setVerticalGroup(
+            panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, panelMainLayout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(logo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 208, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(panelDerecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, panelMainLayout.createSequentialGroup()
+                            .add(gestionarPolicias, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(32, 32, 32)
+                            .add(gestionarMultas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .add(298, 298, 298))
+        );
 
         panelConexion.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -190,52 +237,54 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        org.jdesktop.layout.GroupLayout panelDerechaLayout = new org.jdesktop.layout.GroupLayout(panelDerecha);
-        panelDerecha.setLayout(panelDerechaLayout);
-        panelDerechaLayout.setHorizontalGroup(
-            panelDerechaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelDerechaLayout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .add(panelDerechaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, panelDerechaLayout.createSequentialGroup()
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 146, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(2, 2, 2))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, panelDerechaLayout.createSequentialGroup()
-                        .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
-        panelDerechaLayout.setVerticalGroup(
-            panelDerechaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelDerechaLayout.createSequentialGroup()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        panelOrden.setBackground(new java.awt.Color(255, 255, 255));
+
+        ordenarPor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        ordenarPor.setForeground(new java.awt.Color(0, 51, 204));
+        ordenarPor.setText("Ordenar por:");
+
+        listaPolicias.setBackground(new java.awt.Color(255, 255, 255));
+        listaPolicias.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        listaPolicias.setForeground(new java.awt.Color(0, 102, 204));
+        listaPolicias.setText("LISTA POLICIAS");
+
+        orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
+
+        org.jdesktop.layout.GroupLayout panelOrdenLayout = new org.jdesktop.layout.GroupLayout(panelOrden);
+        panelOrden.setLayout(panelOrdenLayout);
+        panelOrdenLayout.setHorizontalGroup(
+            panelOrdenLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(panelOrdenLayout.createSequentialGroup()
+                .add(listaPolicias, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 239, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 140, Short.MAX_VALUE)
+                .add(ordenarPor)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(orden, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        panelOrdenLayout.setVerticalGroup(
+            panelOrdenLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(panelOrdenLayout.createSequentialGroup()
+                .add(panelOrdenLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(listaPolicias, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(ordenarPor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(orden, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        org.jdesktop.layout.GroupLayout panelMainLayout = new org.jdesktop.layout.GroupLayout(panelMain);
-        panelMain.setLayout(panelMainLayout);
-        panelMainLayout.setHorizontalGroup(
-            panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelMainLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(gestionarMultas, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(gestionarPolicias, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(panelDerecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-        panelMainLayout.setVerticalGroup(
-            panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelMainLayout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(panelDerecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(panelMainLayout.createSequentialGroup()
-                        .add(gestionarPolicias, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(43, 43, 43)
-                        .add(gestionarMultas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-        );
+        panelTabla.setBackground(new java.awt.Color(255, 255, 255));
+
+        tablaPolicias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "idPolicia", "nombre", "numPlaca", "edad", "departamento", "foto"
+            }
+        ));
+        panelTabla.setViewportView(tablaPolicias);
 
         org.jdesktop.layout.GroupLayout menuCerrarLayout = new org.jdesktop.layout.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
@@ -243,23 +292,40 @@ public class Principal extends javax.swing.JFrame {
             menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(menuCerrarLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(minimizar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(autores, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(cerrar)
+                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(panelMain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 658, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, menuCerrarLayout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(menuCerrarLayout.createSequentialGroup()
+                        .add(minimizar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(autores, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(28, 28, 28)
+                        .add(cerrar))
+                    .add(menuCerrarLayout.createSequentialGroup()
+                        .add(12, 12, 12)
+                        .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(panelTabla)
+                            .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(0, 4, Short.MAX_VALUE)))
                 .addContainerGap())
-            .add(panelMain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menuCerrarLayout.setVerticalGroup(
             menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(menuCerrarLayout.createSequentialGroup()
-                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(cerrar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(minimizar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, autores, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, cerrar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, autores, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(minimizar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(panelMain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(panelMain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 271, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(panelOrden, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(panelTabla, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 120, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(39, 39, 39)
+                .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -267,7 +333,9 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(menuCerrar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .add(menuCerrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -368,11 +436,17 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel estadoConexion;
     private javax.swing.JButton gestionarMultas;
     private javax.swing.JButton gestionarPolicias;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel listaPolicias;
+    private javax.swing.JLabel logo;
     private javax.swing.JPanel menuCerrar;
     private javax.swing.JLabel minimizar;
+    private javax.swing.JComboBox<String> orden;
+    private javax.swing.JLabel ordenarPor;
     private java.awt.Panel panelConexion;
     private javax.swing.JPanel panelDerecha;
     private javax.swing.JPanel panelMain;
+    private javax.swing.JPanel panelOrden;
+    private javax.swing.JScrollPane panelTabla;
+    private javax.swing.JTable tablaPolicias;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,9 +5,11 @@
  */
 package Datos;
 
+import Modelo.Policia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,6 +25,7 @@ public class JDBC {
     private String usr = "root";
     private String pass = "root";
     private String url = "jdbc:mysql://localhost:3306/" + bD;
+    private ArrayList<Policia> listaPolicias = new ArrayList<>();
 
     public Connection nuevaConexion() {
         try {
