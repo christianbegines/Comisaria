@@ -5,10 +5,8 @@
  */
 package Vista;
 
-import static java.awt.Frame.ICONIFIED;
 import java.awt.MouseInfo;
 import java.awt.Point;
-
 
 /**
  *
@@ -17,11 +15,10 @@ import java.awt.Point;
 public class PoliciasMantenimiento extends javax.swing.JDialog {
 
     /**
-     * Creates new form NewJDialog
+     * Creates new form MultasListado
      */
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setUndecorated(true);
         this.setLocation(500, 500);
         initComponents();
     }
@@ -167,7 +164,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             }
         });
     }
-
+private int x;
+private int y;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cerrar;
     private javax.swing.JLabel jLabel3;
@@ -175,6 +173,4 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel menuCerrar;
     // End of variables declaration//GEN-END:variables
-    private int x,y;
-    
 }
