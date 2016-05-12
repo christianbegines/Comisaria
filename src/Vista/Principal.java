@@ -27,7 +27,8 @@ public class Principal extends javax.swing.JFrame {
         this.setUndecorated(true);
         this.setLocation(500, 500);
         initComponents();
-
+        this.gestionarMultas.setEnabled(false);
+        this.gestionarPolicias.setEnabled(false);
     }
 
     /**
@@ -297,9 +298,13 @@ public class Principal extends javax.swing.JFrame {
         JDBC c = new JDBC();
         this.conn = c.nuevaConexion();
         if (this.conn == null) {
-            this.gestionarMultas.setEnabled(false);
-            this.gestionarPolicias.setEnabled(false);
+
+            this.gestionarMultas.setToolTipText("Sin conexión");
+            this.gestionarPolicias.setToolTipText("Sin conexión");
+            this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
         } else {
+            this.gestionarMultas.setEnabled(true);
+            this.gestionarPolicias.setEnabled(true);
             this.estadoConexion.setText("Conectada");
             this.estadoConexion.setForeground(Color.green);
         }

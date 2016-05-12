@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class JDBC {
 
     private Connection con;
-    private String bD = "comisaria";
+    private String bD = "comisari";
     private String usr = "root";
     private String pass = "root";
     private String url = "jdbc:mysql://localhost:3306/" + bD;
@@ -28,7 +28,7 @@ public class JDBC {
         try {
             this.con = DriverManager.getConnection(url, usr, pass);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error conectando a la base de datos", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error conectando a la base de datos\n \nChristian cabrooon importa el SQL al workbench", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
         return this.con;
     }
