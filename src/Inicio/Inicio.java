@@ -5,6 +5,9 @@
  */
 package Inicio;
 
+import Vista.Principal;
+import javax.swing.JFrame;
+
 /**
  *
  * @author daw1
@@ -15,7 +18,8 @@ public class Inicio {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+      Principal p = new Principal();
+      p.setVisible(true);
     }
     
 }
