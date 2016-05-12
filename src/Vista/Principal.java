@@ -43,7 +43,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\chavo\\Documents\\NetBeansProjects\\Comisaria\\src\\Vista\\policia-logo.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/policia-logo.png"))); // NOI18N
         jLabel1.setText(" ");
         jLabel1.setToolTipText("");
 
