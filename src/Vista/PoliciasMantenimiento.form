@@ -144,7 +144,7 @@
                   <Color blue="cc" green="66" red="0" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Vista/multa.png"/>
+                  <Image iconType="3" name="/Vista/policia.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="LISTIN POLICIAS"/>
               </Properties>
