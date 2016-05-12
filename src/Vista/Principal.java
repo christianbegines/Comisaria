@@ -100,6 +100,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 51, 255));
         jLabel2.setText("Comisaria  Rubén & Christian");
+        jLabel2.setToolTipText("Autores");
 
         panelMain.setBackground(new java.awt.Color(255, 255, 255));
 
