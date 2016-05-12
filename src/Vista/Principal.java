@@ -180,14 +180,14 @@ public class Principal extends javax.swing.JFrame {
         panelMainLayout.setHorizontalGroup(
             panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, panelMainLayout.createSequentialGroup()
-                .add(29, 29, 29)
+                .addContainerGap()
                 .add(panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(gestionarPolicias, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 277, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(gestionarMultas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 277, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(72, 72, 72)
+                    .add(gestionarMultas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 343, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(gestionarPolicias, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 343, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(23, 23, 23)
                 .add(panelDerecha, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(62, 62, 62)
-                .add(logo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 219, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(logo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 269, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelMainLayout.setVerticalGroup(
@@ -197,9 +197,9 @@ public class Principal extends javax.swing.JFrame {
                 .add(panelMainLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(panelDerecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, panelMainLayout.createSequentialGroup()
-                        .add(13, 13, 13)
+                        .add(12, 12, 12)
                         .add(gestionarPolicias, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(29, 29, 29)
+                        .add(30, 30, 30)
                         .add(gestionarMultas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(298, 298, 298))
             .add(panelMainLayout.createSequentialGroup()
@@ -301,14 +301,13 @@ public class Principal extends javax.swing.JFrame {
                     .add(menuCerrarLayout.createSequentialGroup()
                         .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(panelMain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 658, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, menuCerrarLayout.createSequentialGroup()
-                                .add(0, 0, Short.MAX_VALUE)
-                                .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(menuCerrarLayout.createSequentialGroup()
                                 .add(12, 12, 12)
-                                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                    .add(panelTabla)
-                                    .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                        .add(panelTabla)
+                                        .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .add(0, 4, Short.MAX_VALUE)))
                         .addContainerGap())
                     .add(menuCerrarLayout.createSequentialGroup()
@@ -356,13 +355,14 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gestionarPoliciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarPoliciasActionPerformed
-        PoliciasMantenimiento ventanaMultas = new PoliciasMantenimiento(this, true);
-        ventanaMultas.setVisible(true);
+        PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
+        ventanaPolicias.setVisible(true);
+        
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
-        MultasListinPorPolicia ventanaPolicias = new MultasListinPorPolicia(this, true);
-        ventanaPolicias.setVisible(true);
+        MultasListinPorPolicia ventanaMultas = new MultasListinPorPolicia(this, true);
+        ventanaMultas.setVisible(true);
     }//GEN-LAST:event_gestionarMultasActionPerformed
 
     private void menuCerrarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCerrarMouseDragged
