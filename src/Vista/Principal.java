@@ -68,6 +68,7 @@ public class Principal extends javax.swing.JFrame {
         minimizar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         minimizar.setForeground(new java.awt.Color(153, 153, 153));
         minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/minimizar.png"))); // NOI18N
+        minimizar.setToolTipText("Minimizar");
         minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         minimizar.setFocusable(false);
         minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,6 +78,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cerrar.png"))); // NOI18N
+        cerrar.setToolTipText("Cerrar");
         cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cerrar.setFocusable(false);
         cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
