@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista;
 
 import Datos.JDBC;
@@ -11,15 +6,12 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author daw1
+ * @author Rubén Soler
+ * Ventana Grafica que se abre al arrancar el programa, desde esta se puede seleccionar un policia y borrarlo.
  */
 public class Principal extends javax.swing.JFrame {
 
