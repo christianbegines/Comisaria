@@ -14,11 +14,7 @@ import java.awt.Image;
 public class Policia {
     private int idPolicia;
     private int numeroDePlaca;
-    private String nombre;
-    
-    
-    private int idPolicia;
-    private String nombre;
+    private String nombre;   
     private String numPlaca;
     private int edad;
     private String departamento;
