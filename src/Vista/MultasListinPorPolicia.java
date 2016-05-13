@@ -5,9 +5,11 @@
  */
 package Vista;
 
+import Datos.JDBC;
 import java.awt.Frame;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.sql.Connection;
 
 
 /**
@@ -25,7 +27,12 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         this.setLocation(400, 100);
         initComponents();
     }
-
+    /**
+     * @param datos 
+     */
+    public void setConexion(JDBC datos) {
+        this.datos=datos;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -266,6 +273,7 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
 
     private void añadirMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirMultaActionPerformed
         MultasIntroducir ventanaIntroducir = new MultasIntroducir((Frame) super.getParent(),true);
+        ventanaIntroducir.setConexion(this.datos);
         ventanaIntroducir.setVisible(true);
     }//GEN-LAST:event_añadirMultaActionPerformed
 
@@ -344,5 +352,5 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
     private javax.swing.JTextField textoNumPlaca;
     // End of variables declaration//GEN-END:variables
     private int x,y;
-    
+    private JDBC datos;
 }

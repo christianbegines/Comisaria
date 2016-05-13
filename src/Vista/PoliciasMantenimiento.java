@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Datos.JDBC;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
@@ -19,9 +20,16 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
      */
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-         this.setUndecorated(true);
+        this.setUndecorated(true);
         this.setLocation(400, 100);
         initComponents();
+    }
+
+    /**
+     * @param datos 
+     */
+    public void setConexion(JDBC datos) {
+        this.datos=datos;
     }
 
     /**
@@ -159,8 +167,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             }
         });
     }
-private int x;
-private int y;
+    private JDBC datos;
+    private int x;
+    private int y;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cerrar;
     private javax.swing.JLabel jLabel3;

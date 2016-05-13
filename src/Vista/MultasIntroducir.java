@@ -5,8 +5,10 @@
  */
 package Vista;
 
+import Datos.JDBC;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.sql.Connection;
 
 /**
  *
@@ -22,6 +24,13 @@ public class MultasIntroducir extends javax.swing.JDialog {
         this.setLocation(400, 100);
         this.setUndecorated(true);
         initComponents();
+    }
+
+    /**
+     * @param datos 
+     */
+    public void setConexion(JDBC datos) {
+        this.datos=datos;
     }
 
     /**
@@ -174,8 +183,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
             }
         });
     }
-private int x;
-private int y;
+    private JDBC datos;
+    private int x;
+    private int y;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cabecera;
     private javax.swing.JLabel cerrar;

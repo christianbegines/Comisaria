@@ -356,12 +356,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void gestionarPoliciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarPoliciasActionPerformed
         PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
+        ventanaPolicias.setConexion(this.datos);
         ventanaPolicias.setVisible(true);
         
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
         MultasListinPorPolicia ventanaMultas = new MultasListinPorPolicia(this, true);
+        ventanaMultas.setConexion(this.datos);
         ventanaMultas.setVisible(true);
     }//GEN-LAST:event_gestionarMultasActionPerformed
 
@@ -384,8 +386,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizarMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        this.conn = new JDBC().nuevaConexion();
-        if (this.conn == null) {
+        this.datos = new JDBC();
+        if (this.datos.nuevaConexion() == null) {
             this.gestionarMultas.setToolTipText("Sin conexión");
             this.gestionarPolicias.setToolTipText("Sin conexión");
             this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
@@ -436,7 +438,7 @@ public class Principal extends javax.swing.JFrame {
             new Principal().setVisible(true);
         });
     }
-    private Connection conn;
+    private JDBC datos;
     private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
     private int x = 0;
     private int y = 0;

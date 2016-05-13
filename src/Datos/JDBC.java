@@ -23,7 +23,6 @@ public class JDBC {
     private String usr = "root";
     private String pass = "root";
     private String url = "jdbc:mysql://localhost:3306/" + bD;
-    private ArrayList<Policia> listaPolicias = new ArrayList<>();
 
     public Connection nuevaConexion() {
         try {
