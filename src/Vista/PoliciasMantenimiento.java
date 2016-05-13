@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
+
 /**
  *
  * @author daw1
@@ -12,10 +15,12 @@ package Vista;
 public class PoliciasMantenimiento extends javax.swing.JDialog {
 
     /**
-     * Creates new form NewJDialog
+     * Creates new form MultasListado
      */
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+         this.setUndecorated(true);
+        this.setLocation(400, 100);
         initComponents();
     }
 
@@ -28,21 +33,89 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuCerrar = new javax.swing.JPanel();
+        cerrar = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        menuCerrar.setBackground(new java.awt.Color(255, 255, 255));
+        menuCerrar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                menuCerrarMouseDragged(evt);
+            }
+        });
+        menuCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                menuCerrarMousePressed(evt);
+            }
+        });
+
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cerrar.png"))); // NOI18N
+        cerrar.setToolTipText("Cerrar");
+        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar.setFocusable(false);
+        cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/policia.png"))); // NOI18N
+        jLabel3.setText("Gestión policia");
+
+        javax.swing.GroupLayout menuCerrarLayout = new javax.swing.GroupLayout(menuCerrar);
+        menuCerrar.setLayout(menuCerrarLayout);
+        menuCerrarLayout.setHorizontalGroup(
+            menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuCerrarLayout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
+                .addComponent(cerrar)
+                .addContainerGap())
+        );
+        menuCerrarLayout.setVerticalGroup(
+            menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuCerrarLayout.createSequentialGroup()
+                .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(344, 344, 344))
+            .addGroup(menuCerrarLayout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(menuCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(menuCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuCerrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCerrarMousePressed
+        this.x = evt.getX();
+        this.y = evt.getY();
+    }//GEN-LAST:event_menuCerrarMousePressed
+
+    private void menuCerrarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCerrarMouseDragged
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        setLocation(point.x - x, point.y - y);
+    }//GEN-LAST:event_menuCerrarMouseDragged
+
+    private void cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseClicked
+        this.setVisible(false);
+    }//GEN-LAST:event_cerrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -86,7 +159,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             }
         });
     }
-
+private int x;
+private int y;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cerrar;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel menuCerrar;
     // End of variables declaration//GEN-END:variables
 }
