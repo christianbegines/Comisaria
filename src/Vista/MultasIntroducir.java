@@ -19,7 +19,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
      */
     public MultasIntroducir(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setLocation(400, 400);
+        this.setLocation(400, 100);
         this.setUndecorated(true);
         initComponents();
     }

@@ -25,7 +25,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         this.setIconImage(i);
         this.setUndecorated(true);
-        this.setLocation(400, 400);
+        this.setLocation(400, 100);
         initComponents();
         this.gestionarMultas.setEnabled(false);
         this.gestionarPolicias.setEnabled(false);

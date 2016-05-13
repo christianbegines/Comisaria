@@ -476,7 +476,6 @@
                     <Column editable="true" title="foto" type="java.lang.Object"/>
                   </Table>
                 </Property>
-                <Property name="columnSelectionAllowed" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
