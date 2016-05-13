@@ -24,12 +24,12 @@ public class JDBC {
     private String pass = "root";
     private String url = "jdbc:mysql://localhost:3306/" + bD;
 
-    public Connection nuevaConexion() {
-        try {
+    public Connection nuevaConexion() throws SQLException {
+        
             this.con = DriverManager.getConnection(url, usr, pass);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
-        }
+       
+            
+        
         return this.con;
     }
 }

@@ -12,6 +12,10 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -358,7 +362,7 @@ public class Principal extends javax.swing.JFrame {
         PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
         ventanaPolicias.setConexion(this.datos);
         ventanaPolicias.setVisible(true);
-        
+
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
@@ -387,21 +391,22 @@ public class Principal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.datos = new JDBC();
-        if (this.datos.nuevaConexion() == null) {
-            this.gestionarMultas.setToolTipText("Sin conexión");
-            this.gestionarPolicias.setToolTipText("Sin conexión");
-            this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
-        } else {
+        try {
+            this.datos.nuevaConexion();
             this.gestionarMultas.setEnabled(true);
             this.gestionarPolicias.setEnabled(true);
             this.estadoConexion.setText("Conectada");
             this.estadoConexion.setForeground(Color.green);
-            
+        } catch (SQLException ex) {
+            this.gestionarMultas.setToolTipText("Sin conexión");
+            this.gestionarPolicias.setToolTipText("Sin conexión");
+            this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
+            JOptionPane.showMessageDialog(null, "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void autoresMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoresMouseDragged
-         Point point = MouseInfo.getPointerInfo().getLocation();
+        Point point = MouseInfo.getPointerInfo().getLocation();
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_autoresMouseDragged
 
@@ -410,34 +415,7 @@ public class Principal extends javax.swing.JFrame {
         this.y = evt.getY();
     }//GEN-LAST:event_autoresMousePressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Principal().setVisible(true);
-        });
-    }
     private JDBC datos;
     private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
     private int x = 0;
