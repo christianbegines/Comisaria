@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package Modelo;
 
 /**
- *
- * @author daw1
+ * Clase TipoMula, informa de los tipos de multas que se pueden realizar
+ * @author christiabegines
+ * @version beta1.0
  */
 public class TipoMulta {
     
@@ -16,19 +14,29 @@ public class TipoMulta {
     private double importe;
     private enum tipos{L,G,MG};
     private int carnetPuntos;
-
+    /**
+     * Genera un tipo de multa con todos sus atributos;
+     * @param id identificador de la multa;
+     * @param descripcion Breve descripcion del suceso de la multa;
+     * @param importe cantidad destinada a pagar la infraccion
+     * @param carnetPuntos puntos que conlleva esta infraccion
+     */
     public TipoMulta(int id, String descripcion, double importe, int carnetPuntos) {
         this.id = id;
         this.descripcion = descripcion;
         this.importe = importe;
         this.carnetPuntos = carnetPuntos;
     }
-
+    /**
+     * Genera una multa con sus minimos datos;
+     * @param id identificador de la multa;
+     * @param descripcion Breve descripcion de la multa;
+     */
     public TipoMulta(int id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
     }
-
+    
     public int getId() {
         return id;
     }
