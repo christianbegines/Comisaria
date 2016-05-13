@@ -10,7 +10,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- * @author Rubén Soler
+ * @author Rubén Soler;
+ * 
  * Ventana Grafica que se abre al arrancar el programa, desde esta se puede seleccionar un policia y borrarlo.
  */
 public class Principal extends javax.swing.JFrame {
