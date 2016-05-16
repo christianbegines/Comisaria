@@ -36,11 +36,11 @@ public class JDBC {
     public List<Policia> obtenerPolicias() throws SQLException {
         Image i;
         List<Policia> listaPolis = new ArrayList<>();
-        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policias");
+        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policia");
         ResultSet res = ps.executeQuery();
         while (res.next()) {
             String nombre = res.getString("nombre");
-            int idPolicia = Integer.parseInt(res.getString("idPolicia"));
+            Integer idPolicia = Integer.parseInt(res.getString("idPolicia"));
             String numPlaca = res.getString("numPlaca");
             Policia p = new Policia(idPolicia, nombre, numPlaca);
             if (res.getString("edad") != null) {

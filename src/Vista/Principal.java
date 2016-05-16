@@ -1,6 +1,7 @@
 package Vista;
 
 import Datos.JDBC;
+import Modelo.Policia;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.MouseInfo;
@@ -8,6 +9,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Rubén Soler;
@@ -56,7 +58,7 @@ public class Principal extends javax.swing.JFrame {
         panelOrden = new javax.swing.JPanel();
         ordenarPor = new javax.swing.JLabel();
         listaPolicias = new javax.swing.JLabel();
-        orden = new javax.swing.JComboBox<>();
+        orden = new javax.swing.JComboBox<String>();
         panelTabla = new javax.swing.JScrollPane();
         tablaPolicias = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -253,7 +255,7 @@ public class Principal extends javax.swing.JFrame {
         listaPolicias.setForeground(new java.awt.Color(0, 102, 204));
         listaPolicias.setText("POLICIAS");
 
-        orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
+        orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
 
         org.jdesktop.layout.GroupLayout panelOrdenLayout = new org.jdesktop.layout.GroupLayout(panelOrden);
         panelOrden.setLayout(panelOrdenLayout);
@@ -288,8 +290,15 @@ public class Principal extends javax.swing.JFrame {
             new String [] {
                 "idPolicia", "nombre", "numPlaca", "edad", "departamento", "foto"
             }
-        ));
-        tablaPolicias.setColumnSelectionAllowed(false);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         panelTabla.setViewportView(tablaPolicias);
 
         org.jdesktop.layout.GroupLayout menuCerrarLayout = new org.jdesktop.layout.GroupLayout(menuCerrar);
@@ -391,17 +400,31 @@ public class Principal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.datos = new JDBC();
+        String[]filas=new String[6];
+        String[]titulos={"IdPolicia","Nombre","NumPlaca","Edad","Departamento","Foto"};
+        tabla = new DefaultTableModel(null,titulos);
         try {
             this.datos.nuevaConexion();
             this.gestionarMultas.setEnabled(true);
             this.gestionarPolicias.setEnabled(true);
             this.estadoConexion.setText("Conectada");
             this.estadoConexion.setForeground(Color.green);
+            for(Policia p: this.datos.obtenerPolicias()){
+              filas[0] = p.getIdPolicia().toString();
+              filas[1] = p.getNombre();
+              filas[2] = p.getNumPlaca();
+              filas[3] = p.getEdad().toString();
+              filas[4] = p.getDepartamento();
+              //filas[5] = p.getFoto().toString();
+             this.tabla.addRow(filas);
+            }
+            this.tablaPolicias.setModel(tabla);
+       
         } catch (SQLException ex) {
             this.gestionarMultas.setToolTipText("Sin conexión");
             this.gestionarPolicias.setToolTipText("Sin conexión");
             this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
-            JOptionPane.showMessageDialog(null, "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,ex.getErrorCode()+ex.getMessage()+ex.getSQLState()+ "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -415,7 +438,7 @@ public class Principal extends javax.swing.JFrame {
         this.y = evt.getY();
     }//GEN-LAST:event_autoresMousePressed
 
-
+    private DefaultTableModel tabla;
     private JDBC datos;
     private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
     private int x = 0;

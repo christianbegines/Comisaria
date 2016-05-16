@@ -12,15 +12,15 @@ import java.awt.Image;
  * @author Rubén Soler
  */
 public class Policia {
-    private int idPolicia;
-    private int numeroDePlaca;
+    private Integer idPolicia;
+    private Integer numeroDePlaca;
     private String nombre;   
     private String numPlaca;
-    private int edad;
+    private Integer edad;
     private String departamento;
     private Image foto;
 
-    public Policia(int idPolicia, String nombre, String numPlaca, int edad, String departamento, Image foto) {
+    public Policia(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento, Image foto) {
         this.idPolicia = idPolicia;
         this.nombre = nombre;
         this.numPlaca = numPlaca;
@@ -29,17 +29,17 @@ public class Policia {
         this.foto = foto;
     }
 
-    public Policia(int idPolicia, String nombre, String numPlaca) {
+    public Policia(Integer idPolicia, String nombre, String numPlaca) {
         this.idPolicia = idPolicia;
         this.nombre = nombre;
         this.numPlaca = numPlaca;
     }
 
-    public int getIdPolicia() {
+    public Integer getIdPolicia() {
         return idPolicia;
     }
 
-    public void setIdPolicia(int idPolicia) {
+    public void setIdPolicia(Integer idPolicia) {
         this.idPolicia = idPolicia;
     }
 
@@ -59,11 +59,11 @@ public class Policia {
         this.numPlaca = numPlaca;
     }
 
-    public int getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
