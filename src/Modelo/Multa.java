@@ -19,7 +19,7 @@ public class Multa {
     private Double importe;
     private Integer idPolicia;
     private String nifInfractor;
-    private Integer idTipo;
+    private TipoMulta idTipo;
 
     public Multa(Integer id, String descripcion, Integer idPolicia) {
         this.id = id;
@@ -27,7 +27,7 @@ public class Multa {
         this.idPolicia = idPolicia;
     }
 
-    public Multa(Integer id, String descripcion, LocalDateTime fecha, Double importe, Integer idPolicia, String nifInfractor, Integer idTipo) {
+    public Multa(Integer id, String descripcion, LocalDateTime fecha, Double importe, Integer idPolicia, String nifInfractor, TipoMulta idTipo) {
         this.id = id;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -85,11 +85,11 @@ public class Multa {
         this.nifInfractor = nifInfractor;
     }
 
-    public Integer getIdTipo() {
+    public TipoMulta getIdTipo() {
         return idTipo;
     }
 
-    public void setIdTipo(Integer idTipo) {
+    public void setIdTipo(TipoMulta idTipo) {
         this.idTipo = idTipo;
     }
        
