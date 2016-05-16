@@ -13,21 +13,21 @@ import java.time.LocalDateTime;
  * @author daw1
  */
 public class Multa {
-    private int id;
+    private Integer id;
     private String descripcion;
     private LocalDateTime fecha;
-    private double importe;
-    private int idPolicia;
+    private Double importe;
+    private Integer idPolicia;
     private String nifInfractor;
-    private int idTipo;
+    private Integer idTipo;
 
-    public Multa(int id, String descripcion, int idPolicia) {
+    public Multa(Integer id, String descripcion, Integer idPolicia) {
         this.id = id;
         this.descripcion = descripcion;
         this.idPolicia = idPolicia;
     }
 
-    public Multa(int id, String descripcion, LocalDateTime fecha, double importe, int idPolicia, String nifInfractor, int idTipo) {
+    public Multa(Integer id, String descripcion, LocalDateTime fecha, Double importe, Integer idPolicia, String nifInfractor, Integer idTipo) {
         this.id = id;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -37,11 +37,11 @@ public class Multa {
         this.idTipo = idTipo;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,19 +61,19 @@ public class Multa {
         this.fecha = fecha;
     }
 
-    public double getImporte() {
+    public Double getImporte() {
         return importe;
     }
 
-    public void setImporte(double importe) {
+    public void setImporte(Double importe) {
         this.importe = importe;
     }
 
-    public int getIdPolicia() {
+    public Integer getIdPolicia() {
         return idPolicia;
     }
 
-    public void setIdPolicia(int idPolicia) {
+    public void setIdPolicia(Integer idPolicia) {
         this.idPolicia = idPolicia;
     }
 
@@ -85,11 +85,11 @@ public class Multa {
         this.nifInfractor = nifInfractor;
     }
 
-    public int getIdTipo() {
+    public Integer getIdTipo() {
         return idTipo;
     }
 
-    public void setIdTipo(int idTipo) {
+    public void setIdTipo(Integer idTipo) {
         this.idTipo = idTipo;
     }
        
