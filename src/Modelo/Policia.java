@@ -82,6 +82,11 @@ public class Policia {
     public void setFoto(Image foto) {
         this.foto = foto;
     }
+
+    @Override
+    public String toString() {
+        return "Policia{" + "idPolicia=" + idPolicia + ", numeroDePlaca=" + numeroDePlaca + ", nombre=" + nombre + ", numPlaca=" + numPlaca + ", edad=" + edad + ", departamento=" + departamento + ", foto=" + foto + '}';
+    }
     
     
 }

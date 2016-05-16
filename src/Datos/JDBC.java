@@ -33,10 +33,11 @@ public class JDBC {
         return this.con;
     }
 
-    public List<Policia> obtenerPolicias() throws SQLException {
+    public List<Policia> obtenerPolicias(String orden) throws SQLException {
         Image i;
         List<Policia> listaPolis = new ArrayList<>();
-        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policia");
+        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policia ORDER BY " + orden);
+    
         ResultSet res = ps.executeQuery();
         while (res.next()) {
             String nombre = res.getString("nombre");
