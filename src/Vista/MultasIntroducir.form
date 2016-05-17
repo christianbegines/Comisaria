@@ -115,7 +115,7 @@
                   <Color blue="cc" green="66" red="0" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Vista/multa.png"/>
+                  <Image iconType="3" name="/Imagenes/multa.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="NUEVA MULTA"/>
               </Properties>
@@ -123,7 +123,7 @@
             <Component class="javax.swing.JLabel" name="cerrar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Vista/cerrar.png"/>
+                  <Image iconType="3" name="/Imagenes/cerrar.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Cerrar"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">

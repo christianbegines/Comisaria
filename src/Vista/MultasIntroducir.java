@@ -83,10 +83,10 @@ public class MultasIntroducir extends javax.swing.JDialog {
         cabecera.setBackground(new java.awt.Color(255, 255, 255));
         cabecera.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         cabecera.setForeground(new java.awt.Color(0, 102, 204));
-        cabecera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/multa.png"))); // NOI18N
+        cabecera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/multa.png"))); // NOI18N
         cabecera.setText("NUEVA MULTA");
 
-        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cerrar.png"))); // NOI18N
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
         cerrar.setToolTipText("Cerrar");
         cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cerrar.setFocusable(false);

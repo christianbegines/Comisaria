@@ -64,6 +64,7 @@ public class Principal extends javax.swing.JFrame {
         panelTabla = new javax.swing.JScrollPane();
         tablaPolicias = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
+        borrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comisaria Rubén & Christian");
@@ -89,7 +90,7 @@ public class Principal extends javax.swing.JFrame {
 
         minimizar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         minimizar.setForeground(new java.awt.Color(153, 153, 153));
-        minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/minimizar.png"))); // NOI18N
+        minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/minimizar.png"))); // NOI18N
         minimizar.setToolTipText("Minimizar");
         minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         minimizar.setFocusable(false);
@@ -99,7 +100,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cerrar.png"))); // NOI18N
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
         cerrar.setToolTipText("Cerrar");
         cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cerrar.setFocusable(false);
@@ -129,7 +130,7 @@ public class Principal extends javax.swing.JFrame {
         gestionarPolicias.setBackground(new java.awt.Color(0, 102, 204));
         gestionarPolicias.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         gestionarPolicias.setForeground(new java.awt.Color(255, 255, 255));
-        gestionarPolicias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/policia.png"))); // NOI18N
+        gestionarPolicias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/policia.png"))); // NOI18N
         gestionarPolicias.setText("Gestionar Policias");
         gestionarPolicias.setToolTipText("Abrir ventana de gestión de policias");
         gestionarPolicias.setBorder(null);
@@ -147,7 +148,7 @@ public class Principal extends javax.swing.JFrame {
         gestionarMultas.setBackground(new java.awt.Color(0, 102, 204));
         gestionarMultas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         gestionarMultas.setForeground(new java.awt.Color(255, 255, 255));
-        gestionarMultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/multa.png"))); // NOI18N
+        gestionarMultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/multa.png"))); // NOI18N
         gestionarMultas.setText("Gestionar Multas");
         gestionarMultas.setToolTipText("Abrir ventana de gestión de multas");
         gestionarMultas.setBorder(null);
@@ -175,7 +176,7 @@ public class Principal extends javax.swing.JFrame {
 
         logo.setBackground(new java.awt.Color(255, 255, 255));
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/policia.jpg"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/policia.jpg"))); // NOI18N
         logo.setText(" ");
         logo.setToolTipText("Cuerpo Nacional de Policia");
         logo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -320,6 +321,8 @@ public class Principal extends javax.swing.JFrame {
         });
         panelTabla.setViewportView(tablaPolicias);
 
+        borrar.setText("jButton1");
+
         org.jdesktop.layout.GroupLayout menuCerrarLayout = new org.jdesktop.layout.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
         menuCerrarLayout.setHorizontalGroup(
@@ -334,9 +337,11 @@ public class Principal extends javax.swing.JFrame {
                                 .add(12, 12, 12)
                                 .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                     .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                        .add(panelTabla)
-                                        .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(borrar)
+                                        .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(panelTabla)
+                                            .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .add(0, 4, Short.MAX_VALUE)))
                         .addContainerGap())
                     .add(menuCerrarLayout.createSequentialGroup()
@@ -361,7 +366,9 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelOrden, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(panelTabla, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 169, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(panelTabla, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(borrar)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -420,7 +427,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.datos = new JDBC();
-
         try {
             this.datos.nuevaConexion();
             this.gestionarMultas.setEnabled(true);
@@ -480,12 +486,13 @@ public class Principal extends javax.swing.JFrame {
     }
     private DefaultTableModel tabla;
     private JDBC datos;
-    private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("icono.png"));
+    private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/icono.png"));
     private int x = 0;
     private int y = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BD;
     private javax.swing.JLabel autores;
+    private javax.swing.JButton borrar;
     private javax.swing.JLabel cerrar;
     private javax.swing.JLabel estadoConexion;
     private javax.swing.JButton gestionarMultas;
