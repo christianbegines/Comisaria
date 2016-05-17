@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.awt.Image;
+import java.nio.file.Path;
 
 /**
  * Objeto que corresponde con la tabla policias en la BD
@@ -18,9 +19,9 @@ public class Policia {
     private String numPlaca;
     private Integer edad;
     private String departamento;
-    private Image foto;
+    private Path foto;
 
-    public Policia(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento) {
+    public Policia(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento, Path foto) {
         this.idPolicia = idPolicia;
         this.nombre = nombre;
         this.numPlaca = numPlaca;
@@ -77,11 +78,11 @@ public class Policia {
         this.departamento = departamento;
     }
 
-    public Image getFoto() {
+    public Path getFoto() {
         return foto;
     }
 
-    public void setFoto(Image foto) {
+    public void setFoto(Path foto) {
         this.foto = foto;
     }
 

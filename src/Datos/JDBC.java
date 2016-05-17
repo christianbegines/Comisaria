@@ -3,6 +3,8 @@ package Datos;
 import Modelo.Policia;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -45,8 +47,8 @@ public class JDBC {
                 p.setDepartamento(res.getString("departamento"));
             }
             if (res.getString("foto") != null) {
-                i = Toolkit.getDefaultToolkit().getImage(getClass().getResource(res.getString("foto")));
-                p.setFoto(i);
+               String foto =  res.getString("foto");
+                p.setFoto(Paths.get(foto));
             }
             listaPolis.add(p);
         }

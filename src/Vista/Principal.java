@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -411,7 +413,7 @@ public class Principal extends javax.swing.JFrame {
         if ((indice = this.tablaPolicias.getSelectedRow()) != (-1)) {
              policiaSeleccionado = new Policia(Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString()),
                     tablaPolicias.getValueAt(indice, 1).toString(),
-                    tablaPolicias.getValueAt(indice, 2).toString(),0,"");
+                    tablaPolicias.getValueAt(indice, 2).toString());
             
                     
                 ventanaPolicias.setPolicia(policiaSeleccionado);
@@ -422,9 +424,9 @@ public class Principal extends javax.swing.JFrame {
                     policiaSeleccionado.setDepartamento(tablaPolicias.getValueAt(indice, 4).toString());
                     
                 }
-//                if(((tablaPolicias.getValueAt(indice, 5).toString()).length())==0){
-//                   policiaSeleccionado.setFoto( Toolkit.getDefaultToolkit().getImage(getClass().getResource(tablaPolicias.getValueAt(indice, 5).toString())));
-//                }
+                if(((tablaPolicias.getValueAt(indice, 5).toString()).length())==0){
+                   policiaSeleccionado.setFoto( Paths.get(tablaPolicias.getValueAt(indice, 5).toString()));
+                }
                 
                 
         
@@ -532,7 +534,7 @@ public class Principal extends javax.swing.JFrame {
                 filas[2] = p.getNumPlaca();
                 filas[3] = p.getEdad().toString();
                 filas[4] = p.getDepartamento();
-                //filas[5] = p.getFoto().toString();
+                filas[5] = p.getFoto().toString();
                 this.tabla.addRow(filas);
             }
             this.tablaPolicias.setModel(tabla);
