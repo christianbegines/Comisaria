@@ -354,7 +354,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.textoNumeroPlaca.setText(this.policia.getNumPlaca());
             this.textoDepartamento.setText(this.policia.getDepartamento());
             this.textoEdad.setText(this.policia.getEdad().toString());
-            this.ImagenL.setIcon(new ImageIcon(this.policia.getFoto().toAbsolutePath().toString()));
+            System.out.println(this.policia.getFoto().toString());
+            this.ImagenL.setIcon((Icon) new ImageIcon(this.policia.getFoto().toString()));
             this.idPoliciaL.setText(this.policia.getIdPolicia().toString());
                  
         }
