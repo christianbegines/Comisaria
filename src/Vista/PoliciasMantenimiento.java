@@ -49,7 +49,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         menuCerrar = new javax.swing.JPanel();
         cerrar = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         NumeroPlacaL = new javax.swing.JLabel();
@@ -69,7 +69,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         panelTablaMulta = new javax.swing.JScrollPane();
         tablaMultas = new javax.swing.JTable();
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/iconoanonimo.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoanonimo.png"))); // NOI18N
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -91,7 +91,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             }
         });
 
-        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cerrar.png"))); // NOI18N
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
         cerrar.setToolTipText("Cerrar");
         cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cerrar.setFocusable(false);
@@ -101,11 +101,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/policia.png"))); // NOI18N
-        jLabel3.setText("Gestión policia");
+        titulo.setBackground(new java.awt.Color(255, 255, 255));
+        titulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        titulo.setForeground(new java.awt.Color(0, 102, 204));
+        titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/policia.png"))); // NOI18N
+        titulo.setText("Gestión policia");
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setForeground(new java.awt.Color(0, 102, 204));
@@ -286,22 +286,22 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         menuCerrarLayout.setHorizontalGroup(
             menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuCerrarLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(menuCerrarLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1))
+                        .addComponent(jTabbedPane1)
+                        .addContainerGap())
                     .addGroup(menuCerrarLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(54, 54, 54)
-                        .addComponent(cerrar)))
-                .addContainerGap())
+                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         menuCerrarLayout.setVerticalGroup(
             menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuCerrarLayout.createSequentialGroup()
                 .addGroup(menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3))
+                    .addComponent(titulo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
@@ -384,7 +384,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JLabel edadL;
     private javax.swing.JLabel idPoliciaL;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -396,5 +395,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JTextField textoDepartamento;
     private javax.swing.JTextField textoEdad;
     private javax.swing.JTextField textoNumeroPlaca;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
