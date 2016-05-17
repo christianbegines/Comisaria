@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Datos;
 
 import Modelo.Policia;
@@ -37,7 +32,6 @@ public class JDBC {
         Image i;
         List<Policia> listaPolis = new ArrayList<>();
         PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policia ORDER BY " + orden);
-    
         ResultSet res = ps.executeQuery();
         while (res.next()) {
             String nombre = res.getString("nombre");
@@ -58,4 +52,14 @@ public class JDBC {
         }
         return listaPolis;
     }
+    
+    public int borrarPorIdPolicia(int idPolicia) throws SQLException{
+    String sql="DELETE FROM policia WHERE idPolicia = ?";
+    PreparedStatement ps = this.con.prepareStatement(sql);
+    ps.setInt(1, idPolicia);
+    String sqlMultas="DELETE FROM multas WHERE idPolicia = ?";
+    PreparedStatement psMultas = this.con.prepareStatement(sqlMultas);
+    psMultas.setInt(1, idPolicia);
+    psMultas.executeUpdate();
+    return ps.executeUpdate();}
 }
