@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.awt.Image;
+import java.net.URL;
 import java.nio.file.Path;
 
 /**
@@ -27,6 +28,7 @@ public class Policia {
         this.numPlaca = numPlaca;
         this.edad = edad;
         this.departamento = departamento;
+        this.foto=foto;
        
     }
 

@@ -49,6 +49,9 @@ public class JDBC {
             if (res.getString("foto") != null) {
                String foto =  res.getString("foto");
                 p.setFoto(Paths.get(foto));
+            }else{
+                Path rutaIcono = Paths.get("/Imagenes/iconoanonimo.png");
+                p.setFoto(rutaIcono);
             }
             listaPolis.add(p);
         }

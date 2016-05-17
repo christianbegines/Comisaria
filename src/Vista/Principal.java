@@ -8,6 +8,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -413,30 +414,18 @@ public class Principal extends javax.swing.JFrame {
         if ((indice = this.tablaPolicias.getSelectedRow()) != (-1)) {
              policiaSeleccionado = new Policia(Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString()),
                     tablaPolicias.getValueAt(indice, 1).toString(),
-                    tablaPolicias.getValueAt(indice, 2).toString());
-            
-                    
+                    tablaPolicias.getValueAt(indice, 2).toString());   
                 ventanaPolicias.setPolicia(policiaSeleccionado);
                 if((tablaPolicias.getValueAt(indice, 3).toString())!=null){
                    policiaSeleccionado.setEdad(Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString()));
                 }
                 if((tablaPolicias.getValueAt(indice, 4).toString())!=null){
                     policiaSeleccionado.setDepartamento(tablaPolicias.getValueAt(indice, 4).toString());
-                    
                 }
-                if(((tablaPolicias.getValueAt(indice, 5).toString()).length())==0){
-                   policiaSeleccionado.setFoto( Paths.get(tablaPolicias.getValueAt(indice, 5).toString()));
+                if((tablaPolicias.getValueAt(indice, 5).toString())!=null){
+                   policiaSeleccionado.setFoto(Paths.get(tablaPolicias.getValueAt(indice, 5).toString()));
                 }
-                
-                
-        
         }
-                
-                ;
-                    
-                    tablaPolicias.getValueAt(indice, 4).toString();
-        
-    
         ventanaPolicias.setVisible(true);
         
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
@@ -534,7 +523,12 @@ public class Principal extends javax.swing.JFrame {
                 filas[2] = p.getNumPlaca();
                 filas[3] = p.getEdad().toString();
                 filas[4] = p.getDepartamento();
+                if(p.getFoto()== null){
+                   Path rutaIcono = Paths.get("/Imagenes/iconoanonimo.png");
+                   filas[5] = rutaIcono.toString();
+                }else{
                 filas[5] = p.getFoto().toString();
+                }
                 this.tabla.addRow(filas);
             }
             this.tablaPolicias.setModel(tabla);

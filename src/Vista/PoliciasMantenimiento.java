@@ -7,9 +7,12 @@ package Vista;
 
 import Datos.JDBC;
 import Modelo.Policia;
+import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Toolkit;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -152,7 +155,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         textoDepartamento.setForeground(new java.awt.Color(0, 102, 204));
         textoDepartamento.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        ImagenL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/iconoanonimo.png"))); // NOI18N
+        ImagenL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoanonimo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -351,7 +354,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.textoNumeroPlaca.setText(this.policia.getNumPlaca());
             this.textoDepartamento.setText(this.policia.getDepartamento());
             this.textoEdad.setText(this.policia.getEdad().toString());
-            this.ImagenL.setIcon((Icon)this.policia.getFoto());
+            this.ImagenL.setIcon(new ImageIcon(this.policia.getFoto().toAbsolutePath().toString()));
             this.idPoliciaL.setText(this.policia.getIdPolicia().toString());
                  
         }
