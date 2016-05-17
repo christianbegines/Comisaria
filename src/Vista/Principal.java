@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -503,7 +504,7 @@ public class Principal extends javax.swing.JFrame {
                 filas[2] = p.getNumPlaca();
                 filas[3] = p.getEdad().toString();
                 filas[4] = p.getDepartamento();
-                //filas[5] = p.getFoto().toString();
+                filas[5] = p.getFoto().toString();
                 this.tabla.addRow(filas);
             }
             this.tablaPolicias.setModel(tabla);
