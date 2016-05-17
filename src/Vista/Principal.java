@@ -384,10 +384,39 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gestionarPoliciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarPoliciasActionPerformed
+        int indice;
+        Policia policiaSeleccionado;
         PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
         ventanaPolicias.setConexion(this.datos);
+        if ((indice = this.tablaPolicias.getSelectedRow()) != (-1)) {
+             policiaSeleccionado = new Policia(Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString()),
+                    tablaPolicias.getValueAt(indice, 1).toString(),
+                    tablaPolicias.getValueAt(indice, 2).toString(),0,"");
+            
+                    
+                ventanaPolicias.setPolicia(policiaSeleccionado);
+                if((tablaPolicias.getValueAt(indice, 3).toString())!=null){
+                   policiaSeleccionado.setEdad(Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString()));
+                }
+                if((tablaPolicias.getValueAt(indice, 4).toString())!=null){
+                    policiaSeleccionado.setDepartamento(tablaPolicias.getValueAt(indice, 4).toString());
+                    
+                }
+//                if(((tablaPolicias.getValueAt(indice, 5).toString()).length())==0){
+//                   policiaSeleccionado.setFoto( Toolkit.getDefaultToolkit().getImage(getClass().getResource(tablaPolicias.getValueAt(indice, 5).toString())));
+//                }
+                
+                
+        
+        }
+                
+                ;
+                    
+                    tablaPolicias.getValueAt(indice, 4).toString();
+        
+    
         ventanaPolicias.setVisible(true);
-
+        
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
@@ -433,7 +462,7 @@ public class Principal extends javax.swing.JFrame {
             this.gestionarMultas.setToolTipText("Sin conexión");
             this.gestionarPolicias.setToolTipText("Sin conexión");
             this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
-            JOptionPane.showMessageDialog(null,ex.getErrorCode() + " " + ex.getMessage()+ " " + ex.getSQLState() + "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -456,15 +485,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ordenCaretPositionChanged
 
     private void ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenActionPerformed
-         
+
     }//GEN-LAST:event_ordenActionPerformed
     private void rellenarTabla(String orden) {
         try {
             String[] filas = new String[6];
             String[] titulos = {"IdPolicia", "Nombre", "NumPlaca", "Edad", "Departamento", "Foto"};
             tabla = new DefaultTableModel(null, titulos);
-            
-            for (Policia p : this.datos.obtenerPolicias(orden) ) {
+
+            for (Policia p : this.datos.obtenerPolicias(orden)) {
                 filas[0] = p.getIdPolicia().toString();
                 filas[1] = p.getNombre();
                 filas[2] = p.getNumPlaca();
@@ -475,7 +504,7 @@ public class Principal extends javax.swing.JFrame {
             }
             this.tablaPolicias.setModel(tabla);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage()+ " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
     private DefaultTableModel tabla;

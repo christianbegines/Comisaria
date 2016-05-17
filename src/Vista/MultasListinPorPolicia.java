@@ -48,10 +48,10 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         panelMain = new javax.swing.JPanel();
         cabecera = new javax.swing.JLabel();
         panelTabla = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaMultasPolicias = new javax.swing.JTable();
         panelBuscar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        NumeroPlacaL = new javax.swing.JLabel();
+        NombreL = new javax.swing.JLabel();
         textoNombre = new javax.swing.JTextField();
         textoNumPlaca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -89,7 +89,7 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
 
         panelTabla.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMultasPolicias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -100,19 +100,19 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
                 "id", "descripcion", "fecha", "importe", "idpolicia", "nifinfractor", "idtipo"
             }
         ));
-        panelTabla.setViewportView(jTable1);
+        panelTabla.setViewportView(tablaMultasPolicias);
 
         panelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Filtrar por policia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+        panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Filtrar por policia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel1.setText("Numero de placa:");
+        NumeroPlacaL.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        NumeroPlacaL.setForeground(new java.awt.Color(0, 51, 204));
+        NumeroPlacaL.setText("Numero de placa:");
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel2.setText("Nombre:");
+        NombreL.setBackground(new java.awt.Color(255, 255, 255));
+        NombreL.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        NombreL.setForeground(new java.awt.Color(0, 51, 204));
+        NombreL.setText("Nombre:");
 
         textoNombre.setBackground(java.awt.SystemColor.control);
         textoNombre.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -138,11 +138,11 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
             panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBuscarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(NumeroPlacaL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(textoNumPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(jLabel2)
+                .addComponent(NombreL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -155,12 +155,12 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(NombreL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textoNombre)
                         .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBuscarLayout.createSequentialGroup()
                         .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(NumeroPlacaL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textoNumPlaca, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -202,7 +202,7 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
                 .addComponent(exportar))
             .addGroup(panelMainLayout.createSequentialGroup()
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -334,20 +334,20 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel NombreL;
+    private javax.swing.JLabel NumeroPlacaL;
     private javax.swing.JButton añadirMulta;
     private javax.swing.JLabel cabecera;
     private javax.swing.JLabel cerrar;
     private javax.swing.JButton exportar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel menuCerrar;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelMain;
     private javax.swing.JScrollPane panelTabla;
+    private javax.swing.JTable tablaMultasPolicias;
     private javax.swing.JTextField textoNombre;
     private javax.swing.JTextField textoNumPlaca;
     // End of variables declaration//GEN-END:variables
