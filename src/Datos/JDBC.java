@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Datos;
 
 import Modelo.Policia;
@@ -62,9 +57,9 @@ public class JDBC {
     String sql="DELETE FROM policia WHERE idPolicia = ?";
     PreparedStatement ps = this.con.prepareStatement(sql);
     ps.setInt(1, idPolicia);
-     String sql2="DELETE FROM multas WHERE idPolicia = ?";
-    PreparedStatement ps2 = this.con.prepareStatement(sql2);
-    ps2.setInt(1, idPolicia);
-    ps2.executeUpdate();
+    String sqlMultas="DELETE FROM multas WHERE idPolicia = ?";
+    PreparedStatement psMultas = this.con.prepareStatement(sqlMultas);
+    psMultas.setInt(1, idPolicia);
+    psMultas.executeUpdate();
     return ps.executeUpdate();}
 }
