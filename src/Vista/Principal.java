@@ -65,6 +65,7 @@ public class Principal extends javax.swing.JFrame {
         tablaPolicias = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         borrar = new javax.swing.JButton();
+        limpiarSeleccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comisaria Rubén & Christian");
@@ -211,7 +212,7 @@ public class Principal extends javax.swing.JFrame {
             .add(panelMainLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(logo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .add(363, 363, 363))
+                .add(360, 360, 360))
         );
 
         panelConexion.setBackground(new java.awt.Color(255, 255, 255));
@@ -321,7 +322,14 @@ public class Principal extends javax.swing.JFrame {
         });
         panelTabla.setViewportView(tablaPolicias);
 
-        borrar.setText("jButton1");
+        borrar.setText("Borrar");
+        borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarActionPerformed(evt);
+            }
+        });
+
+        limpiarSeleccion.setText("Limpiar Seleccion");
 
         org.jdesktop.layout.GroupLayout menuCerrarLayout = new org.jdesktop.layout.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
@@ -338,7 +346,10 @@ public class Principal extends javax.swing.JFrame {
                                 .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                     .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(borrar)
+                                        .add(menuCerrarLayout.createSequentialGroup()
+                                            .add(borrar)
+                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                            .add(limpiarSeleccion))
                                         .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                             .add(panelTabla)
                                             .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -366,9 +377,11 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelOrden, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(panelTabla, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(borrar)
+                .add(panelTabla, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 135, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(borrar)
+                    .add(limpiarSeleccion))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -464,6 +477,20 @@ public class Principal extends javax.swing.JFrame {
     private void ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenActionPerformed
          
     }//GEN-LAST:event_ordenActionPerformed
+
+    private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
+         int seleccionado = this.tablaPolicias.getSelectedRow();
+         if (seleccionado!=-1) {
+             try {
+                 this.datos.borrarPorIdPolicia(Integer.parseInt(this.tablaPolicias.getValueAt(seleccionado,0).toString()));
+                 this.rellenarTabla(this.orden.getSelectedItem().toString());
+             } catch (SQLException ex) {
+                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        }else{
+          JOptionPane.showMessageDialog(null,"No has seleccionado ningun policia", "No has seleccionado ningun policia", JOptionPane.INFORMATION_MESSAGE);
+         }
+    }//GEN-LAST:event_borrarActionPerformed
     private void rellenarTabla(String orden) {
         try {
             String[] filas = new String[6];
@@ -498,6 +525,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton gestionarMultas;
     private javax.swing.JButton gestionarPolicias;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton limpiarSeleccion;
     private javax.swing.JLabel listaPolicias;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel menuCerrar;

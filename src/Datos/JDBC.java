@@ -37,7 +37,6 @@ public class JDBC {
         Image i;
         List<Policia> listaPolis = new ArrayList<>();
         PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policia ORDER BY " + orden);
-    
         ResultSet res = ps.executeQuery();
         while (res.next()) {
             String nombre = res.getString("nombre");
@@ -58,4 +57,14 @@ public class JDBC {
         }
         return listaPolis;
     }
+    
+    public int borrarPorIdPolicia(int idPolicia) throws SQLException{
+    String sql="DELETE FROM policia WHERE idPolicia = ?";
+    PreparedStatement ps = this.con.prepareStatement(sql);
+    ps.setInt(1, idPolicia);
+     String sql2="DELETE FROM multas WHERE idPolicia = ?";
+    PreparedStatement ps2 = this.con.prepareStatement(sql2);
+    ps2.setInt(1, idPolicia);
+    ps2.executeUpdate();
+    return ps.executeUpdate();}
 }

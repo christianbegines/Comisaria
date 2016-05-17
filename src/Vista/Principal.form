@@ -69,7 +69,11 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="panelConexion" min="-2" max="-2" attributes="0"/>
                                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="borrar" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="borrar" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="limpiarSeleccion" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="panelTabla" max="32767" attributes="0"/>
                                               <Component id="panelOrden" max="32767" attributes="0"/>
@@ -108,9 +112,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panelOrden" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panelTabla" min="-2" pref="140" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="borrar" min="-2" max="-2" attributes="0"/>
+                  <Component id="panelTabla" min="-2" pref="135" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="borrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="limpiarSeleccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panelConexion" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -213,7 +220,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="logo" pref="0" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="363" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="360" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -494,7 +501,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="borrar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton1"/>
+            <Property name="text" type="java.lang.String" value="Borrar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="borrarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="limpiarSeleccion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Limpiar Seleccion"/>
           </Properties>
         </Component>
       </SubComponents>
