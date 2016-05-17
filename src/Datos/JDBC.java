@@ -47,9 +47,9 @@ public class JDBC {
                 p.setDepartamento(res.getString("departamento"));
             }
             if (res.getString("foto") != null) {
-               String foto =  res.getString("foto");
+                String foto = res.getString("foto");
                 p.setFoto(Paths.get(foto));
-            }else{
+            } else {
                 Path rutaIcono = Paths.get("/Imagenes/iconoanonimo.png");
                 p.setFoto(rutaIcono);
             }
@@ -57,14 +57,15 @@ public class JDBC {
         }
         return listaPolis;
     }
-    
-    public int borrarPorIdPolicia(int idPolicia) throws SQLException{
-    String sql="DELETE FROM policia WHERE idPolicia = ?";
-    PreparedStatement ps = this.con.prepareStatement(sql);
-    ps.setInt(1, idPolicia);
-    String sqlMultas="DELETE FROM multas WHERE idPolicia = ?";
-    PreparedStatement psMultas = this.con.prepareStatement(sqlMultas);
-    psMultas.setInt(1, idPolicia);
-    psMultas.executeUpdate();
-    return ps.executeUpdate();}
+
+    public int borrarPorIdPolicia(int idPolicia) throws SQLException {
+        String sql = "DELETE FROM policia WHERE idPolicia = ?";
+        PreparedStatement ps = this.con.prepareStatement(sql);
+        ps.setInt(1, idPolicia);
+        String sqlMultas = "DELETE FROM multas WHERE idPolicia = ?";
+        PreparedStatement psMultas = this.con.prepareStatement(sqlMultas);
+        psMultas.setInt(1, idPolicia);
+        psMultas.executeUpdate();
+        return ps.executeUpdate();
+    }
 }
