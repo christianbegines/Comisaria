@@ -5,7 +5,7 @@
  */
 package Modelo;
 
-import java.sql.Timestamp;
+
 import java.time.LocalDateTime;
 
 
@@ -16,11 +16,11 @@ import java.time.LocalDateTime;
 public class Multa {
     private Integer id;
     private String descripcion;
-    private Timestamp fecha;
+    private LocalDateTime fecha;
     private Double importe;
     private Integer idPolicia;
     private String nifInfractor;
-    private TipoMulta idTipo;
+    private Integer idTipo;
 
     public Multa(Integer id, String descripcion, Integer idPolicia) {
         this.id = id;
@@ -28,7 +28,7 @@ public class Multa {
         this.idPolicia = idPolicia;
     }
 
-    public Multa(Integer id, String descripcion, Timestamp fecha, Double importe, Integer idPolicia, String nifInfractor, TipoMulta idTipo) {
+    public Multa(Integer id, String descripcion, LocalDateTime fecha, Double importe, Integer idPolicia, String nifInfractor, Integer idTipo) {
         this.id = id;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -54,11 +54,11 @@ public class Multa {
         this.descripcion = descripcion;
     }
 
-    public Timestamp getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Timestamp fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
@@ -86,11 +86,11 @@ public class Multa {
         this.nifInfractor = nifInfractor;
     }
 
-    public TipoMulta getIdTipo() {
+    public Integer getIdTipo() {
         return idTipo;
     }
 
-    public void setIdTipo(TipoMulta idTipo) {
+    public void setIdTipo(Integer idTipo) {
         this.idTipo = idTipo;
     }
        

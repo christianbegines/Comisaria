@@ -6,13 +6,19 @@
 package Vista;
 
 import Datos.JDBC;
+import Modelo.Multa;
 import Modelo.Policia;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.SQLException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,6 +33,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         super(parent, modal);
         this.setUndecorated(true);
         this.setLocation(400, 100);
+        
          initComponents();
          //hola q ase
     }
@@ -69,7 +76,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         botonInsert = new javax.swing.JButton();
         panelpestañamultas = new javax.swing.JPanel();
         panelTablaMulta = new javax.swing.JScrollPane();
-        scrollPanel = new javax.swing.JTable();
+        tablaMultas = new javax.swing.JTable();
         ordenL = new javax.swing.JLabel();
         orden = new javax.swing.JComboBox();
 
@@ -265,7 +272,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
 
         panelPestañas.addTab("Perfil", panelPerfil);
 
-        scrollPanel.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -285,7 +292,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        panelTablaMulta.setViewportView(scrollPanel);
+        panelTablaMulta.setViewportView(tablaMultas);
 
         ordenL.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         ordenL.setForeground(new java.awt.Color(0, 102, 204));
@@ -395,6 +402,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.textoNumeroPlaca.setText(this.policia.getNumPlaca());
             this.textoDepartamento.setText(this.policia.getDepartamento());
             this.textoEdad.setText(this.policia.getEdad().toString());
+            this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+            this.setSize(700,400);
             try {
                 Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource(this.policia.getFoto().toString()));
                 ImageIcon fotoPerfil = new ImageIcon(i);
@@ -414,7 +423,28 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     public void setPolicia(Policia policia) {
         this.policia = policia;
     }
+    private void rellenarTablaMultas(String orden) {
+        try {
+            String[] filas = new String[7];
+            String[] titulos = {"id","descripcion","fecha","importe","idPolicia","nifinfractor","idtipo"};
+            tableModelMultas = new DefaultTableModel(null, titulos);
 
+            for (Multa m : this.datos.obtenerMultasPolicia(policia.getIdPolicia(),orden)) {
+                filas[0] = m.getId().toString();                     
+                filas[1] = m.getDescripcion();
+                filas[2] = m.getFecha().toString();
+                filas[3] = m.getImporte().toString();
+                filas[4] = m.getIdPolicia().toString();
+                filas[5] = m.getNifInfractor();
+                filas[6] = m.getIdTipo().toString();                                       
+                this.tableModelMultas.addRow(filas);
+            }
+            this.tablaMultas.setModel(tableModelMultas);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private DefaultTableModel tableModelMultas;
     private Policia policia;
     private JDBC datos;
     private int x;
@@ -439,7 +469,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JTabbedPane panelPestañas;
     private javax.swing.JScrollPane panelTablaMulta;
     private javax.swing.JPanel panelpestañamultas;
-    private javax.swing.JTable scrollPanel;
+    private javax.swing.JTable tablaMultas;
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textoDepartamento;
     private javax.swing.JTextField textoEdad;
