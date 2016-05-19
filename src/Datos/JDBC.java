@@ -31,7 +31,7 @@ public class JDBC {
     }
 
     public List<Policia> obtenerPolicias(String orden) throws SQLException {
-        Image i;
+        
         List<Policia> listaPolis = new ArrayList<>();
         PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policia ORDER BY " + orden);
         ResultSet res = ps.executeQuery();
@@ -57,10 +57,36 @@ public class JDBC {
         }
         return listaPolis;
     }
-    public void obtenerMultasPolicia(Integer idPolicia){
+    public List<Multa> obtenerMultasPolicia(Integer idPoliciaBuscador,String orden) throws SQLException{
+        List<Multa> listaMultasPolicia = new ArrayList();
+        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas where idPolicia=? ORDER BY " + orden);
+        ResultSet res=ps.executeQuery();
+        while (res.next()) {
+            Integer id=res.getInt("id");
+            String descripcion=res.getString("descripcion");
+            Integer idPolicia=res.getInt("idPolicia");
+            ps.setInt(1,idPoliciaBuscador);
+            Multa m= new Multa(id,descripcion,idPolicia);
+            
+//            if (res.getString("edad") != null) {
+//                m.setEdad(Integer.parseInt(res.getString("edad")));
+//            }
+//            if (res.getString("departamento") != null) {
+//                p.setDepartamento(res.getString("departamento"));
+//            }
+//            if (res.getString("foto") != null) {
+//                String foto = res.getString("foto");
+//                p.setFoto(Paths.get(foto));
+//            } else {
+//                Path rutaIcono = Paths.get("/Imagenes/iconoanonimo.png");
+//                p.setFoto(rutaIcono);
+            }
+//            listaPolis.add(p);
         
         
+        return listaMultasPolicia;
     }
+    
 
     public int borrarPorIdPolicia(int idPolicia) throws SQLException {
         String sql = "DELETE FROM policia WHERE idPolicia = ?";
