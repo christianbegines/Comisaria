@@ -27,7 +27,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         super(parent, modal);
         this.setUndecorated(true);
         this.setLocation(400, 100);
-        initComponents();
+         initComponents();
+         //hola q ase
     }
 
     /**
@@ -46,12 +47,12 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        
+        jLabel2 = new javax.swing.JLabel();
         menuCerrar = new javax.swing.JPanel();
         cerrar = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        panelPestañas = new javax.swing.JTabbedPane();
+        panelPerfil = new javax.swing.JPanel();
         NumeroPlacaL = new javax.swing.JLabel();
         textoNumeroPlaca = new javax.swing.JTextField();
         NombreL = new javax.swing.JLabel();
@@ -66,10 +67,14 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         idPoliciaL = new javax.swing.JLabel();
         botonImagen = new javax.swing.JButton();
         botonInsert = new javax.swing.JButton();
+        panelpestañamultas = new javax.swing.JPanel();
         panelTablaMulta = new javax.swing.JScrollPane();
-        tablaMultas = new javax.swing.JTable();
+        scrollPanel = new javax.swing.JTable();
+        ordenL = new javax.swing.JLabel();
+        orden = new javax.swing.JComboBox();
 
-       
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/iconoanonimo.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -106,11 +111,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/policia.png"))); // NOI18N
         titulo.setText("Gestión policia");
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setForeground(new java.awt.Color(0, 102, 204));
-        jTabbedPane1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        panelPestañas.setBackground(new java.awt.Color(255, 255, 255));
+        panelPestañas.setForeground(new java.awt.Color(0, 102, 204));
+        panelPestañas.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2), "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
+        panelPerfil.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2), "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
         NumeroPlacaL.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         NumeroPlacaL.setForeground(new java.awt.Color(0, 102, 204));
@@ -185,69 +190,69 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         botonInsert.setText("Insertar/Actualizar");
         botonInsert.setBorder(null);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelPerfilLayout = new javax.swing.GroupLayout(panelPerfil);
+        panelPerfil.setLayout(panelPerfilLayout);
+        panelPerfilLayout.setHorizontalGroup(
+            panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPerfilLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPerfilLayout.createSequentialGroup()
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(NombreL, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edadL, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NumeroPlacaL, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textoNumeroPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelPerfilLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(idPoliciaL))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelPerfilLayout.createSequentialGroup()
                         .addComponent(departamentoL, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(panelPerfilLayout.createSequentialGroup()
                 .addGap(134, 134, 134)
                 .addComponent(botonInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        panelPerfilLayout.setVerticalGroup(
+            panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPerfilLayout.createSequentialGroup()
+                .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPerfilLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelPerfilLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(idPoliciaL))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NumeroPlacaL)
                             .addComponent(textoNumeroPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NombreL))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(edadL, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonImagen, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(departamentoL)
                         .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
@@ -255,9 +260,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Perfil", jPanel1);
+        panelPestañas.addTab("Perfil", panelPerfil);
 
-        tablaMultas.setModel(new javax.swing.table.DefaultTableModel(
+        scrollPanel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -266,7 +271,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Descripcion", "Fecha", "Importe", "IDPolicia", "nifIdentificador", "idTipo"
+                "id", "descripcion", "fecha", "importe", "idpolicia", "nifidentificador", "idtipo"
             }
         ) {
             Class[] types = new Class [] {
@@ -277,9 +282,39 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        panelTablaMulta.setViewportView(tablaMultas);
+        panelTablaMulta.setViewportView(scrollPanel);
 
-        jTabbedPane1.addTab("Multas Asociadas", panelTablaMulta);
+        ordenL.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ordenL.setForeground(new java.awt.Color(0, 102, 204));
+        ordenL.setText("Ordenar por:");
+
+        orden.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "descripcion", "fecha", "importe", "idpolicia", "nifidentificador", "idtipo" }));
+
+        javax.swing.GroupLayout panelpestañamultasLayout = new javax.swing.GroupLayout(panelpestañamultas);
+        panelpestañamultas.setLayout(panelpestañamultasLayout);
+        panelpestañamultasLayout.setHorizontalGroup(
+            panelpestañamultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelTablaMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelpestañamultasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ordenL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+        );
+        panelpestañamultasLayout.setVerticalGroup(
+            panelpestañamultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelpestañamultasLayout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addGroup(panelpestañamultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ordenL)
+                    .addComponent(orden, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(panelTablaMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+        );
+
+        panelPestañas.addTab("Multas asociadas", panelpestañamultas);
 
         javax.swing.GroupLayout menuCerrarLayout = new javax.swing.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
@@ -289,7 +324,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(menuCerrarLayout.createSequentialGroup()
-                        .addComponent(jTabbedPane1)
+                        .addComponent(panelPestañas)
                         .addContainerGap())
                     .addGroup(menuCerrarLayout.createSequentialGroup()
                         .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,11 +338,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(titulo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelPestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
 
-        jTabbedPane1.getAccessibleContext().setAccessibleName("Perfil");
+        panelPestañas.getAccessibleContext().setAccessibleName("Perfil");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -389,12 +424,15 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JLabel idPoliciaL;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel menuCerrar;
+    private javax.swing.JComboBox orden;
+    private javax.swing.JLabel ordenL;
+    private javax.swing.JPanel panelPerfil;
+    private javax.swing.JTabbedPane panelPestañas;
     private javax.swing.JScrollPane panelTablaMulta;
-    private javax.swing.JTable tablaMultas;
+    private javax.swing.JPanel panelpestañamultas;
+    private javax.swing.JTable scrollPanel;
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textoDepartamento;
     private javax.swing.JTextField textoEdad;
