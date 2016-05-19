@@ -47,7 +47,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-       
+        jLabel2 = new javax.swing.JLabel();
         menuCerrar = new javax.swing.JPanel();
         cerrar = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -73,7 +73,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         ordenL = new javax.swing.JLabel();
         orden = new javax.swing.JComboBox();
 
-        
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/iconoanonimo.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -283,7 +284,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         });
         panelTablaMulta.setViewportView(scrollPanel);
 
-        ordenL.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ordenL.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         ordenL.setForeground(new java.awt.Color(0, 102, 204));
         ordenL.setText("Ordenar por:");
 
@@ -294,23 +295,27 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         panelpestañamultas.setLayout(panelpestañamultasLayout);
         panelpestañamultasLayout.setHorizontalGroup(
             panelpestañamultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTablaMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelpestañamultasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ordenL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addContainerGap()
+                .addGroup(panelpestañamultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelTablaMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                    .addGroup(panelpestañamultasLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ordenL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)))
+                .addContainerGap())
         );
         panelpestañamultasLayout.setVerticalGroup(
             panelpestañamultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelpestañamultasLayout.createSequentialGroup()
-                .addGap(1, 1, 1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelpestañamultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ordenL)
                     .addComponent(orden, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(panelTablaMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addComponent(panelTablaMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
         );
 
         panelPestañas.addTab("Multas asociadas", panelpestañamultas);
