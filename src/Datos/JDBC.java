@@ -2,7 +2,6 @@ package Datos;
 
 import Modelo.Policia;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;

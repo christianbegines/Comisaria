@@ -31,10 +31,10 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     }
 
     /**
-     * @param datos 
+     * @param datos
      */
     public void setConexion(JDBC datos) {
-        this.datos=datos;
+        this.datos = datos;
     }
 
     /**
@@ -348,28 +348,31 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     }//GEN-LAST:event_textoNumeroPlacaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if (this.policia!=null)
-        {   
+        if (this.policia != null) {
             this.textNombre.setText(this.policia.getNombre());
             this.textoNumeroPlaca.setText(this.policia.getNumPlaca());
             this.textoDepartamento.setText(this.policia.getDepartamento());
             this.textoEdad.setText(this.policia.getEdad().toString());
-            System.out.println(this.policia.getFoto().toString());
-            this.ImagenL.setIcon((Icon) new ImageIcon(this.policia.getFoto().toString()));
+            try {
+                Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource(this.policia.getFoto().toString()));
+                ImageIcon fotoPerfil = new ImageIcon(i);
+                this.ImagenL.setIcon(fotoPerfil);
+            } catch (NullPointerException ex) {
+            }
             this.idPoliciaL.setText(this.policia.getIdPolicia().toString());
-                 
+
         }
     }//GEN-LAST:event_formWindowOpened
 
     /**
      * Coloca un objeto policia en la ventana de gestion de policias
+     *
      * @param policia Policia seleccionado en tabla de ventana principal.
      */
-    public void setPolicia(Policia policia){
-        this.policia=policia;
+    public void setPolicia(Policia policia) {
+        this.policia = policia;
     }
-    
-    
+
     private Policia policia;
     private JDBC datos;
     private int x;
