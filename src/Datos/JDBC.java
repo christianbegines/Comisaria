@@ -1,5 +1,6 @@
 package Datos;
 
+import Modelo.Multa;
 import Modelo.Policia;
 import java.awt.Image;
 import java.nio.file.Path;
@@ -55,6 +56,10 @@ public class JDBC {
             listaPolis.add(p);
         }
         return listaPolis;
+    }
+    public void obtenerMultasPolicia(Integer idPolicia){
+        
+        
     }
 
     public int borrarPorIdPolicia(int idPolicia) throws SQLException {
