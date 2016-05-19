@@ -46,7 +46,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        
         menuCerrar = new javax.swing.JPanel();
         cerrar = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -69,8 +69,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         panelTablaMulta = new javax.swing.JScrollPane();
         tablaMultas = new javax.swing.JTable();
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoanonimo.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
+       
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -180,10 +179,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         botonImagen.setForeground(new java.awt.Color(0, 102, 204));
         botonImagen.setText("Click para insertar foto");
 
+        botonInsert.setBackground(new java.awt.Color(0, 102, 204));
         botonInsert.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        botonInsert.setForeground(new java.awt.Color(0, 102, 204));
+        botonInsert.setForeground(new java.awt.Color(255, 255, 255));
         botonInsert.setText("Insertar/Actualizar");
-        botonInsert.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        botonInsert.setBorder(null);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

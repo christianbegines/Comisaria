@@ -333,6 +333,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         limpiarSeleccion.setText("Limpiar Seleccion");
+        limpiarSeleccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarSeleccionActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout menuCerrarLayout = new org.jdesktop.layout.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
@@ -511,6 +516,10 @@ public class Principal extends javax.swing.JFrame {
           JOptionPane.showMessageDialog(null,"No has seleccionado ningun policia", "No has seleccionado ningun policia", JOptionPane.INFORMATION_MESSAGE);
          }
     }//GEN-LAST:event_borrarActionPerformed
+
+    private void limpiarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarSeleccionActionPerformed
+        this.tablaPolicias.clearSelection();
+    }//GEN-LAST:event_limpiarSeleccionActionPerformed
     private void rellenarTabla(String orden) {
         try {
             String[] filas = new String[6];
