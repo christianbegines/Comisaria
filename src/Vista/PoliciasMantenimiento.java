@@ -6,6 +6,7 @@
 package Vista;
 
 import Datos.JDBC;
+import Datos.ManejadorDeImagenes;
 import Datos.SelectorDeArchivo;
 import Modelo.Multa;
 import Modelo.Policia;
@@ -449,14 +450,15 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.rutaArchivo.setVisible(false);
             this.rutaArchivo.setText(rutaSeleccionado);
             Path ruta = Paths.get(this.rutaArchivo.getText());
+            Path rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(),"/Imagenes/"));
             if (this.policia==null) {
                 this.policia=new Policia();
-                this.policia.setFoto(ruta);
+                this.policia.setFoto(rutaCopiado);
             }else{
-                this.policia.setFoto(ruta);
+                this.policia.setFoto(rutaCopiado);
             }
             try {
-                Image i = Toolkit.getDefaultToolkit().getImage(ruta.toString());
+                Image i = Toolkit.getDefaultToolkit().getImage(rutaCopiado.toString());
                 ImageIcon fotoPerfil = new ImageIcon(i);
                 this.ImagenL.setIcon(fotoPerfil);
             } catch (NullPointerException ex) {
