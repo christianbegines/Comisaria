@@ -39,7 +39,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
-     * @param hayPolicia inserta pasar false actualizar pasar true
      */
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
