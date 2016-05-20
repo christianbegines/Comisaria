@@ -448,7 +448,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
     /**
-     * Carga una imagen y obtiene su ruta absoluta en el disco duro para despues
+     * Carga una imagen, la redimensiona, la copia al package Imagenes.policias y obtiene su ruta absoluta en el disco duro para despues
      * asignarle esa ruta al atributo foto de un objeto Policia y muestra una previsualización en el label imagenL
      *
      * @param evt

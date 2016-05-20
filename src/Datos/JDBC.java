@@ -37,8 +37,9 @@ public class JDBC {
         return this.con;
     }
     
-    public int insertaPolicia(Policia p){
-    
+    public int insertaPolicia(Policia p) throws SQLException{
+    String sql = "INSERT INTO policia VALUES(?,?,?)";
+    PreparedStatement ps = this.con.prepareStatement(sql);
     return 0;}
     
     public int getMaxIdPolicia() throws SQLException {
