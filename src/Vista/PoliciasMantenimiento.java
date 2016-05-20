@@ -6,6 +6,7 @@
 package Vista;
 
 import Datos.JDBC;
+import Datos.SelectorDeArchivo;
 import Modelo.Multa;
 import Modelo.Policia;
 import java.awt.Image;
@@ -35,7 +36,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         super(parent, modal);
         this.setUndecorated(true);
         this.setLocation(400, 100);
-
+        
         initComponents();
         //hola q ase
     }
@@ -76,6 +77,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         idPoliciaL = new javax.swing.JLabel();
         botonImagen = new javax.swing.JButton();
         botonInsert = new javax.swing.JButton();
+        rutaArchivo = new javax.swing.JLabel();
         panelpestañamultas = new javax.swing.JPanel();
         panelTablaMulta = new javax.swing.JScrollPane();
         tablaMultas = new javax.swing.JTable();
@@ -178,7 +180,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ImagenL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+            .addComponent(ImagenL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
 
         jLabel5.setBackground(new java.awt.Color(0, 102, 204));
@@ -192,6 +194,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         botonImagen.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         botonImagen.setForeground(new java.awt.Color(0, 102, 204));
         botonImagen.setText("Click para insertar foto");
+        botonImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonImagenActionPerformed(evt);
+            }
+        });
 
         botonInsert.setBackground(new java.awt.Color(0, 102, 204));
         botonInsert.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -236,6 +243,10 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 .addGap(134, 134, 134)
                 .addComponent(botonInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rutaArchivo)
+                .addGap(101, 101, 101))
         );
         panelPerfilLayout.setVerticalGroup(
             panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +278,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(departamentoL)
                         .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rutaArchivo)
+                .addGap(7, 7, 7)
                 .addComponent(botonInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -412,9 +425,24 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             } catch (NullPointerException ex) {
             }
             this.idPoliciaL.setText(this.policia.getIdPolicia().toString());
-
+            
+        } else {
+            this.panelPestañas.removeTabAt(1);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
+        SelectorDeArchivo fileChoose = new SelectorDeArchivo();
+        this.rutaArchivo.setVisible(false);
+        this.rutaArchivo.setText(fileChoose.seleccionar());
+        Path ruta = Paths.get(this.rutaArchivo.getText());
+            try {
+                Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource(ruta.toString()));
+                ImageIcon fotoPerfil = new ImageIcon(i);
+                this.ImagenL.setIcon(fotoPerfil);
+            } catch (NullPointerException ex) {}
+    //    this.ImagenL.setIcon();
+    }//GEN-LAST:event_botonImagenActionPerformed
 
     /**
      * Coloca un objeto policia en la ventana de gestion de policias
@@ -424,13 +452,13 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     public void setPolicia(Policia policia) {
         this.policia = policia;
     }
-
+    
     private void rellenarTablaMultas(String orden) {
         try {
             String[] filas = new String[7];
             String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
             tableModelMultas = new DefaultTableModel(null, titulos);
-
+            
             for (Multa m : this.datos.obtenerMultasPolicia(policia.getIdPolicia(), orden)) {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
@@ -472,6 +500,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JTabbedPane panelPestañas;
     private javax.swing.JScrollPane panelTablaMulta;
     private javax.swing.JPanel panelpestañamultas;
+    private javax.swing.JLabel rutaArchivo;
     private javax.swing.JTable tablaMultas;
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textoDepartamento;

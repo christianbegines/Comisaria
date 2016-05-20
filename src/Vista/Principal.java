@@ -63,7 +63,7 @@ public class Principal extends javax.swing.JFrame {
         panelOrden = new javax.swing.JPanel();
         ordenarPor = new javax.swing.JLabel();
         listaPolicias = new javax.swing.JLabel();
-        orden = new javax.swing.JComboBox<String>();
+        orden = new javax.swing.JComboBox<>();
         panelTabla = new javax.swing.JScrollPane();
         tablaPolicias = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -262,7 +262,7 @@ public class Principal extends javax.swing.JFrame {
         listaPolicias.setForeground(new java.awt.Color(0, 102, 204));
         listaPolicias.setText("POLICIAS");
 
-        orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
+        orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
         orden.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ordenItemStateChanged(evt);
@@ -298,7 +298,7 @@ public class Principal extends javax.swing.JFrame {
                 .add(panelOrdenLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(listaPolicias, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(ordenarPor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(orden, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(orden, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
