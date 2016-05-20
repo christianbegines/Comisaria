@@ -416,7 +416,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="listaPolicias" alignment="3" max="32767" attributes="0"/>
                           <Component id="ordenarPor" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="orden" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="orden" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

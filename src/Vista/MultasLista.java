@@ -5,24 +5,32 @@
  */
 package Vista;
 
+import Controladores.GestionMultas;
 import Datos.JDBC;
+import Modelo.Multa;
 import java.awt.Frame;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
  *
  * @author daw1
  */
-public class MultasListinPorPolicia extends javax.swing.JDialog {
+public class MultasLista extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
      */
-    public MultasListinPorPolicia(java.awt.Frame parent, boolean modal) {
+    public MultasLista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
         this.setUndecorated(true);
         this.setLocation(400, 100);
         initComponents();
@@ -42,11 +50,8 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
-        jTextField1 = new javax.swing.JTextField();
         menuCerrar = new javax.swing.JPanel();
         panelMain = new javax.swing.JPanel();
-        cabecera = new javax.swing.JLabel();
         panelTabla = new javax.swing.JScrollPane();
         tablaMultasPolicias = new javax.swing.JTable();
         panelBuscar = new javax.swing.JPanel();
@@ -55,17 +60,21 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         textoNombre = new javax.swing.JTextField();
         textoNumPlaca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        cerrar = new javax.swing.JLabel();
         exportar = new javax.swing.JButton();
         añadirMulta = new javax.swing.JButton();
-
-        jMenu1.setText("jMenu1");
-
-        jTextField1.setText("jTextField1");
+        orden = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        cerrar = new javax.swing.JLabel();
+        cabecera = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         menuCerrar.setBackground(new java.awt.Color(255, 255, 255));
         menuCerrar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -80,12 +89,6 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         });
 
         panelMain.setBackground(new java.awt.Color(255, 255, 255));
-
-        cabecera.setBackground(new java.awt.Color(255, 255, 255));
-        cabecera.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        cabecera.setForeground(new java.awt.Color(0, 102, 204));
-        cabecera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/multa.png"))); // NOI18N
-        cabecera.setText("MULTAS");
 
         panelTabla.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -103,7 +106,7 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         panelTabla.setViewportView(tablaMultasPolicias);
 
         panelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Filtrar por policia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
+        panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Filtrar por policia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
         NumeroPlacaL.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         NumeroPlacaL.setForeground(new java.awt.Color(0, 51, 204));
@@ -136,10 +139,10 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         panelBuscar.setLayout(panelBuscarLayout);
         panelBuscarLayout.setHorizontalGroup(
             panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBuscarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBuscarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(NumeroPlacaL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textoNumPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(NombreL)
@@ -166,16 +169,6 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cerrar.png"))); // NOI18N
-        cerrar.setToolTipText("Cerrar");
-        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cerrar.setFocusable(false);
-        cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cerrarMouseClicked(evt);
-            }
-        });
-
         exportar.setText("Exportar listado");
 
         añadirMulta.setBackground(new java.awt.Color(0, 102, 204));
@@ -187,67 +180,117 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
             }
         });
 
+        orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "descripcion", "fecha", "importe" }));
+        orden.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ordenItemStateChanged(evt);
+            }
+        });
+        orden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordenActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel1.setText("Ordenar por:");
+
         javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
         panelMain.setLayout(panelMainLayout);
         panelMainLayout.setHorizontalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cabecera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cerrar))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createSequentialGroup()
-                .addComponent(añadirMulta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(exportar))
-            .addGroup(panelMainLayout.createSequentialGroup()
-                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelTabla, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createSequentialGroup()
+                                .addComponent(añadirMulta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(exportar)
+                                .addGap(8, 8, 8))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(orden, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         panelMainLayout.setVerticalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMainLayout.createSequentialGroup()
-                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cabecera)
-                    .addComponent(cerrar))
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(exportar)
-                    .addComponent(añadirMulta))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMainLayout.createSequentialGroup()
+                        .addComponent(exportar)
+                        .addGap(2, 2, 2))
+                    .addComponent(añadirMulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
+        cerrar.setToolTipText("Cerrar");
+        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar.setFocusable(false);
+        cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarMouseClicked(evt);
+            }
+        });
+
+        cabecera.setBackground(new java.awt.Color(255, 255, 255));
+        cabecera.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        cabecera.setForeground(new java.awt.Color(0, 102, 204));
+        cabecera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/multa.png"))); // NOI18N
+        cabecera.setText("MULTAS");
 
         javax.swing.GroupLayout menuCerrarLayout = new javax.swing.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
         menuCerrarLayout.setHorizontalGroup(
-            menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(menuCerrarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cerrar))
+            .addGroup(menuCerrarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8))
         );
         menuCerrarLayout.setVerticalGroup(
             menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuCerrarLayout.createSequentialGroup()
-                .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuCerrarLayout.createSequentialGroup()
+                .addGroup(menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuCerrarLayout.createSequentialGroup()
+                        .addComponent(cerrar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuCerrarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cabecera)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(menuCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(menuCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -277,6 +320,42 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         ventanaIntroducir.setVisible(true);
     }//GEN-LAST:event_añadirMultaActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+       
+    }//GEN-LAST:event_formWindowOpened
+
+    private void ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ordenActionPerformed
+
+    private void ordenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ordenItemStateChanged
+        this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+    }//GEN-LAST:event_ordenItemStateChanged
+    public void rellenarTablaMultas(String orden) {
+        try { 
+            String[] filas = new String[7];
+            String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
+            tabla = new DefaultTableModel(null, titulos);
+
+            for (Multa m : this.datos.obtenerMultas(orden)) {
+                filas[0] = m.getId().toString();
+                filas[1] = m.getDescripcion();
+                SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
+                filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
+                filas[3] = m.getImporte().toString();
+                filas[4] = m.getIdPolicia().toString();
+                filas[5] = m.getNifInfractor();
+                filas[6] = m.getIdTipo().toString();
+                this.tabla.addRow(filas);
+            }
+            this.tablaMultasPolicias.setModel(tabla);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    DefaultTableModel tabla;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NombreL;
     private javax.swing.JLabel NumeroPlacaL;
@@ -285,9 +364,9 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
     private javax.swing.JLabel cerrar;
     private javax.swing.JButton exportar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel menuCerrar;
+    private javax.swing.JComboBox orden;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelMain;
     private javax.swing.JScrollPane panelTabla;
@@ -297,4 +376,5 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private int x,y;
     private JDBC datos;
+    
 }
