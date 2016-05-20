@@ -15,7 +15,7 @@ public class ManejadorDeImagenes {
     /*Este método es el de la magia recibe la ruta al archivo original y la ruta donde vamos a guardar la copia
     copyImage("C:\\Users\\IngenioDS\\Desktop\\test.png","C:\\Users\\IngenioDS\\Desktop\\Copia\\test2.png");*/
  
-    public static String copyImage(String filePath, String copyPath) {
+    public static void copyImage(String filePath, String copyPath) {
         BufferedImage bimage = loadImage(filePath);
         if(bimage.getHeight()>bimage.getWidth()){
             int heigt = (bimage.getHeight() * MAX_WIDTH) / bimage.getWidth();
@@ -29,7 +29,6 @@ public class ManejadorDeImagenes {
             bimage = resize(bimage, MAX_WIDTH, heigt);
         }
         saveImage(bimage, copyPath);
-        return copyPath;
     }
      
     /*
