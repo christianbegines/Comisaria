@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+
 import java.time.LocalDateTime;
 
 
@@ -19,7 +20,7 @@ public class Multa {
     private Double importe;
     private Integer idPolicia;
     private String nifInfractor;
-    private TipoMulta idTipo;
+    private Integer idTipo;
 
     public Multa(Integer id, String descripcion, Integer idPolicia) {
         this.id = id;
@@ -27,7 +28,7 @@ public class Multa {
         this.idPolicia = idPolicia;
     }
 
-    public Multa(Integer id, String descripcion, LocalDateTime fecha, Double importe, Integer idPolicia, String nifInfractor, TipoMulta idTipo) {
+    public Multa(Integer id, String descripcion, LocalDateTime fecha, Double importe, Integer idPolicia, String nifInfractor, Integer idTipo) {
         this.id = id;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -85,11 +86,11 @@ public class Multa {
         this.nifInfractor = nifInfractor;
     }
 
-    public TipoMulta getIdTipo() {
+    public Integer getIdTipo() {
         return idTipo;
     }
 
-    public void setIdTipo(TipoMulta idTipo) {
+    public void setIdTipo(Integer idTipo) {
         this.idTipo = idTipo;
     }
        

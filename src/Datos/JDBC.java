@@ -20,18 +20,18 @@ import java.util.List;
  * @author daw1
  */
 public class JDBC {
-
+    
     private Connection con;
     private String bD = "comisaria";
     private String usr = "root";
     private String pass = "root";
     private String url = "jdbc:mysql://localhost:3306/" + bD;
-
+    
     public Connection nuevaConexion() throws SQLException {
         this.con = DriverManager.getConnection(url, usr, pass);
         return this.con;
     }
-
+    
     public List<Policia> obtenerPolicias(String orden) throws SQLException {
         
         List<Policia> listaPolis = new ArrayList<>();
@@ -59,23 +59,37 @@ public class JDBC {
         }
         return listaPolis;
     }
-    public List<Multa> obtenerMultasPolicia(Integer idPoliciaBuscador,String orden) throws SQLException{
-        List<Multa> listaMultasPolicia = new ArrayList();
-        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas where idPolicia=? ORDER BY " + orden);
-        ResultSet res=ps.executeQuery();
-        while (res.next()) {
-            Integer id=res.getInt("id");
-            String descripcion=res.getString("descripcion");
-            Integer idPolicia=res.getInt("idPolicia");
-            ps.setInt(1,idPoliciaBuscador);
-            Multa m= new Multa(id,descripcion,idPolicia);
-           Date fecha = res.getDate("fecha");
 
+    public List<Multa> obtenerMultasPolicia(Integer idPoliciaBuscador, String orden) throws SQLException {
+        List<Multa> listaMultasPolicia = new ArrayList();
+        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas where idPolicia = ? ORDER BY " + orden);
+        ps.setInt(1, idPoliciaBuscador);
+        ResultSet res = ps.executeQuery();
+        while (res.next()) {
+            Integer id = res.getInt("id");
+            String descripcion = res.getString("descripcion");
+            Integer idPolicia = res.getInt("idPolicia");
+            
+            Multa m = new Multa(id, descripcion, idPolicia);
+            
+            if (res.getDate("fecha") != null) {
+                m.setFecha(res.getTimestamp("fecha").toLocalDateTime());
+            }
+            if (res.getDouble("importe") != 0) {
+                m.setImporte(res.getDouble("importe"));
+            }
+            if (res.getString("nifinfractor") != null) {
+                m.setNifInfractor(res.getString("nifinfractor"));
+            }
+            if(res.getInt("idtipo")!=0){
+                m.setIdTipo(res.getInt("idtipo"));
+            }
+            listaMultasPolicia.add(m);
         }
+        
         return listaMultasPolicia;
     }
     
-
     public int borrarPorIdPolicia(int idPolicia) throws SQLException {
         String sql = "DELETE FROM policia WHERE idPolicia = ?";
         PreparedStatement ps = this.con.prepareStatement(sql);
