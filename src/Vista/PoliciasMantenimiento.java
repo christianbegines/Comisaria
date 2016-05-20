@@ -57,7 +57,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSpinner1 = new javax.swing.JSpinner();
         menuCerrar = new javax.swing.JPanel();
         cerrar = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -458,8 +457,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             String[] filas = new String[7];
             String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
             tableModelMultas = new DefaultTableModel(null, titulos);
-            
-            for (Multa m : this.datos.obtenerMultasPolicia(policia.getIdPolicia(), orden)) {
+
+            for (Multa m : this.datos.obtenerMultasPolicia(policia, orden)) {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
@@ -492,7 +491,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JLabel idPoliciaL;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JPanel menuCerrar;
     private javax.swing.JComboBox orden;
     private javax.swing.JLabel ordenL;
