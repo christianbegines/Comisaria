@@ -431,8 +431,14 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.botonInsert.setText("Modificar");
             this.textNombre.setText(this.policia.getNombre());
             this.textoNumeroPlaca.setText(this.policia.getNumPlaca());
-            this.textoDepartamento.setText(this.policia.getDepartamento());
-            this.textoEdad.setText(this.policia.getEdad().toString());
+            if (this.policia.getDepartamento()!=null) {
+                   this.textoDepartamento.setText(this.policia.getDepartamento());
+            }
+         
+            if (this.policia.getEdad()!=null) {
+                     this.textoEdad.setText(this.policia.getEdad().toString());
+            }
+       
             this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
             try {
                 Image i = Toolkit.getDefaultToolkit().getImage(this.policia.getFoto().toString());

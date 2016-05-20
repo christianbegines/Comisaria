@@ -421,17 +421,21 @@ public class Principal extends javax.swing.JFrame {
            Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString());
            String nombre = tablaPolicias.getValueAt(indice, 1).toString();
            String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
+           try{
            Integer edad = Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString());
            String departamento = tablaPolicias.getValueAt(indice, 4).toString();
+           }catch(NullPointerException ex){}
            Path foto = Paths.get(tablaPolicias.getValueAt(indice, 5).toString());
            
            policiaSeleccionado = new Policia(idPolicia,nombre,numPlaca);
+            Object edad = null;
             
             if (edad != null) {
-                policiaSeleccionado.setEdad(edad);
+                policiaSeleccionado.setEdad((Integer) edad);
             }
+            Object departamento = null;
             if (departamento != null) {
-                policiaSeleccionado.setDepartamento(departamento);
+                policiaSeleccionado.setDepartamento((String) departamento);
             }
             if (foto != null) {
                 policiaSeleccionado.setFoto(foto);
