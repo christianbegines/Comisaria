@@ -187,7 +187,7 @@
                                           <Component id="textoDepartamento" min="-2" pref="135" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="159" max="32767" attributes="0"/>
+                                  <EmptySpace pref="188" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -434,7 +434,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Click para insertar foto"/>
+                    <Property name="text" type="java.lang.String" value="Seleccionar foto..."/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonImagenActionPerformed"/>

@@ -35,7 +35,9 @@ import javax.swing.table.DefaultTableModel;
 public class PoliciasMantenimiento extends javax.swing.JDialog {
 
     /**
-     * Creates new form MultasListado
+     * Ventana de gestion de policias
+     * @param parent
+     * @param modal
      */
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -195,7 +197,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         botonImagen.setBackground(new java.awt.Color(0, 102, 204));
         botonImagen.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         botonImagen.setForeground(new java.awt.Color(255, 255, 255));
-        botonImagen.setText("Click para insertar foto");
+        botonImagen.setText("Seleccionar foto...");
         botonImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonImagenActionPerformed(evt);
@@ -233,7 +235,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                                 .addComponent(departamentoL, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                         .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,7 +444,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
     /**
      * Carga una imagen y obtiene su ruta absoluta en el disco duro para despues
-     * asignarle esa ruta al atributo foto de un objeto Policia.
+     * asignarle esa ruta al atributo foto de un objeto Policia y muestra una previsualización en el label imagenL
      *
      * @param evt
      */
@@ -455,12 +457,18 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 this.rutaArchivo.setVisible(false);
                 this.rutaArchivo.setText(rutaSeleccionado);
                 Path ruta = Paths.get(this.rutaArchivo.getText());
-                Path rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo + "/" + this.datos.cuentaPolicias() + 1 + ".jpg"));
+                Path rutaCopiado = null;
+                int calculaNombreArchivo = this.datos.getMaxIdPolicia() + 1;
+                try {
+                    rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo.getCanonicalPath() + "/src/Imagenes/policias/"  + calculaNombreArchivo + ".jpg"));
+                } catch (IOException ex) {
+                    Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 if (this.policia == null) {
                     this.policia = new Policia();
-                    this.policia.setIdPolicia(this.datos.cuentaPolicias() + 1);
+                    this.policia.setIdPolicia(this.datos.getMaxIdPolicia()+1);
                     try {
-                        rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo.getCanonicalPath() + "/src/Imagenes/" + this.policia.getIdPolicia() + ".jpg"));
+                        rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo.getCanonicalPath() + "/src/Imagenes/policias/" + this.policia.getIdPolicia() + ".jpg"));
                     } catch (IOException ex) {
                         Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
                     }
