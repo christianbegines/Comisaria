@@ -481,7 +481,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 } else {
                     this.policia.setFoto(rutaCopiado);
                 }
-                
                 try {
                     Image i = Toolkit.getDefaultToolkit().getImage(rutaCopiado.toString());
                     ImageIcon fotoPerfil = new ImageIcon(i);
