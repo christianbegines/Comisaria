@@ -5,7 +5,6 @@
  */
 package Vista;
 
-import Controladores.GestionMultas;
 import Datos.JDBC;
 import Modelo.Multa;
 import java.awt.Frame;
