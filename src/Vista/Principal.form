@@ -509,7 +509,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="limpiarSeleccion">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Limpiar Seleccion"/>
+            <Property name="label" type="java.lang.String" value="Limpiar Selecci&#xf3;n"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="limpiarSeleccionActionPerformed"/>

@@ -269,10 +269,10 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         orden.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 ordenCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         orden.addActionListener(new java.awt.event.ActionListener() {
@@ -332,7 +332,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        limpiarSeleccion.setText("Limpiar Seleccion");
+        limpiarSeleccion.setLabel("Limpiar Selección");
         limpiarSeleccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limpiarSeleccionActionPerformed(evt);
