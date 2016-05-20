@@ -436,7 +436,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
-        MultasListinPorPolicia ventanaMultas = new MultasListinPorPolicia(this, true);
+        MultasLista ventanaMultas = new MultasLista(this, true);
         ventanaMultas.setConexion(this.datos);
         ventanaMultas.setVisible(true);
     }//GEN-LAST:event_gestionarMultasActionPerformed
@@ -472,7 +472,6 @@ public class Principal extends javax.swing.JFrame {
             this.estadoConexion.setText("Conectada");
             this.estadoConexion.setForeground(Color.green);
             this.rellenarTabla(this.orden.getSelectedItem().toString());
-
         } catch (SQLException ex) {
             this.gestionarMultas.setToolTipText("Sin conexión");
             this.gestionarPolicias.setToolTipText("Sin conexión");

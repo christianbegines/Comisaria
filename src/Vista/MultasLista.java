@@ -16,12 +16,12 @@ import java.sql.Connection;
  *
  * @author daw1
  */
-public class MultasListinPorPolicia extends javax.swing.JDialog {
+public class MultasLista extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
      */
-    public MultasListinPorPolicia(java.awt.Frame parent, boolean modal) {
+    public MultasLista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setUndecorated(true);
         this.setLocation(400, 100);
@@ -84,7 +84,7 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
         cabecera.setBackground(new java.awt.Color(255, 255, 255));
         cabecera.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         cabecera.setForeground(new java.awt.Color(0, 102, 204));
-        cabecera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/multa.png"))); // NOI18N
+        cabecera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/multa.png"))); // NOI18N
         cabecera.setText("MULTAS");
 
         panelTabla.setBackground(new java.awt.Color(255, 255, 255));
@@ -166,7 +166,7 @@ public class MultasListinPorPolicia extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cerrar.png"))); // NOI18N
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
         cerrar.setToolTipText("Cerrar");
         cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cerrar.setFocusable(false);
