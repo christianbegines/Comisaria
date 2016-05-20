@@ -438,6 +438,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.panelPestañas.removeTabAt(1);
             this.botonInsert.setText("Insertar");
             this.labelIdPolicia.setVisible(false);
+            
         }
     }//GEN-LAST:event_formWindowOpened
     /**
