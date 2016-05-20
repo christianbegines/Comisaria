@@ -23,14 +23,13 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author daw1
+ * @author Rubén Soler
  */
 public class PoliciasMantenimiento extends javax.swing.JDialog {
 

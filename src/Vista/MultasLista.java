@@ -10,7 +10,6 @@ import Modelo.Multa;
 import java.awt.Frame;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -26,6 +25,8 @@ public class MultasLista extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
+     * @param parent
+     * @param modal
      */
     public MultasLista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
