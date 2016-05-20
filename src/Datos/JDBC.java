@@ -93,7 +93,34 @@ public class JDBC {
         
         return listaMultasPolicia;
     }
-    
+    public List<Multa> obtenerMultasPolicia(Integer idPoliciaBuscador, String orden) throws SQLException {
+        List<Multa> listaMultasPolicia = new ArrayList();
+        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas where idPolicia = ? ORDER BY " + orden);
+        ps.setInt(1,idPoliciaBuscador);
+        ResultSet res = ps.executeQuery();
+        while (res.next()) {
+            Integer id = res.getInt("id");
+            String descripcion = res.getString("descripcion");
+            Integer idPolicia = res.getInt("idPolicia");           
+            Multa m = new Multa(id, descripcion, idPolicia);            
+            if (res.getDate("fecha") != null) {
+                LocalDateTime fecha=res.getTimestamp("fecha").toLocalDateTime();
+                m.setFecha(fecha);                                                    
+            }    
+            if (res.getDouble("importe") != 0) {
+                m.setImporte(res.getDouble("importe"));
+            }
+            if (res.getString("nifinfractor") != null) {
+                m.setNifInfractor(res.getString("nifinfractor"));
+            }
+            if(res.getInt("idtipo")!=0){
+                m.setIdTipo(res.getInt("idtipo"));
+            }
+            listaMultasPolicia.add(m);
+        }
+        
+        return listaMultasPolicia;
+    }
     public int borrarPorIdPolicia(int idPolicia) throws SQLException {
         String sql = "DELETE FROM policia WHERE idPolicia = ?";
         PreparedStatement ps = this.con.prepareStatement(sql);
@@ -107,7 +134,7 @@ public class JDBC {
     
     public List<Multa> obtenerMultas(String orden) throws SQLException{
         List<Multa> listaMultasPolicia = new ArrayList();
-        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas ORDER BY " + orden);
+        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas ORDER BY " + orden + " DESC ");
         
         ResultSet res = ps.executeQuery();
         while (res.next()) {

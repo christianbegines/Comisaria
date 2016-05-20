@@ -197,6 +197,11 @@ public class MultasLista extends javax.swing.JDialog {
         });
 
         orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "descripcion", "fecha", "importe" }));
+        orden.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ordenItemStateChanged(evt);
+            }
+        });
         orden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ordenActionPerformed(evt);
@@ -318,6 +323,10 @@ public class MultasLista extends javax.swing.JDialog {
     private void ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ordenActionPerformed
+
+    private void ordenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ordenItemStateChanged
+        this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+    }//GEN-LAST:event_ordenItemStateChanged
     public void rellenarTablaMultas(String orden) {
         try { 
             String[] filas = new String[7];
