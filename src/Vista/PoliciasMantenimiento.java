@@ -14,11 +14,15 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -445,24 +449,44 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
         SelectorDeArchivo fileChoose = new SelectorDeArchivo();
         String rutaSeleccionado = fileChoose.seleccionar();
+        File archivo = new File(".");
         System.out.println(rutaSeleccionado);
-        if (rutaSeleccionado.length() > 1) {
-            this.rutaArchivo.setVisible(false);
-            this.rutaArchivo.setText(rutaSeleccionado);
-            Path ruta = Paths.get(this.rutaArchivo.getText());
-            Path rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(),"/Imagenes/"));
-            if (this.policia==null) {
-                this.policia=new Policia();
-                this.policia.setFoto(rutaCopiado);
-            }else{
-                this.policia.setFoto(rutaCopiado);
-            }
+        try {
             try {
-                Image i = Toolkit.getDefaultToolkit().getImage(rutaCopiado.toString());
-                ImageIcon fotoPerfil = new ImageIcon(i);
-                this.ImagenL.setIcon(fotoPerfil);
-            } catch (NullPointerException ex) {
-                this.ImagenL.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("/Imagenes/iconoanonimo.jpg")));
+                System.out.println(archivo.getCanonicalPath() +"/" + this.datos.cuentaPolicias());
+            } catch (IOException ex) {
+                Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (rutaSeleccionado.length() > 1) {
+            try {
+                this.rutaArchivo.setVisible(false);
+                this.rutaArchivo.setText(rutaSeleccionado);
+                Path ruta = Paths.get(this.rutaArchivo.getText());
+                Path rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo +"/" + this.datos.cuentaPolicias()+1));
+                if (this.policia==null) {
+                    this.policia=new Policia();
+                    this.policia.setIdPolicia(this.datos.cuentaPolicias()+1);
+                    try {
+                        rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo.getCanonicalPath()+"/src/Imagenes/" + this.policia.getIdPolicia()));
+                    } catch (IOException ex) {
+                        Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    this.policia.setFoto(rutaCopiado);
+                }else{
+                    this.policia.setFoto(rutaCopiado);
+                }
+                try {
+                    Image i = Toolkit.getDefaultToolkit().getImage(rutaCopiado.toString());
+                    ImageIcon fotoPerfil = new ImageIcon(i);
+                    this.ImagenL.setIcon(fotoPerfil);
+                } catch (NullPointerException ex) {
+                    this.ImagenL.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("/Imagenes/iconoanonimo.jpg")));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_botonImagenActionPerformed

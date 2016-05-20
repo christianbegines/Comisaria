@@ -36,7 +36,13 @@ public class JDBC {
         this.con = DriverManager.getConnection(url, usr, pass);
         return this.con;
     }
-    
+    public int cuentaPolicias() throws SQLException{
+    String sql = "SELECT count(*) AS 'cuenta' FROM policia";
+    PreparedStatement ps = this.con.prepareStatement(sql);
+    ResultSet res = ps.executeQuery();
+    res.next();
+    return res.getInt("cuenta");
+    }
     public List<Policia> obtenerPolicias(String orden) throws SQLException {
         
         List<Policia> listaPolis = new ArrayList<>();
