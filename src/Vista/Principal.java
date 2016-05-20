@@ -8,6 +8,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -417,22 +418,29 @@ public class Principal extends javax.swing.JFrame {
         PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
         ventanaPolicias.setConexion(this.datos);
         if ((indice = this.tablaPolicias.getSelectedRow()) != (-1)) {
-             policiaSeleccionado = new Policia(Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString()),
-                    tablaPolicias.getValueAt(indice, 1).toString(),
-                    tablaPolicias.getValueAt(indice, 2).toString());   
-                ventanaPolicias.setPolicia(policiaSeleccionado);
-                if((tablaPolicias.getValueAt(indice, 3).toString())!=null){
-                   policiaSeleccionado.setEdad(Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString()));
-                }
-                if((tablaPolicias.getValueAt(indice, 4).toString())!=null){
-                    policiaSeleccionado.setDepartamento(tablaPolicias.getValueAt(indice, 4).toString());
-                }
-                if((tablaPolicias.getValueAt(indice, 5).toString())!=null){
-                   policiaSeleccionado.setFoto(Paths.get(tablaPolicias.getValueAt(indice, 5).toString()));
-                }
+           Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString());
+           String nombre = tablaPolicias.getValueAt(indice, 1).toString();
+           String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
+           Integer edad = Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString());
+           String departamento = tablaPolicias.getValueAt(indice, 4).toString();
+           Path foto = Paths.get(tablaPolicias.getValueAt(indice, 5).toString());
+           
+           policiaSeleccionado = new Policia(idPolicia,nombre,numPlaca);
+            
+            if (edad != null) {
+                policiaSeleccionado.setEdad(edad);
+            }
+            if (departamento != null) {
+                policiaSeleccionado.setDepartamento(departamento);
+            }
+            if (foto != null) {
+                policiaSeleccionado.setFoto(foto);
+            }
+            ventanaPolicias.setPolicia(policiaSeleccionado);
         }
+
         ventanaPolicias.setVisible(true);
-        
+
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
@@ -477,6 +485,8 @@ public class Principal extends javax.swing.JFrame {
             this.gestionarPolicias.setToolTipText("Sin conexión");
             this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -491,7 +501,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_autoresMousePressed
 
     private void ordenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ordenItemStateChanged
-        this.rellenarTabla(this.orden.getSelectedItem().toString());
+        try {
+            this.rellenarTabla(this.orden.getSelectedItem().toString());
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ordenItemStateChanged
 
     private void ordenCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_ordenCaretPositionChanged
@@ -503,23 +517,23 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ordenActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
-         int seleccionado = this.tablaPolicias.getSelectedRow();
-         if (seleccionado!=-1) {
-             try {
-                 this.datos.borrarPorIdPolicia(Integer.parseInt(this.tablaPolicias.getValueAt(seleccionado,0).toString()));
-                 this.rellenarTabla(this.orden.getSelectedItem().toString());
-             } catch (SQLException ex) {
-                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-             }
-        }else{
-          JOptionPane.showMessageDialog(null,"No has seleccionado ningun policia", "No has seleccionado ningun policia", JOptionPane.INFORMATION_MESSAGE);
-         }
+        int seleccionado = this.tablaPolicias.getSelectedRow();
+        if (seleccionado != -1) {
+            try {
+                this.datos.borrarPorIdPolicia(Integer.parseInt(this.tablaPolicias.getValueAt(seleccionado, 0).toString()));
+                this.rellenarTabla(this.orden.getSelectedItem().toString());
+            } catch (SQLException | IOException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No has seleccionado ningun policia", "No has seleccionado ningun policia", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_borrarActionPerformed
 
     private void limpiarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarSeleccionActionPerformed
         this.tablaPolicias.clearSelection();
     }//GEN-LAST:event_limpiarSeleccionActionPerformed
-    private void rellenarTabla(String orden) {
+    private void rellenarTabla(String orden) throws IOException {
         try {
             String[] filas = new String[6];
             String[] titulos = {"IdPolicia", "Nombre", "NumPlaca", "Edad", "Departamento", "Foto"};
@@ -529,13 +543,17 @@ public class Principal extends javax.swing.JFrame {
                 filas[0] = p.getIdPolicia().toString();
                 filas[1] = p.getNombre();
                 filas[2] = p.getNumPlaca();
-                filas[3] = p.getEdad().toString();
+                if (p.getEdad() == null) {
+                    filas[3] = null;
+                } else {
+                    filas[3] = p.getEdad().toString();
+                }
                 filas[4] = p.getDepartamento();
-                if(p.getFoto()== null){
-                   Path rutaIcono = Paths.get("/Imagenes/iconoanonimo.png");
-                   filas[5] = rutaIcono.toString();
-                }else{
-                filas[5] = p.getFoto().toString();
+                if (p.getFoto() == null) {
+                    Path rutaIcono = Paths.get(this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/iconoanonimo.jpg");
+                    filas[5] = rutaIcono.toString();
+                } else {
+                    filas[5] = p.getFoto().toString();
                 }
                 this.tabla.addRow(filas);
             }
@@ -544,6 +562,7 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
+    private File rutaAbsoluta = new File(".");
     private DefaultTableModel tabla;
     private JDBC datos;
     private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/icono.png"));

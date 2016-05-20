@@ -38,9 +38,13 @@ public class JDBC {
     }
     
     public int insertaPolicia(Policia p) throws SQLException{
-    String sql = "INSERT INTO policia VALUES(?,?,?)";
+    String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto) VALUES(?,?,?,?)";
     PreparedStatement ps = this.con.prepareStatement(sql);
-    return 0;}
+    ps.setInt(1, p.getIdPolicia());
+    ps.setString(2,p.getNumPlaca());
+    ps.setString(3, p.getNombre());
+    ps.setString(4, p.getFoto().toString());
+    return ps.executeUpdate();}
     
     public int getMaxIdPolicia() throws SQLException {
         String sql = "SELECT max(idPolicia) AS 'idPolicia' FROM policia";
@@ -78,7 +82,7 @@ public class JDBC {
                 String foto = res.getString("foto");
                 p.setFoto(Paths.get(foto));
             } else {
-                Path rutaIcono = Paths.get("/Imagenes/iconoanonimo.png");
+                Path rutaIcono = null;
                 p.setFoto(rutaIcono);
             }
             listaPolis.add(p);

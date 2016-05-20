@@ -39,6 +39,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
+     * @param hayPolicia inserta pasar false actualizar pasar true
      */
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -172,7 +173,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         textoDepartamento.setForeground(new java.awt.Color(0, 0, 0));
         textoDepartamento.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        ImagenL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoanonimo.png"))); // NOI18N
+        ImagenL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoanonimo.jpg"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -267,9 +268,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(panelPerfilLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelIdPolicia)
-                            .addComponent(idPoliciaL, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idPoliciaL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelIdPolicia))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NumeroPlacaL)
@@ -426,7 +427,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     }//GEN-LAST:event_textoNumeroPlacaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if (this.policia != null) {
+        if (this.hayPolicia) {
             this.botonInsert.setText("Modificar");
             this.textNombre.setText(this.policia.getNombre());
             this.textoNumeroPlaca.setText(this.policia.getNumPlaca());
@@ -434,19 +435,25 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.textoEdad.setText(this.policia.getEdad().toString());
             this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
             try {
-                Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource(this.policia.getFoto().toString()));
+                Image i = Toolkit.getDefaultToolkit().getImage(this.policia.getFoto().toString());
                 ImageIcon fotoPerfil = new ImageIcon(i);
                 this.ImagenL.setIcon(fotoPerfil);
 
             } catch (NullPointerException ex) {
+                Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.idPoliciaL.setText(this.policia.getIdPolicia().toString());
 
         } else {
-            this.rutaArchivo.setText("/Imagenes/iconoanonimo.jpg");
+            try {
+                this.rutaArchivo.setText(this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/iconoanonimo.jpg");
+            } catch (IOException ex) {
+                Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.panelPestañas.removeTabAt(1);
             this.botonInsert.setText("Insertar");
             this.labelIdPolicia.setVisible(false);
+            this.policia = new Policia();
         }
     }//GEN-LAST:event_formWindowOpened
     /**
@@ -460,36 +467,23 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
         SelectorDeArchivo fileChoose = new SelectorDeArchivo();
         String rutaSeleccionado = fileChoose.seleccionar();
-        File archivo = new File(".");
         if (rutaSeleccionado.length() > 1) {
             try {
                 this.rutaArchivo.setVisible(false);
                 this.rutaArchivo.setText(rutaSeleccionado);
-                Path ruta = Paths.get(this.rutaArchivo.getText());
                 int calculaNombreArchivo = this.datos.getMaxIdPolicia() + 1;
-                Path rutaCopiado = null;
-                if (this.policia == null) {
-                    this.policia = new Policia();
-                    this.policia.setIdPolicia(this.datos.getMaxIdPolicia() + 1);
-                    try {
-                        rutaCopiado = Paths.get(archivo.getCanonicalPath() + "/src/Imagenes/policias/" + this.policia.getIdPolicia() + ".jpg");
-                    } catch (IOException ex) {
-                    }
-                    this.policia.setFoto(rutaCopiado);
-                } else {
-                    try {
-                        rutaCopiado = Paths.get(archivo.getCanonicalPath() + "/src/Imagenes/policias/" + calculaNombreArchivo + ".jpg");
-                    } catch (IOException ex) {
-                    }
-                    this.policia.setFoto(rutaCopiado);
-                }
+                Path ruta = null;
                 try {
-                    Image i = Toolkit.getDefaultToolkit().getImage(rutaCopiado.toString());
-                    ImageIcon fotoPerfil = new ImageIcon(i);
-                    this.ImagenL.setIcon(fotoPerfil);
-                } catch (NullPointerException ex) {
-                    this.ImagenL.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("/Imagenes/iconoanonimo.jpg")));
+                    ruta = Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(), this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/" + calculaNombreArchivo + ".jpg"));
+                } catch (IOException ex) {
+                    Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                this.rutaArchivo.setText(ruta.toString());
+
+                Image i = Toolkit.getDefaultToolkit().getImage(ruta.toString());
+                ImageIcon fotoPerfil = new ImageIcon(i);
+                this.ImagenL.setIcon(fotoPerfil);
             } catch (SQLException ex) {
                 Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -501,20 +495,19 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     }//GEN-LAST:event_ordenItemStateChanged
 
     private void botonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertActionPerformed
-        File archivo = new File(".");
-
-        if (this.policia != null) {
-            if (this.policia.getFoto() == null) {
-                this.policia.setFoto(Paths.get("/Imagenes/iconoanonimo.png"));
-            }
+        if (!hayPolicia) {
+            // inserta
+            this.policia = new Policia();
             if (this.NumeroPlacaL.getText() != null && this.NombreL.getText() != null) {
                 try {
                     this.policia.setIdPolicia(this.datos.getMaxIdPolicia() + 1);
-                    this.policia.setNombre(this.NombreL.getText());
+                    this.policia.setNombre(this.textNombre.getText());
+                    this.policia.setNumPlaca(this.textoNumeroPlaca.getText());
                     int calculaNombreArchivo = this.datos.getMaxIdPolicia() + 1;
                     try {
-                        ManejadorDeImagenes.copyImage(this.policia.getFoto().toString(), archivo.getCanonicalPath() + "/src/Imagenes/policias/" + calculaNombreArchivo + ".jpg");
-                    } catch (IOException ex) {}
+                        this.policia.setFoto(Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(), this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/" + calculaNombreArchivo + ".jpg")));
+                    } catch (IOException ex) {
+                    }
                     this.datos.insertaPolicia(this.policia);
                 } catch (SQLException ex) {
                     Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
@@ -522,7 +515,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             }
 
         } else {
-
+            // actualiza
         }
     }//GEN-LAST:event_botonInsertActionPerformed
 
@@ -532,6 +525,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
      * @param policia Policia seleccionado en tabla de ventana principal.
      */
     public void setPolicia(Policia policia) {
+        this.hayPolicia = true;
         this.policia = policia;
     }
 
@@ -557,6 +551,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
+    private File rutaAbsoluta = new File(".");
+    private boolean hayPolicia = false;
     private DefaultTableModel tableModelMultas;
     private Policia policia;
     private JDBC datos;
