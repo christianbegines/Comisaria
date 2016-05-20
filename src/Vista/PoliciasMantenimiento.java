@@ -433,51 +433,42 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             } catch (NullPointerException ex) {
             }
             this.idPoliciaL.setText(this.policia.getIdPolicia().toString());
-
+            
         } else {
             this.panelPestañas.removeTabAt(1);
             this.botonInsert.setText("Insertar");
             this.labelIdPolicia.setVisible(false);
         }
     }//GEN-LAST:event_formWindowOpened
-/**
- * Carga una imagen y obtiene su ruta absoluta en el disco duro
- * para despues asignarle esa ruta al atributo foto de un objeto Policia.
- * 
- * @param evt 
- */
+    /**
+     * Carga una imagen y obtiene su ruta absoluta en el disco duro para despues
+     * asignarle esa ruta al atributo foto de un objeto Policia.
+     *
+     * @param evt
+     */
     private void botonImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImagenActionPerformed
         SelectorDeArchivo fileChoose = new SelectorDeArchivo();
         String rutaSeleccionado = fileChoose.seleccionar();
         File archivo = new File(".");
-        System.out.println(rutaSeleccionado);
-        try {
-            try {
-                System.out.println(archivo.getCanonicalPath() +"/" + this.datos.cuentaPolicias());
-            } catch (IOException ex) {
-                Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
-        }
         if (rutaSeleccionado.length() > 1) {
             try {
                 this.rutaArchivo.setVisible(false);
                 this.rutaArchivo.setText(rutaSeleccionado);
                 Path ruta = Paths.get(this.rutaArchivo.getText());
-                Path rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo +"/" + this.datos.cuentaPolicias()+1));
-                if (this.policia==null) {
-                    this.policia=new Policia();
-                    this.policia.setIdPolicia(this.datos.cuentaPolicias()+1);
+                Path rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo + "/" + this.datos.cuentaPolicias() + 1 + ".jpg"));
+                if (this.policia == null) {
+                    this.policia = new Policia();
+                    this.policia.setIdPolicia(this.datos.cuentaPolicias() + 1);
                     try {
-                        rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo.getCanonicalPath()+"/src/Imagenes/" + this.policia.getIdPolicia()));
+                        rutaCopiado = Paths.get(ManejadorDeImagenes.copyImage(ruta.toString(), archivo.getCanonicalPath() + "/src/Imagenes/" + this.policia.getIdPolicia() + ".jpg"));
                     } catch (IOException ex) {
                         Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     this.policia.setFoto(rutaCopiado);
-                }else{
+                } else {
                     this.policia.setFoto(rutaCopiado);
                 }
+                
                 try {
                     Image i = Toolkit.getDefaultToolkit().getImage(rutaCopiado.toString());
                     ImageIcon fotoPerfil = new ImageIcon(i);
@@ -503,13 +494,13 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     public void setPolicia(Policia policia) {
         this.policia = policia;
     }
-
+    
     private void rellenarTablaMultas(String orden) {
         try {
             String[] filas = new String[7];
             String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
             tableModelMultas = new DefaultTableModel(null, titulos);
-
+            
             for (Multa m : this.datos.obtenerMultasPolicia(policia, orden)) {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
