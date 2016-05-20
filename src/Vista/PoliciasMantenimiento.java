@@ -209,6 +209,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         botonInsert.setForeground(new java.awt.Color(255, 255, 255));
         botonInsert.setText("Insertar/Actualizar");
         botonInsert.setBorder(null);
+        botonInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInsertActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelPerfilLayout = new javax.swing.GroupLayout(panelPerfil);
         panelPerfil.setLayout(panelPerfilLayout);
@@ -493,6 +498,12 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private void ordenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ordenItemStateChanged
         this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_ordenItemStateChanged
+
+    private void botonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertActionPerformed
+        if (this.NombreL.toString()!=null && this.NumeroPlacaL.toString()!=null) {
+            
+        }
+    }//GEN-LAST:event_botonInsertActionPerformed
 
     /**
      * Coloca un objeto policia en la ventana de gestion de policias
