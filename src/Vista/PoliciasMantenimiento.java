@@ -15,6 +15,8 @@ import java.awt.Toolkit;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -33,9 +35,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         super(parent, modal);
         this.setUndecorated(true);
         this.setLocation(400, 100);
-        
-         initComponents();
-         //hola q ase
+
+        initComponents();
+        //hola q ase
     }
 
     /**
@@ -222,7 +224,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                         .addComponent(departamentoL, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
                 .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,7 +310,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelpestañamultasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelpestañamultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelTablaMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                    .addComponent(panelTablaMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
                     .addGroup(panelpestañamultasLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(ordenL)
@@ -342,7 +344,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                         .addContainerGap())
                     .addGroup(menuCerrarLayout.createSequentialGroup()
                         .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addGap(163, 163, 163)
                         .addComponent(cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         menuCerrarLayout.setVerticalGroup(
@@ -403,7 +405,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.textoDepartamento.setText(this.policia.getDepartamento());
             this.textoEdad.setText(this.policia.getEdad().toString());
             this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
-            this.setSize(700,400);
             try {
                 Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource(this.policia.getFoto().toString()));
                 ImageIcon fotoPerfil = new ImageIcon(i);
@@ -423,20 +424,22 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     public void setPolicia(Policia policia) {
         this.policia = policia;
     }
+
     private void rellenarTablaMultas(String orden) {
         try {
             String[] filas = new String[7];
-            String[] titulos = {"id","descripcion","fecha","importe","idPolicia","nifinfractor","idtipo"};
+            String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
             tableModelMultas = new DefaultTableModel(null, titulos);
 
-            for (Multa m : this.datos.obtenerMultasPolicia(policia.getIdPolicia(),orden)) {
-                filas[0] = m.getId().toString();                     
+            for (Multa m : this.datos.obtenerMultasPolicia(policia.getIdPolicia(), orden)) {
+                filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
-                filas[2] = m.getFecha().toString();
+                SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
+                filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
                 filas[3] = m.getImporte().toString();
                 filas[4] = m.getIdPolicia().toString();
                 filas[5] = m.getNifInfractor();
-                filas[6] = m.getIdTipo().toString();                                       
+                filas[6] = m.getIdTipo().toString();
                 this.tableModelMultas.addRow(filas);
             }
             this.tablaMultas.setModel(tableModelMultas);

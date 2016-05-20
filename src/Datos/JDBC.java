@@ -11,9 +11,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -73,8 +78,9 @@ public class JDBC {
             Multa m = new Multa(id, descripcion, idPolicia);
             
             if (res.getDate("fecha") != null) {
-                m.setFecha(res.getTimestamp("fecha").toLocalDateTime());
-            }
+                LocalDateTime fecha=res.getTimestamp("fecha").toLocalDateTime();
+                m.setFecha(fecha);                                                    
+            }    
             if (res.getDouble("importe") != 0) {
                 m.setImporte(res.getDouble("importe"));
             }
