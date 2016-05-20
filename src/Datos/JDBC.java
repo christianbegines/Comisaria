@@ -36,9 +36,11 @@ public class JDBC {
         this.con = DriverManager.getConnection(url, usr, pass);
         return this.con;
     }
+    
     public int insertaPolicia(Policia p){
     
     return 0;}
+    
     public int getMaxIdPolicia() throws SQLException {
         String sql = "SELECT max(idPolicia) AS 'idPolicia' FROM policia";
         PreparedStatement ps = this.con.prepareStatement(sql);
