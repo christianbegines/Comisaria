@@ -2,23 +2,16 @@ package Datos;
 
 import Modelo.Multa;
 import Modelo.Policia;
-import java.awt.Image;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -36,16 +29,46 @@ public class JDBC {
         this.con = DriverManager.getConnection(url, usr, pass);
         return this.con;
     }
-    
-    public int insertaPolicia(Policia p) throws SQLException{
-    String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto) VALUES(?,?,?,?)";
-    PreparedStatement ps = this.con.prepareStatement(sql);
-    ps.setInt(1, p.getIdPolicia());
-    ps.setString(2,p.getNumPlaca());
-    ps.setString(3, p.getNombre());
-    ps.setString(4, p.getFoto().toString());
-    return ps.executeUpdate();}
-    
+
+    public int insertaPolicia(Policia p) throws SQLException {
+         PreparedStatement ps;
+        if (p.getEdad() == null && p.getDepartamento() == null) {
+            String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto) VALUES(?,?,?,?)";
+            ps = this.con.prepareStatement(sql);
+            ps.setInt(1, p.getIdPolicia());
+            ps.setString(2, p.getNumPlaca());
+            ps.setString(3, p.getNombre());
+            ps.setString(4, p.getFoto().toString());
+        }else if (p.getEdad() == null) {
+            String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,departamento) VALUES(?,?,?,?,?)";
+            ps = this.con.prepareStatement(sql);
+            ps.setInt(1, p.getIdPolicia());
+            ps.setString(2, p.getNumPlaca());
+            ps.setString(3, p.getNombre());
+            ps.setString(4, p.getFoto().toString());
+            ps.setString(5, p.getDepartamento());
+        }else if(p.getDepartamento()==null){
+          String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad) VALUES(?,?,?,?,?)";
+            ps = this.con.prepareStatement(sql);
+            ps.setInt(1, p.getIdPolicia());
+            ps.setString(2, p.getNumPlaca());
+            ps.setString(3, p.getNombre());
+            ps.setString(4, p.getFoto().toString());
+            ps.setInt(5, p.getEdad());
+        }else{
+         String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad,departamento) VALUES(?,?,?,?,?,?)";
+            ps = this.con.prepareStatement(sql);
+            ps.setInt(1, p.getIdPolicia());
+            ps.setString(2, p.getNumPlaca());
+            ps.setString(3, p.getNombre());
+            ps.setString(4, p.getFoto().toString());
+            ps.setInt(5, p.getEdad());
+            ps.setString(6, p.getDepartamento());
+        }
+
+        return ps.executeUpdate();
+    }
+
     public int getMaxIdPolicia() throws SQLException {
         String sql = "SELECT max(idPolicia) AS 'idPolicia' FROM policia";
         PreparedStatement ps = this.con.prepareStatement(sql);
