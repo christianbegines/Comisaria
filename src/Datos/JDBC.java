@@ -6,10 +6,12 @@ import java.awt.Image;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,23 +69,9 @@ public class JDBC {
             Integer idPolicia=res.getInt("idPolicia");
             ps.setInt(1,idPoliciaBuscador);
             Multa m= new Multa(id,descripcion,idPolicia);
-            
-//            if (res.getString("edad") != null) {
-//                m.setEdad(Integer.parseInt(res.getString("edad")));
-//            }
-//            if (res.getString("departamento") != null) {
-//                p.setDepartamento(res.getString("departamento"));
-//            }
-//            if (res.getString("foto") != null) {
-//                String foto = res.getString("foto");
-//                p.setFoto(Paths.get(foto));
-//            } else {
-//                Path rutaIcono = Paths.get("/Imagenes/iconoanonimo.png");
-//                p.setFoto(rutaIcono);
-            }
-//            listaPolis.add(p);
-        
-        
+           Date fecha = res.getDate("fecha");
+
+        }
         return listaMultasPolicia;
     }
     
