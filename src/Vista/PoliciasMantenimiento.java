@@ -45,6 +45,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         this.setUndecorated(true);
         this.setLocation(400, 100);
         initComponents();
+        this.rutaArchivo.setVisible(false);
     }
 
     /**
