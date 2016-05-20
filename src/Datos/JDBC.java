@@ -65,18 +65,16 @@ public class JDBC {
         return listaPolis;
     }
 
-    public List<Multa> obtenerMultasPolicia(Integer idPoliciaBuscador, String orden) throws SQLException {
+    public List<Multa> obtenerMultasPolicia(Policia p, String orden) throws SQLException {
         List<Multa> listaMultasPolicia = new ArrayList();
         PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas where idPolicia = ? ORDER BY " + orden);
-        ps.setInt(1, idPoliciaBuscador);
+        ps.setInt(1, p.getIdPolicia());
         ResultSet res = ps.executeQuery();
         while (res.next()) {
             Integer id = res.getInt("id");
             String descripcion = res.getString("descripcion");
-            Integer idPolicia = res.getInt("idPolicia");
-            
-            Multa m = new Multa(id, descripcion, idPolicia);
-            
+            Integer idPolicia = res.getInt("idPolicia");           
+            Multa m = new Multa(id, descripcion, idPolicia);            
             if (res.getDate("fecha") != null) {
                 LocalDateTime fecha=res.getTimestamp("fecha").toLocalDateTime();
                 m.setFecha(fecha);                                                    
@@ -105,5 +103,35 @@ public class JDBC {
         psMultas.setInt(1, idPolicia);
         psMultas.executeUpdate();
         return ps.executeUpdate();
+    }
+    
+    public List<Multa> obtenerMultas(String orden) throws SQLException{
+        List<Multa> listaMultasPolicia = new ArrayList();
+        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas ORDER BY " + orden);
+        
+        ResultSet res = ps.executeQuery();
+        while (res.next()) {
+            Integer id = res.getInt("id");
+            String descripcion = res.getString("descripcion");
+            Integer idPolicia = res.getInt("idPolicia");           
+            Multa m = new Multa(id, descripcion, idPolicia);            
+            if (res.getDate("fecha") != null) {
+                LocalDateTime fecha=res.getTimestamp("fecha").toLocalDateTime();
+                m.setFecha(fecha);                                                    
+            }    
+            if (res.getDouble("importe") != 0) {
+                m.setImporte(res.getDouble("importe"));
+            }
+            if (res.getString("nifinfractor") != null) {
+                m.setNifInfractor(res.getString("nifinfractor"));
+            }
+            if(res.getInt("idtipo")!=0){
+                m.setIdTipo(res.getInt("idtipo"));
+            }
+            listaMultasPolicia.add(m);
+        }
+        
+        return listaMultasPolicia;
+       
     }
 }
