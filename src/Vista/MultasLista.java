@@ -77,6 +77,7 @@ public class MultasLista extends javax.swing.JDialog {
         });
 
         menuCerrar.setBackground(new java.awt.Color(255, 255, 255));
+        menuCerrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         menuCerrar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 menuCerrarMouseDragged(evt);
@@ -234,8 +235,7 @@ public class MultasLista extends javax.swing.JDialog {
                     .addGroup(panelMainLayout.createSequentialGroup()
                         .addComponent(exportar)
                         .addGap(2, 2, 2))
-                    .addComponent(añadirMulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(añadirMulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
@@ -279,7 +279,7 @@ public class MultasLista extends javax.swing.JDialog {
                         .addComponent(cabecera)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
+                .addGap(69, 69, 69))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

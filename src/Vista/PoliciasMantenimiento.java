@@ -97,6 +97,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         });
 
         menuCerrar.setBackground(new java.awt.Color(255, 255, 255));
+        menuCerrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         menuCerrar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 menuCerrarMouseDragged(evt);
