@@ -414,6 +414,8 @@ public class Principal extends javax.swing.JFrame {
     private void gestionarPoliciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarPoliciasActionPerformed
         int indice;
         Policia policiaSeleccionado;
+        String departamento = null;
+         int edad=0;
         PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
         ventanaPolicias.setConexion(this.datos);
         if ((indice = this.tablaPolicias.getSelectedRow()) != (-1)) {
@@ -421,20 +423,20 @@ public class Principal extends javax.swing.JFrame {
            String nombre = tablaPolicias.getValueAt(indice, 1).toString();
            String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
            try{
-           Integer edad = Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString());
-           String departamento = tablaPolicias.getValueAt(indice, 4).toString();
+           edad = Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString());
+           departamento = tablaPolicias.getValueAt(indice, 4).toString();
            }catch(NullPointerException ex){}
            Path foto = Paths.get(tablaPolicias.getValueAt(indice, 5).toString());
            
            policiaSeleccionado = new Policia(idPolicia,nombre,numPlaca);
-            Object edad = null;
+           
             
-            if (edad != null) {
-                policiaSeleccionado.setEdad((Integer) edad);
+            if (edad !=0) {
+                policiaSeleccionado.setEdad(edad);
             }
-            Object departamento = null;
+            
             if (departamento != null) {
-                policiaSeleccionado.setDepartamento((String) departamento);
+                policiaSeleccionado.setDepartamento(departamento);
             }
             if (foto != null) {
                 policiaSeleccionado.setFoto(foto);
@@ -546,10 +548,10 @@ public class Principal extends javax.swing.JFrame {
                 filas[0] = p.getIdPolicia().toString();
                 filas[1] = p.getNombre();
                 filas[2] = p.getNumPlaca();
-                if (p.getEdad() == null) {
-                    filas[3] = null;
-                } else {
-                    filas[3] = p.getEdad().toString();
+                try{
+                filas[3] = p.getEdad().toString();
+                }catch(NullPointerException ex){
+                filas[3] = 0+"";
                 }
                 filas[4] = p.getDepartamento();
                 if (p.getFoto() == null) {
