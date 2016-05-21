@@ -428,14 +428,10 @@ public class Principal extends javax.swing.JFrame {
            departamento = tablaPolicias.getValueAt(indice, 4).toString();
            }catch(NullPointerException ex){}
            Path foto = Paths.get(tablaPolicias.getValueAt(indice, 5).toString());
-           
            policiaSeleccionado = new Policia(idPolicia,nombre,numPlaca);
-           
-            
             if (edad !=0) {
                 policiaSeleccionado.setEdad(edad);
             }
-            
             if (departamento != null) {
                 policiaSeleccionado.setDepartamento(departamento);
             }
@@ -444,9 +440,7 @@ public class Principal extends javax.swing.JFrame {
             }
             ventanaPolicias.setPolicia(policiaSeleccionado);
         }
-
         ventanaPolicias.setVisible(true);
-
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed

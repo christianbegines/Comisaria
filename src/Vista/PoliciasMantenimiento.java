@@ -435,7 +435,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             if (this.policia.getEdad()!=null) {
                 this.textoEdad.setText(this.policia.getEdad().toString());
             }
-            
             this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
             try {
                 Image i = Toolkit.getDefaultToolkit().getImage(this.policia.getFoto().toString());
@@ -446,7 +445,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.idPoliciaL.setText(this.policia.getIdPolicia().toString());
-
         } else {
             try {
                 this.rutaArchivo.setText(this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/iconoanonimo.jpg");
@@ -512,7 +510,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     if (!this.textoDepartamento.getText().isEmpty()) {
                         this.policia.setDepartamento(this.textoDepartamento.getText());
                     }
-
                     int calculaNombreArchivo = this.datos.getMaxIdPolicia() + 1;
                     try {
                         this.policia.setFoto(Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(),
@@ -524,17 +521,14 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     if (rows > 0) {
                         JOptionPane.showMessageDialog(null, "Policia insertado", "Policia insertado", JOptionPane.INFORMATION_MESSAGE);
                     }
-
                 } catch (SQLException ex) {
                     Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
         } else {
             // actualiza
         }
     }//GEN-LAST:event_botonInsertActionPerformed
-
     /**
      * Coloca un objeto policia en la ventana de gestion de policias
      *
@@ -544,13 +538,15 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         this.hayPolicia = true;
         this.policia = policia;
     }
-
+/**
+ * Rellena la tabla de multas
+ * @param orden recoje el orden del combobox
+ */
     private void rellenarTablaMultas(String orden) {
         try {
             String[] filas = new String[7];
             String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
             tableModelMultas = new DefaultTableModel(null, titulos);
-
             for (Multa m : this.datos.obtenerMultasPolicia(policia, orden)) {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
