@@ -6,9 +6,14 @@
 package Vista;
 
 import Datos.JDBC;
+import Modelo.TipoMulta;
+import java.awt.Component;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -133,6 +138,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         lTipo.setText("Tipo Multa");
 
         comboTipoMulta.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        comboTipoMulta.setForeground(new java.awt.Color(0, 102, 204));
         comboTipoMulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTipoMultaActionPerformed(evt);
@@ -320,10 +326,17 @@ public class MultasIntroducir extends javax.swing.JDialog {
     }//GEN-LAST:event_comboTipoMultaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
+        try {
+            for(TipoMulta m :this.datos.obtenerTiposMulta()){
+                this.comboTipoMulta.addItem(m.toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MultasIntroducir.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void textoNifInfractorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNifInfractorActionPerformed
+        
         
     }//GEN-LAST:event_textoNifInfractorActionPerformed
 
