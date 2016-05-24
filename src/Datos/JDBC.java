@@ -222,7 +222,7 @@ public class JDBC {
 
     }
     public List<TipoMulta> obtenerTiposMulta() throws SQLException{
-        List<TipoMulta> listaTipos = new ArrayList();
+        List<TipoMulta> listaTipos = new ArrayList<>();
         PreparedStatement ps= this.con.prepareStatement("select * from multastipo");
         ResultSet rs= ps.executeQuery();
         while(rs.next()){

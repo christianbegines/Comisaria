@@ -29,6 +29,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
         this.setLocation(400, 100);
         this.setUndecorated(true);
         initComponents();
+        
+        
     }
 
     /**
@@ -59,7 +61,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         lFecha = new javax.swing.JLabel();
         textoImporte = new javax.swing.JTextField();
         lTipo = new javax.swing.JLabel();
-        comboTipoMulta = new javax.swing.JComboBox<String>();
+        comboTipoMulta = new javax.swing.JComboBox();
         lDescripcion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaDescripcion = new javax.swing.JTextArea();
@@ -326,10 +328,12 @@ public class MultasIntroducir extends javax.swing.JDialog {
     }//GEN-LAST:event_comboTipoMultaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
         try {
             for(TipoMulta m :this.datos.obtenerTiposMulta()){
-                this.comboTipoMulta.addItem(m.toString());
+                this.comboTipoMulta.addItem(m);
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(MultasIntroducir.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -348,7 +352,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
     private javax.swing.JButton botonInsertar;
     private javax.swing.JLabel cabecera;
     private javax.swing.JLabel cerrar;
-    private javax.swing.JComboBox<String> comboTipoMulta;
+    private javax.swing.JComboBox comboTipoMulta;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lDescripcion;
