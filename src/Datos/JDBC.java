@@ -146,12 +146,12 @@ public class JDBC {
         List<Multa> listaMultasPolicia = new ArrayList();
         String sql;
         PreparedStatement ps;
-        if (numPlaca != null) {
-            sql = "SELECT * FROM multas WHERE idPolicia IN(SELECT idPolicia FROM policia WHERE numPlaca=?) ORDER BY " + orden + "DESC";
-            ps = this.con.prepareStatement(sql);
+        if (!numPlaca.isEmpty()) {
+            sql = "SELECT * FROM multas WHERE idPolicia IN ( SELECT idPolicia FROM policia WHERE numPlaca = ? ) ORDER BY " + orden + " DESC";
+            ps = this.con.prepareStatement(sql);          
             ps.setString(1,numPlaca);
         } else {
-            sql = "SELECT * FROM multas WHERE idPolicia IN(SELECT idPolicia FROM policia WHERE nombre like '%?%') ORDER BY " + orden + "DESC";
+            sql = "SELECT * FROM multas WHERE idPolicia IN ( SELECT idPolicia FROM policia WHERE nombre like concat('%',?,'%') ) ORDER BY " + orden + " DESC";
             ps = this.con.prepareStatement(sql);
             ps.setString(1,nombre);
         }      

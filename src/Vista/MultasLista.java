@@ -13,6 +13,8 @@ import java.awt.Point;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -107,7 +109,7 @@ public class MultasLista extends javax.swing.JDialog {
         panelTabla.setViewportView(tablaMultasPolicias);
 
         panelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Filtrar por policia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+        panelBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Filtrar por policia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
 
         NumeroPlacaL.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         NumeroPlacaL.setForeground(new java.awt.Color(0, 51, 204));
@@ -135,6 +137,11 @@ public class MultasLista extends javax.swing.JDialog {
         jButton1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBuscarLayout = new javax.swing.GroupLayout(panelBuscar);
         panelBuscar.setLayout(panelBuscarLayout);
@@ -333,6 +340,11 @@ public class MultasLista extends javax.swing.JDialog {
     private void ordenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ordenItemStateChanged
         this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_ordenItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.out.println(this.textoNombre.getText() + " " + this.textoNumPlaca.getText());
+        this.rellenarTablaMultasP(this.orden.getSelectedItem().toString());
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void rellenarTablaMultas(String orden) {
         try { 
             String[] filas = new String[7];
@@ -340,6 +352,27 @@ public class MultasLista extends javax.swing.JDialog {
             tabla = new DefaultTableModel(null, titulos);
 
             for (Multa m : this.datos.obtenerMultas(orden)) {
+                filas[0] = m.getId().toString();
+                filas[1] = m.getDescripcion();
+                SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
+                filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
+                filas[3] = m.getImporte().toString();
+                filas[4] = m.getIdPolicia().toString();
+                filas[5] = m.getNifInfractor();
+                filas[6] = m.getIdTipo().toString();
+                this.tabla.addRow(filas);
+            }
+            this.tablaMultasPolicias.setModel(tabla);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void rellenarTablaMultasP(String orden) {
+        try {
+            String[] filas = new String[7];
+            String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
+            tabla = new DefaultTableModel(null, titulos);
+            for (Multa m : this.datos.obtenerMultasPolicia(this.textoNumPlaca.getText(), this.textoNombre.getText(), orden)) {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");

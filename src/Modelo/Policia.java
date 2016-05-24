@@ -5,8 +5,6 @@
  */
 package Modelo;
 
-import java.awt.Image;
-import java.net.URL;
 import java.nio.file.Path;
 
 /**
