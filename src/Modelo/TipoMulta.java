@@ -9,10 +9,12 @@ package Modelo;
  */
 public class TipoMulta {
     
-    private int id;
+    private enum tiposMulta  { L, G , MG };
+    
+    private Integer id;
     private String descripcion;
-    private double importe;
-    private enum tipos{L,G,MG};
+    private Double importe;    
+    private tiposMulta tipo;
     private int carnetPuntos;
     /**
      * Genera un tipo de multa con todos sus atributos;
@@ -20,28 +22,30 @@ public class TipoMulta {
      * @param descripcion Breve descripcion del suceso de la multa;
      * @param importe cantidad destinada a pagar la infraccion
      * @param carnetPuntos puntos que conlleva esta infraccion
+     * @param tipo tipo de multa
      */
-    public TipoMulta(int id, String descripcion, double importe, int carnetPuntos) {
+    public TipoMulta(Integer id, String descripcion, Double importe, int carnetPuntos, tiposMulta tipo) {
         this.id = id;
         this.descripcion = descripcion;
         this.importe = importe;
         this.carnetPuntos = carnetPuntos;
+        this.tipo=tipo;
     }
     /**
      * Genera una multa con sus minimos datos;
      * @param id identificador de la multa;
      * @param descripcion Breve descripcion de la multa;
      */
-    public TipoMulta(int id, String descripcion) {
+    public TipoMulta(Integer id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
     }
     
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,15 +53,23 @@ public class TipoMulta {
         return descripcion;
     }
 
+    public tiposMulta getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(tiposMulta tipo) {
+        this.tipo = tipo;
+    }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public double getImporte() {
+    public Double getImporte() {
         return importe;
     }
 
-    public void setImporte(double importe) {
+    public void setImporte(Double importe) {
         this.importe = importe;
     }
 
@@ -68,6 +80,13 @@ public class TipoMulta {
     public void setCarnetPuntos(int carnetPuntos) {
         this.carnetPuntos = carnetPuntos;
     }
+
+    @Override
+    public String toString() {
+        return id +" - "+ descripcion ;
+    }
+
+   
     
     
     
