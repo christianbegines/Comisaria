@@ -31,7 +31,7 @@ public class JDBC {
     }
 
     public int insertaPolicia(Policia p) throws SQLException {
-         PreparedStatement ps;
+        PreparedStatement ps;
         if (p.getEdad() == null && p.getDepartamento() == null) {
             String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto) VALUES(?,?,?,?)";
             ps = this.con.prepareStatement(sql);
@@ -39,7 +39,7 @@ public class JDBC {
             ps.setString(2, p.getNumPlaca());
             ps.setString(3, p.getNombre());
             ps.setString(4, p.getFoto().toString());
-        }else if (p.getEdad() == null) {
+        } else if (p.getEdad() == null) {
             String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,departamento) VALUES(?,?,?,?,?)";
             ps = this.con.prepareStatement(sql);
             ps.setInt(1, p.getIdPolicia());
@@ -47,16 +47,16 @@ public class JDBC {
             ps.setString(3, p.getNombre());
             ps.setString(4, p.getFoto().toString());
             ps.setString(5, p.getDepartamento());
-        }else if(p.getDepartamento()==null){
-          String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad) VALUES(?,?,?,?,?)";
+        } else if (p.getDepartamento() == null) {
+            String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad) VALUES(?,?,?,?,?)";
             ps = this.con.prepareStatement(sql);
             ps.setInt(1, p.getIdPolicia());
             ps.setString(2, p.getNumPlaca());
             ps.setString(3, p.getNombre());
             ps.setString(4, p.getFoto().toString());
             ps.setInt(5, p.getEdad());
-        }else{
-         String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad,departamento) VALUES(?,?,?,?,?,?)";
+        } else {
+            String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad,departamento) VALUES(?,?,?,?,?,?)";
             ps = this.con.prepareStatement(sql);
             ps.setInt(1, p.getIdPolicia());
             ps.setString(2, p.getNumPlaca());
@@ -142,10 +142,19 @@ public class JDBC {
         return listaMultasPolicia;
     }
 
-    public List<Multa> obtenerMultasPolicia(Integer idPoliciaBuscador, String orden) throws SQLException {
+    public List<Multa> obtenerMultasPolicia(String numPlaca, String nombre, String orden) throws SQLException {
         List<Multa> listaMultasPolicia = new ArrayList();
-        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM multas where idPolicia = ? ORDER BY " + orden);
-        ps.setInt(1, idPoliciaBuscador);
+        String sql;
+        PreparedStatement ps;
+        if (numPlaca != null) {
+            sql = "SELECT * FROM multas WHERE idPolicia IN(SELECT idPolicia FROM policia WHERE numPlaca=?) ORDER BY " + orden + "DESC";
+            ps = this.con.prepareStatement(sql);
+            ps.setString(1,numPlaca);
+        } else {
+            sql = "SELECT * FROM multas WHERE idPolicia IN(SELECT idPolicia FROM policia WHERE nombre like '%?%') ORDER BY " + orden + "DESC";
+            ps = this.con.prepareStatement(sql);
+            ps.setString(1,nombre);
+        }      
         ResultSet res = ps.executeQuery();
         while (res.next()) {
             Integer id = res.getInt("id");
