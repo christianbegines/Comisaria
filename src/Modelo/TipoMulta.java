@@ -86,12 +86,6 @@ public class TipoMulta {
         return id +" - "+ descripcion ;
     }
 
-   
-    
-    @Override
-    public String toString(){
-      
-    return descripcion;}
     
     
     
