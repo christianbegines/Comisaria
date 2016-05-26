@@ -2,6 +2,7 @@ package Datos;
 
 import Modelo.Multa;
 import Modelo.Policia;
+import Modelo.TipoMulta;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -230,5 +231,22 @@ public class JDBC {
         ps.setInt(6, p.getIdPolicia());
         return ps.executeUpdate();
 
+    }
+    public List<TipoMulta> obtenerTiposMulta() throws SQLException{
+        List<TipoMulta> listaTipos = new ArrayList<>();
+        PreparedStatement ps= this.con.prepareStatement("select * from multastipo");
+        ResultSet rs= ps.executeQuery();
+        while(rs.next()){
+            Integer id=rs.getInt("id");
+            String descripcion = rs.getString("descripcion");
+            Double importe = rs.getDouble("importe");
+            TipoMulta tipoMulta = new TipoMulta(id,descripcion);
+            if(importe != 0){
+                tipoMulta.setImporte(importe);
+            }
+            listaTipos.add(tipoMulta);
+            
+        }                    
+        return listaTipos;
     }
 }
