@@ -148,13 +148,13 @@ public class JDBC {
         PreparedStatement ps;
         if (!numPlaca.isEmpty()) {
             sql = "SELECT * FROM multas WHERE idPolicia IN ( SELECT idPolicia FROM policia WHERE numPlaca = ? ) ORDER BY " + orden + " DESC";
-            ps = this.con.prepareStatement(sql);          
-            ps.setString(1,numPlaca);
+            ps = this.con.prepareStatement(sql);
+            ps.setString(1, numPlaca);
         } else {
             sql = "SELECT * FROM multas WHERE idPolicia IN ( SELECT idPolicia FROM policia WHERE nombre like concat('%',?,'%') ) ORDER BY " + orden + " DESC";
             ps = this.con.prepareStatement(sql);
-            ps.setString(1,nombre);
-        }      
+            ps.setString(1, nombre);
+        }
         ResultSet res = ps.executeQuery();
         while (res.next()) {
             Integer id = res.getInt("id");
@@ -216,8 +216,19 @@ public class JDBC {
             }
             listaMultasPolicia.add(m);
         }
-
         return listaMultasPolicia;
+    }
+
+    public int actualizarPolicia(Policia p) throws SQLException {
+        String sql = "UPDATE policia SET numplaca = ?,nombre = ?, edad = ?, departamento = ?, foto = ? WHERE idpolicia = ?";
+        PreparedStatement ps = this.con.prepareStatement(sql);
+        ps.setString(1, p.getNumPlaca());
+        ps.setString(2, p.getNombre());
+        ps.setInt(3, p.getEdad());
+        ps.setString(4, p.getDepartamento());
+        ps.setString(5, p.getFoto().toString());
+        ps.setInt(6, p.getIdPolicia());
+        return ps.executeUpdate();
 
     }
 }

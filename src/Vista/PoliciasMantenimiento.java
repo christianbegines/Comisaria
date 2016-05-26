@@ -76,13 +76,12 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         edadL = new javax.swing.JLabel();
         departamentoL = new javax.swing.JLabel();
         textoDepartamento = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        ImagenL = new javax.swing.JLabel();
         labelIdPolicia = new javax.swing.JLabel();
         idPoliciaL = new javax.swing.JLabel();
         botonImagen = new javax.swing.JButton();
         botonInsert = new javax.swing.JButton();
         rutaArchivo = new javax.swing.JLabel();
+        ImagenL = new javax.swing.JLabel();
         panelpestañamultas = new javax.swing.JPanel();
         panelTablaMulta = new javax.swing.JScrollPane();
         tablaMultas = new javax.swing.JTable();
@@ -136,7 +135,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         NumeroPlacaL.setText("Nº Placa");
 
         textoNumeroPlaca.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        textoNumeroPlaca.setForeground(new java.awt.Color(0, 0, 0));
         textoNumeroPlaca.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         textoNumeroPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,11 +147,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         NombreL.setText("Nombre");
 
         textNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        textNombre.setForeground(new java.awt.Color(0, 0, 0));
         textNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         textoEdad.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        textoEdad.setForeground(new java.awt.Color(0, 0, 0));
         textoEdad.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         textoEdad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,23 +166,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         departamentoL.setText("Departamento");
 
         textoDepartamento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        textoDepartamento.setForeground(new java.awt.Color(0, 0, 0));
         textoDepartamento.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        ImagenL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoanonimo.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(ImagenL)
-                .addGap(0, 35, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ImagenL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-        );
 
         labelIdPolicia.setBackground(new java.awt.Color(0, 102, 204));
         labelIdPolicia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -194,7 +174,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         labelIdPolicia.setText("idPolicia");
 
         idPoliciaL.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        idPoliciaL.setForeground(new java.awt.Color(0, 0, 0));
 
         botonImagen.setBackground(new java.awt.Color(0, 102, 204));
         botonImagen.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -216,6 +195,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 botonInsertActionPerformed(evt);
             }
         });
+
+        ImagenL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoanonimo.jpg"))); // NOI18N
 
         javax.swing.GroupLayout panelPerfilLayout = new javax.swing.GroupLayout(panelPerfil);
         panelPerfil.setLayout(panelPerfilLayout);
@@ -246,14 +227,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                                 .addComponent(departamentoL, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
-                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
-                                .addComponent(botonImagen)
-                                .addGap(30, 30, 30))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ImagenL)
+                            .addComponent(botonImagen))
+                        .addGap(30, 30, 30))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPerfilLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rutaArchivo)
@@ -263,9 +241,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPerfilLayout.createSequentialGroup()
                 .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPerfilLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(panelPerfilLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,12 +258,16 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                         .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edadL, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(departamentoL)
-                    .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonImagen))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(departamentoL)
+                            .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(panelPerfilLayout.createSequentialGroup()
+                        .addComponent(ImagenL, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonImagen)
+                        .addGap(20, 20, 20)))
                 .addComponent(rutaArchivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -383,7 +362,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     .addComponent(titulo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelPestañas, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addContainerGap())
         );
 
         panelPestañas.getAccessibleContext().setAccessibleName("Perfil");
@@ -432,7 +411,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.textNombre.setText(this.policia.getNombre());
             this.textoNumeroPlaca.setText(this.policia.getNumPlaca());
             this.textoDepartamento.setText(this.policia.getDepartamento());
-            if (this.policia.getEdad()!=null) {
+            if (this.policia.getEdad() != null) {
                 this.textoEdad.setText(this.policia.getEdad().toString());
             }
             this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
@@ -440,7 +419,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 Image i = Toolkit.getDefaultToolkit().getImage(this.policia.getFoto().toString());
                 ImageIcon fotoPerfil = new ImageIcon(i);
                 this.ImagenL.setIcon(fotoPerfil);
-
             } catch (NullPointerException ex) {
                 Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -519,14 +497,29 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     }
                     int rows = this.datos.insertaPolicia(this.policia);
                     if (rows > 0) {
-                        JOptionPane.showMessageDialog(null, "Policia insertado", "Policia insertado", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Policia insertado", "Policia " + this.datos.getMaxIdPolicia() + " insertado", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
-            // actualiza
+            if (this.textoNumeroPlaca.getText().isEmpty() | this.textNombre.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null,"No puedes dejar vacios los campos nombre y numero de placa","campos obligatorios vacios", JOptionPane.WARNING_MESSAGE);
+            }else{
+                try {
+                    Policia modificado = new Policia(Integer.parseInt(this.idPoliciaL.getText()),
+                            this.textNombre.getText(),this.textoNumeroPlaca.getText(),
+                            Integer.parseInt(this.textoEdad.getText()),this.textoDepartamento.getText(),
+                            Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(),
+                                this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/"
+                                + this.idPoliciaL.getText() + ".jpg")));
+                    this.datos.actualizarPolicia(modificado);
+                } catch (SQLException | IOException ex) {
+                    Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }//GEN-LAST:event_botonInsertActionPerformed
     /**
@@ -538,10 +531,12 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         this.hayPolicia = true;
         this.policia = policia;
     }
-/**
- * Rellena la tabla de multas
- * @param orden recoje el orden del combobox
- */
+
+    /**
+     * Rellena la tabla de multas
+     *
+     * @param orden recoje el orden del combobox
+     */
     private void rellenarTablaMultas(String orden) {
         try {
             String[] filas = new String[7];
@@ -580,7 +575,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JLabel departamentoL;
     private javax.swing.JLabel edadL;
     private javax.swing.JLabel idPoliciaL;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelIdPolicia;
     private javax.swing.JPanel menuCerrar;
     private javax.swing.JComboBox orden;

@@ -69,7 +69,10 @@ public class TipoMulta {
         this.carnetPuntos = carnetPuntos;
     }
     
-    
+    @Override
+    public String toString(){
+      
+    return descripcion;}
     
     
     

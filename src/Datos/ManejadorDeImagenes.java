@@ -29,7 +29,8 @@ public class ManejadorDeImagenes {
             bimage = resize(bimage, MAX_WIDTH, heigt);
         }
         saveImage(bimage, copyPath);
-    return copyPath;}
+    return copyPath;
+    }
      
     /*
     Este método se utiliza para cargar la imagen de disco
