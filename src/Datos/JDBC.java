@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author daw1
+ * @author 
  */
 public class JDBC {
 
