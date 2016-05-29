@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,22 @@ public class JDBC {
             ps.setString(6, p.getDepartamento());
         }
 
+        return ps.executeUpdate();
+    }
+    
+    public int insertarMultas(Multa m) throws SQLException{
+        PreparedStatement ps=null ;
+        String sql="insert into multas (descripcion,fecha,importe,idpolicia,nifinfractor,idtipo) values(?,?,?,?,?,?)";
+        
+        if(m.getIdPolicia()!=null || m.getDescripcion()!=null){
+            ps=this.con.prepareStatement(sql);
+            ps.setString(1,m.getDescripcion());
+            ps.setTimestamp(2,Timestamp.valueOf(m.getFecha()));
+            ps.setDouble(3, m.getImporte());
+            ps.setInt(4,m.getIdPolicia());
+            ps.setString(5,m.getNifInfractor());
+            ps.setInt(6, m.getIdTipo());
+        }
         return ps.executeUpdate();
     }
 

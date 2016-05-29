@@ -38,6 +38,10 @@ public class Multa {
         this.idTipo = idTipo;
     }
 
+    public Multa() {
+       
+    }
+
     public Integer getId() {
         return id;
     }

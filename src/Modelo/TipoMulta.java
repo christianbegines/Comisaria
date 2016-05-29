@@ -8,6 +8,10 @@ package Modelo;
  * @version beta1.0
  */
 public class TipoMulta {
+
+    public TipoMulta() {
+       
+    }
     
     private enum tiposMulta  { L, G , MG };
     

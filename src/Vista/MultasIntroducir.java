@@ -6,14 +6,17 @@
 package Vista;
 
 import Datos.JDBC;
+import Modelo.Multa;
 import Modelo.TipoMulta;
 import java.awt.Component;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -141,6 +144,11 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         comboTipoMulta.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         comboTipoMulta.setForeground(new java.awt.Color(0, 102, 204));
+        comboTipoMulta.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboTipoMultaItemStateChanged(evt);
+            }
+        });
         comboTipoMulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTipoMultaActionPerformed(evt);
@@ -163,6 +171,11 @@ public class MultasIntroducir extends javax.swing.JDialog {
         botonInsertar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         botonInsertar.setForeground(new java.awt.Color(255, 255, 255));
         botonInsertar.setText("INSERTAR");
+        botonInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInsertarActionPerformed(evt);
+            }
+        });
 
         labelNumeroId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelNumeroId.setText("---");
@@ -328,11 +341,13 @@ public class MultasIntroducir extends javax.swing.JDialog {
     }//GEN-LAST:event_comboTipoMultaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
-        try {
-            for(TipoMulta m :this.datos.obtenerTiposMulta()){
+        TipoMulta tm=new TipoMulta();        
+        try {         
+            for( TipoMulta m :this.datos.obtenerTiposMulta()){
                 this.comboTipoMulta.addItem(m);
+                tm=this.datos.obtenerTiposMulta().get(0);
             }
+            this.textoImporte.setText(tm.getImporte().toString());
             
         } catch (SQLException ex) {
             Logger.getLogger(MultasIntroducir.class.getName()).log(Level.SEVERE, null, ex);
@@ -343,6 +358,43 @@ public class MultasIntroducir extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_textoNifInfractorActionPerformed
+
+    private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
+       Multa m= new Multa() ;
+       TipoMulta tm = (TipoMulta)this.comboTipoMulta.getSelectedItem();
+       if(!this.textIdPolicia.getText().isEmpty() && !this.areaDescripcion.getText().isEmpty()){
+         
+         m.setDescripcion(this.areaDescripcion.getText());
+         m.setFecha(LocalDateTime.now());
+         m.setIdPolicia(Integer.valueOf(this.textIdPolicia.getText()));
+         m.setImporte(Double.valueOf(this.textoImporte.getText()));
+         m.setNifInfractor(this.textoNifInfractor.getText());
+         m.setIdTipo(tm.getId());
+         
+           try {
+               int rows = this.datos.insertarMultas(m);
+                    if (rows > 0) {
+                        JOptionPane.showMessageDialog(null, "Multa insertado", "Multa " + this.datos.getMaxIdPolicia() + " insertado", JOptionPane.INFORMATION_MESSAGE);
+                    }
+           } catch (SQLException ex) {
+              JOptionPane.showMessageDialog(null, "Multa NO  insertado"+ex.getMessage() ,"Multa No insertado", JOptionPane.INFORMATION_MESSAGE);
+           }
+         
+         
+       }else if(this.textIdPolicia.getText().isEmpty()){
+           JOptionPane.showMessageDialog(null, "Campo Idpolicia vacio","Campo Vacio" ,JOptionPane.INFORMATION_MESSAGE);
+       } else {
+            JOptionPane.showMessageDialog(null, "Campo Descripcion vacio","Campo Vacio" ,JOptionPane.INFORMATION_MESSAGE);
+
+       }
+           
+    }//GEN-LAST:event_botonInsertarActionPerformed
+
+    private void comboTipoMultaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTipoMultaItemStateChanged
+       TipoMulta tm;
+       tm=(TipoMulta)this.comboTipoMulta.getSelectedItem();
+       this.textoImporte.setText(tm.getImporte().toString());
+    }//GEN-LAST:event_comboTipoMultaItemStateChanged
 
     private JDBC datos;
     private int x;
