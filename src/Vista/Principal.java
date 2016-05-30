@@ -64,7 +64,7 @@ public class Principal extends javax.swing.JFrame {
         panelOrden = new javax.swing.JPanel();
         ordenarPor = new javax.swing.JLabel();
         listaPolicias = new javax.swing.JLabel();
-        orden = new javax.swing.JComboBox<String>();
+        orden = new javax.swing.JComboBox<>();
         panelTabla = new javax.swing.JScrollPane();
         tablaPolicias = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -265,7 +265,7 @@ public class Principal extends javax.swing.JFrame {
         listaPolicias.setForeground(new java.awt.Color(0, 102, 204));
         listaPolicias.setText("POLICIAS");
 
-        orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
+        orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
         orden.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ordenItemStateChanged(evt);
@@ -361,21 +361,19 @@ public class Principal extends javax.swing.JFrame {
                             .add(panelMain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 658, Short.MAX_VALUE)
                             .add(menuCerrarLayout.createSequentialGroup()
                                 .add(12, 12, 12)
-                                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                     .add(menuCerrarLayout.createSequentialGroup()
                                         .add(borrar)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(limpiarSeleccion)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .add(botonCargar)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .add(menuCerrarLayout.createSequentialGroup()
-                                        .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                            .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                .add(panelTabla)
-                                                .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .add(0, 24, Short.MAX_VALUE)))))
+                                        .add(botonCargar))
+                                    .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                        .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(panelTabla)
+                                            .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .add(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .add(menuCerrarLayout.createSequentialGroup()
                         .add(minimizar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
