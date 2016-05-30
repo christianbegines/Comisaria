@@ -98,6 +98,9 @@ public class Multa {
         this.idTipo = idTipo;
     }
        
-    
+    public String datosPolicia(){
+        return "Multa Nº: "+ this.id;
+        
+    }
     
 }
