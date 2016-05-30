@@ -8,14 +8,10 @@ package Vista;
 import Datos.JDBC;
 import Modelo.Multa;
 import Modelo.TipoMulta;
-import java.awt.Component;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.sql.Connection;
-
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
