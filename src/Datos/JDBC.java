@@ -266,7 +266,7 @@ public class JDBC {
            
                 String[] datos = new String[6];
                 datos = linea.split(",");
-                System.out.println("0: " + datos[0] + " 1: " + datos[1] + " 5: " + datos[5]);
+                
                 idPolicia = datos[0];
                 nombre = datos[1];
                 numplaca = datos[2];
