@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Datos.ErrorDatos;
 import Datos.JDBC;
 import Modelo.Multa;
 import Modelo.TipoMulta;
@@ -369,9 +370,12 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     if (rows > 0) {
                         JOptionPane.showMessageDialog(null, "Multa insertado", "Multa " + this.datos.getMaxIdPolicia() + " insertado", JOptionPane.INFORMATION_MESSAGE);
                     }
-           } catch (SQLException ex) {
-              JOptionPane.showMessageDialog(null, "Multa NO  insertado"+ex.getMessage() ,"Multa No insertado", JOptionPane.INFORMATION_MESSAGE);
+           } catch (SQLException ex ) {
+              JOptionPane.showMessageDialog(null, "Multa NO  insertado" ,"Multa No insertado", JOptionPane.INFORMATION_MESSAGE);
+           } catch (ErrorDatos es){
+               JOptionPane.showMessageDialog(null, "Multa NO  insertado","Campos descripcion o idPolicia vacios", JOptionPane.INFORMATION_MESSAGE);
            }
+           
          
          
        }else if(this.textIdPolicia.getText().isEmpty()){

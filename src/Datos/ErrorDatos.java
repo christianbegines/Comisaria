@@ -12,7 +12,7 @@ package Datos;
 public class ErrorDatos extends RuntimeException{
     
     public ErrorDatos(){
-        super("");
+        super();
     }
     
 }

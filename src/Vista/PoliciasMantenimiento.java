@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Datos.ErrorDatos;
 import Datos.JDBC;
 import Datos.ManejadorDeImagenes;
 import Datos.SelectorDeArchivo;
@@ -502,6 +503,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     
                 } catch (SQLException ex) {
                     Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                }catch(ErrorDatos es){
+                    JOptionPane.showMessageDialog(null, "Policia no insertado","Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         } else {

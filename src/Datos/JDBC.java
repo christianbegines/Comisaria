@@ -33,31 +33,8 @@ public class JDBC {
     }
 
     public int insertaPolicia(Policia p) throws SQLException {
-        PreparedStatement ps;
-        if (p.getEdad() == null && p.getDepartamento() == null) {
-            String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto) VALUES(?,?,?,?)";
-            ps = this.con.prepareStatement(sql);
-            ps.setInt(1, p.getIdPolicia());
-            ps.setString(2, p.getNumPlaca());
-            ps.setString(3, p.getNombre());
-            ps.setString(4, p.getFoto().toString());
-        } else if (p.getEdad() == null) {
-            String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,departamento) VALUES(?,?,?,?,?)";
-            ps = this.con.prepareStatement(sql);
-            ps.setInt(1, p.getIdPolicia());
-            ps.setString(2, p.getNumPlaca());
-            ps.setString(3, p.getNombre());
-            ps.setString(4, p.getFoto().toString());
-            ps.setString(5, p.getDepartamento());
-        } else if (p.getDepartamento() == null) {
-            String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad) VALUES(?,?,?,?,?)";
-            ps = this.con.prepareStatement(sql);
-            ps.setInt(1, p.getIdPolicia());
-            ps.setString(2, p.getNumPlaca());
-            ps.setString(3, p.getNombre());
-            ps.setString(4, p.getFoto().toString());
-            ps.setInt(5, p.getEdad());
-        } else {
+        PreparedStatement ps=null;
+        if(p.getIdPolicia()!=null && p.getNumPlaca()!=null && p.getNombre()!=null){
             String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad,departamento) VALUES(?,?,?,?,?,?)";
             ps = this.con.prepareStatement(sql);
             ps.setInt(1, p.getIdPolicia());
@@ -66,6 +43,8 @@ public class JDBC {
             ps.setString(4, p.getFoto().toString());
             ps.setInt(5, p.getEdad());
             ps.setString(6, p.getDepartamento());
+        }else{
+            throw new ErrorDatos();
         }
 
         return ps.executeUpdate();
@@ -73,8 +52,7 @@ public class JDBC {
     
     public int insertarMultas(Multa m) throws SQLException{
         PreparedStatement ps=null ;
-        String sql="insert into multas (descripcion,fecha,importe,idpolicia,nifinfractor,idtipo) values(?,?,?,?,?,?)";
-        
+        String sql="insert into multas (descripcion,fecha,importe,idpolicia,nifinfractor,idtipo) values(?,?,?,?,?,?)";        
         if(m.getIdPolicia()!=null || m.getDescripcion()!=null){
             ps=this.con.prepareStatement(sql);
             ps.setString(1,m.getDescripcion());
@@ -83,7 +61,10 @@ public class JDBC {
             ps.setInt(4,m.getIdPolicia());
             ps.setString(5,m.getNifInfractor());
             ps.setInt(6, m.getIdTipo());
+        }else {
+            throw new ErrorDatos();
         }
+            
         return ps.executeUpdate();
     }
 
