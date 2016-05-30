@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,12 +64,13 @@ public class Principal extends javax.swing.JFrame {
         panelOrden = new javax.swing.JPanel();
         ordenarPor = new javax.swing.JLabel();
         listaPolicias = new javax.swing.JLabel();
-        orden = new javax.swing.JComboBox<>();
+        orden = new javax.swing.JComboBox<String>();
         panelTabla = new javax.swing.JScrollPane();
         tablaPolicias = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         borrar = new javax.swing.JButton();
         limpiarSeleccion = new javax.swing.JButton();
+        botonCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comisaria Rubén & Christian");
@@ -263,17 +265,17 @@ public class Principal extends javax.swing.JFrame {
         listaPolicias.setForeground(new java.awt.Color(0, 102, 204));
         listaPolicias.setText("POLICIAS");
 
-        orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
+        orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "idPolicia", "nombre", "numPlaca", "edad", "departamento" }));
         orden.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ordenItemStateChanged(evt);
             }
         });
         orden.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 ordenCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         orden.addActionListener(new java.awt.event.ActionListener() {
@@ -340,6 +342,13 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        botonCargar.setText("Cargar Archivo");
+        botonCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCargarActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout menuCerrarLayout = new org.jdesktop.layout.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
         menuCerrarLayout.setHorizontalGroup(
@@ -352,17 +361,21 @@ public class Principal extends javax.swing.JFrame {
                             .add(panelMain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 658, Short.MAX_VALUE)
                             .add(menuCerrarLayout.createSequentialGroup()
                                 .add(12, 12, 12)
-                                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(menuCerrarLayout.createSequentialGroup()
-                                            .add(borrar)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(limpiarSeleccion))
-                                        .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                            .add(panelTabla)
-                                            .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .add(0, 4, Short.MAX_VALUE)))
+                                .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(menuCerrarLayout.createSequentialGroup()
+                                        .add(borrar)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(limpiarSeleccion)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(botonCargar)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .add(menuCerrarLayout.createSequentialGroup()
+                                        .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                            .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                                .add(panelTabla)
+                                                .add(panelOrden, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .add(0, 24, Short.MAX_VALUE)))))
                         .addContainerGap())
                     .add(menuCerrarLayout.createSequentialGroup()
                         .add(minimizar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -390,7 +403,8 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(borrar)
-                    .add(limpiarSeleccion))
+                    .add(limpiarSeleccion)
+                    .add(botonCargar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -533,6 +547,27 @@ public class Principal extends javax.swing.JFrame {
     private void limpiarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarSeleccionActionPerformed
         this.tablaPolicias.clearSelection();
     }//GEN-LAST:event_limpiarSeleccionActionPerformed
+
+    private void botonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarActionPerformed
+        try {
+            final JFileChooser fc = new JFileChooser();
+            int indice = fc.showSaveDialog(null);
+            if (indice == JFileChooser.APPROVE_OPTION) {
+                fichero = fc.getSelectedFile();
+                ruta=fichero.getAbsolutePath();
+            }
+            int registros = datos.obtenerPoliciasFichero(fichero);
+            if (registros != 0) {
+                JOptionPane.showMessageDialog(rootPane, "Datos Cargados");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Datos NO cargados :", null, JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Datos NO cargados"+ex.getMessage(), null, JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Datos NO cargados :" + ex.getMessage(), null, JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_botonCargarActionPerformed
     private void rellenarTabla(String orden) throws IOException {
         try {
             String[] filas = new String[6];
@@ -568,10 +603,13 @@ public class Principal extends javax.swing.JFrame {
     private final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/icono.png"));
     private int x = 0;
     private int y = 0;
+    private File fichero;
+    private String ruta;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BD;
     private javax.swing.JLabel autores;
     private javax.swing.JButton borrar;
+    private javax.swing.JButton botonCargar;
     private javax.swing.JLabel cerrar;
     private javax.swing.JLabel estadoConexion;
     private javax.swing.JButton gestionarMultas;

@@ -3,6 +3,11 @@ package Datos;
 import Modelo.Multa;
 import Modelo.Policia;
 import Modelo.TipoMulta;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -17,7 +22,7 @@ import java.util.List;
 
 /**
  *
- * @author 
+ * @author
  */
 public class JDBC {
 
@@ -33,8 +38,8 @@ public class JDBC {
     }
 
     public int insertaPolicia(Policia p) throws SQLException {
-        PreparedStatement ps=null;
-        if(p.getIdPolicia()!=null && p.getNumPlaca()!=null && p.getNombre()!=null){
+        PreparedStatement ps = null;
+        if (p.getIdPolicia() != null && p.getNumPlaca() != null && p.getNombre() != null) {
             String sql = "INSERT INTO policia (idPolicia,numplaca,nombre,foto,edad,departamento) VALUES(?,?,?,?,?,?)";
             ps = this.con.prepareStatement(sql);
             ps.setInt(1, p.getIdPolicia());
@@ -43,28 +48,28 @@ public class JDBC {
             ps.setString(4, p.getFoto().toString());
             ps.setInt(5, p.getEdad());
             ps.setString(6, p.getDepartamento());
-        }else{
+        } else {
             throw new ErrorDatos();
         }
 
         return ps.executeUpdate();
     }
-    
-    public int insertarMultas(Multa m) throws SQLException{
-        PreparedStatement ps=null ;
-        String sql="insert into multas (descripcion,fecha,importe,idpolicia,nifinfractor,idtipo) values(?,?,?,?,?,?)";        
-        if(m.getIdPolicia()!=null || m.getDescripcion()!=null){
-            ps=this.con.prepareStatement(sql);
-            ps.setString(1,m.getDescripcion());
-            ps.setTimestamp(2,Timestamp.valueOf(m.getFecha()));
+
+    public int insertarMultas(Multa m) throws SQLException {
+        PreparedStatement ps = null;
+        String sql = "insert into multas (descripcion,fecha,importe,idpolicia,nifinfractor,idtipo) values(?,?,?,?,?,?)";
+        if (m.getIdPolicia() != null || m.getDescripcion() != null) {
+            ps = this.con.prepareStatement(sql);
+            ps.setString(1, m.getDescripcion());
+            ps.setTimestamp(2, Timestamp.valueOf(m.getFecha()));
             ps.setDouble(3, m.getImporte());
-            ps.setInt(4,m.getIdPolicia());
-            ps.setString(5,m.getNifInfractor());
+            ps.setInt(4, m.getIdPolicia());
+            ps.setString(5, m.getNifInfractor());
             ps.setInt(6, m.getIdTipo());
-        }else {
+        } else {
             throw new ErrorDatos();
         }
-            
+
         return ps.executeUpdate();
     }
 
@@ -230,21 +235,61 @@ public class JDBC {
         return ps.executeUpdate();
 
     }
-    public List<TipoMulta> obtenerTiposMulta() throws SQLException{
+
+    public List<TipoMulta> obtenerTiposMulta() throws SQLException {
         List<TipoMulta> listaTipos = new ArrayList<>();
-        PreparedStatement ps= this.con.prepareStatement("select * from multastipo");
-        ResultSet rs= ps.executeQuery();
-        while(rs.next()){
-            Integer id=rs.getInt("id");
+        PreparedStatement ps = this.con.prepareStatement("select * from multastipo");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("id");
             String descripcion = rs.getString("descripcion");
             Double importe = rs.getDouble("importe");
-            TipoMulta tipoMulta = new TipoMulta(id,descripcion);
-            if(importe != 0){
+            TipoMulta tipoMulta = new TipoMulta(id, descripcion);
+            if (importe != 0) {
                 tipoMulta.setImporte(importe);
             }
             listaTipos.add(tipoMulta);
-            
-        }                    
+
+        }
         return listaTipos;
+    }
+
+    public int obtenerPoliciasFichero(File fichero) throws FileNotFoundException, IOException, SQLException {
+        String idPolicia, nombre, numplaca, edad, departamento, foto;
+        int resultado = 0;
+        String sql = "insert into policia (idPolicia,nombre,numplaca,edad,departamento,foto) values(?,?,?,?,?,?)";
+        PreparedStatement ps;
+        BufferedReader br = new BufferedReader(new FileReader(fichero));
+        String linea = null;
+        br.readLine();
+        while ((linea = br.readLine()) != null) {
+           
+                String[] datos = new String[6];
+                datos = linea.split(",");
+                System.out.println("0: " + datos[0] + " 1: " + datos[1] + " 5: " + datos[5]);
+                idPolicia = datos[0];
+                nombre = datos[1];
+                numplaca = datos[2];
+                edad = datos[3];
+                departamento = datos[4];
+                if (!(foto = datos[5]).equalsIgnoreCase("NULL")) {
+                    foto = datos[5];
+                } else {
+                    foto = "";
+                }
+                
+                ps = this.con.prepareStatement(sql);
+                ps.setInt(1, Integer.valueOf(idPolicia));
+                ps.setString(2, nombre);
+                ps.setString(3, numplaca);
+                ps.setInt(4, Integer.valueOf(edad));
+                ps.setString(5, departamento);
+                ps.setString(6, foto);
+                resultado = ps.executeUpdate();
+            
+ 
+
+        }
+        return resultado;
     }
 }
