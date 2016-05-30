@@ -99,7 +99,13 @@ public class Multa {
     }
        
     public String datosPolicia(){
-        return "Multa Nº: "+ this.id;
+        return "Multa Nº: "+ this.id + "\r\n"+
+               "Descripcion :"+this.descripcion + "\r\n"+
+               "Fecha :"+ this.fecha+"\r\n"+
+               "Importe :"+this.importe+"\r\n"+
+               "IdPolicia :"+this.idPolicia+"\r\n"+
+               "NifInfractor :"+this.nifInfractor+"\r\n"+
+               "IdTipo :" + this.idTipo;
         
     }
     

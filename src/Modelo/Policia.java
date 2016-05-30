@@ -88,7 +88,17 @@ public class Policia {
 
     @Override
     public String toString() {
-        return "Policia{" + "idPolicia=" + idPolicia + ", numeroDePlaca=" + numeroDePlaca + ", nombre=" + nombre + ", numPlaca=" + numPlaca + ", edad=" + edad + ", departamento=" + departamento + ", foto=" + foto + '}';
+        return "Policia :"  + idPolicia + "Nº "+ numeroDePlaca;
+               
+    }
+     public String obtenerDatosPolicia() {
+        return "Policia :"  + idPolicia +"\r\n"+
+               "NumeroDePlaca :" + numeroDePlaca + "\r\n" +
+               "Nombre :" + nombre + "\r\n"+
+               "numPlaca :" + numPlaca + "\r\n"+
+               "edad :" + edad + "\r\n"+
+               "departamento :" + departamento + "\r\n"+
+               "foto :" + foto + "\r\n";
     }
     
     
