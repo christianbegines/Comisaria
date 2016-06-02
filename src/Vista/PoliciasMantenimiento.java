@@ -76,13 +76,13 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         textoEdad = new javax.swing.JTextField();
         edadL = new javax.swing.JLabel();
         departamentoL = new javax.swing.JLabel();
-        textoDepartamento = new javax.swing.JTextField();
         labelIdPolicia = new javax.swing.JLabel();
         idPoliciaL = new javax.swing.JLabel();
         botonImagen = new javax.swing.JButton();
         botonInsert = new javax.swing.JButton();
         rutaArchivo = new javax.swing.JLabel();
         ImagenL = new javax.swing.JLabel();
+        textoDepartamento = new javax.swing.JFormattedTextField();
         panelpestañamultas = new javax.swing.JPanel();
         panelTablaMulta = new javax.swing.JScrollPane();
         tablaMultas = new javax.swing.JTable();
@@ -166,9 +166,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         departamentoL.setForeground(new java.awt.Color(0, 102, 204));
         departamentoL.setText("Departamento");
 
-        textoDepartamento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        textoDepartamento.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
         labelIdPolicia.setBackground(new java.awt.Color(0, 102, 204));
         labelIdPolicia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelIdPolicia.setForeground(new java.awt.Color(0, 102, 204));
@@ -199,6 +196,12 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
 
         ImagenL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoanonimo.jpg"))); // NOI18N
 
+        try {
+            textoDepartamento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####LL")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout panelPerfilLayout = new javax.swing.GroupLayout(panelPerfil);
         panelPerfil.setLayout(panelPerfilLayout);
         panelPerfilLayout.setHorizontalGroup(
@@ -226,9 +229,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                                     .addComponent(textoNumeroPlaca)))
                             .addGroup(panelPerfilLayout.createSequentialGroup()
                                 .addComponent(departamentoL, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                         .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(ImagenL)
                             .addComponent(botonImagen))
@@ -260,9 +263,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                             .addComponent(textoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edadL, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(departamentoL)
-                            .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelPerfilLayout.createSequentialGroup()
+                                .addComponent(textoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(panelPerfilLayout.createSequentialGroup()
                         .addComponent(ImagenL, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
@@ -597,7 +602,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JLabel rutaArchivo;
     private javax.swing.JTable tablaMultas;
     private javax.swing.JTextField textNombre;
-    private javax.swing.JTextField textoDepartamento;
+    private javax.swing.JFormattedTextField textoDepartamento;
     private javax.swing.JTextField textoEdad;
     private javax.swing.JTextField textoNumeroPlaca;
     private javax.swing.JLabel titulo;

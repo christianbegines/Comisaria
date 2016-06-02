@@ -13,10 +13,12 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.logging.Level;
@@ -38,19 +40,19 @@ public class MultasIntroducir extends javax.swing.JDialog {
         super(parent, modal);
         this.setLocation(400, 100);
         this.setUndecorated(true);
-
+        
         initComponents();
         JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(this.hora, "HH:mm:ss");
-this.hora.setEditor(timeEditor);
-this.hora.setValue(new Date());
+        this.hora.setEditor(timeEditor);
+        this.hora.setValue(new Date());
         
     }
 
     /**
-     * @param datos 
+     * @param datos
      */
     public void setConexion(JDBC datos) {
-        this.datos=datos;
+        this.datos = datos;
     }
 
     /**
@@ -356,11 +358,11 @@ this.hora.setValue(new Date());
     }//GEN-LAST:event_comboTipoMultaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        TipoMulta tm=new TipoMulta();        
-        try {         
-            for( TipoMulta m :this.datos.obtenerTiposMulta()){
+        TipoMulta tm = new TipoMulta();
+        try {
+            for (TipoMulta m : this.datos.obtenerTiposMulta()) {
                 this.comboTipoMulta.addItem(m);
-                tm=this.datos.obtenerTiposMulta().get(0);
+                tm = this.datos.obtenerTiposMulta().get(0);
             }
             this.textoImporte.setText(tm.getImporte().toString());
             
@@ -371,73 +373,83 @@ this.hora.setValue(new Date());
 
     private void textoNifInfractorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNifInfractorActionPerformed
         
-        
+
     }//GEN-LAST:event_textoNifInfractorActionPerformed
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
-       Multa m= new Multa() ;
-       TipoMulta tm = (TipoMulta)this.comboTipoMulta.getSelectedItem();
-       if(!this.textIdPolicia.getText().isEmpty() && !this.areaDescripcion.getText().isEmpty()){
-         DateTimeFormatter formato =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-           Date convertirHora = (Date) this.hora.getValue();
-           Timestamp convertidaHora = Timestamp.from(convertirHora.toInstant());
-           Date convertirFecha = (Date) this.hora.getValue();
-           Timestamp convertidaFecha = Timestamp.from(convertirFecha.toInstant());
-         LocalDateTime fechaToGethora =  convertidaHora.toLocalDateTime();
-         LocalDateTime fechaToGetFecha = convertidaFecha.toLocalDateTime();
-         int año = fechaToGetFecha.getYear();
-         int mes = fechaToGetFecha.getMonthValue();
-         int dia = fechaToGetFecha.getDayOfMonth();
-         String diaToFormat = dia+"";
-           if (dia<10) {
-               diaToFormat = "0".concat(diaToFormat);
-           }
-           String mesToFormat = mes+"";
-           if (dia<10) {
-               mesToFormat = "0".concat(mesToFormat);
-           }
-           System.out.println(diaToFormat);
-         int hora = fechaToGethora.getHour();
-         int minutos = fechaToGethora.getMinute();
-         int segundos = fechaToGethora.getSecond();
-//         LocalDateTime fechaLista = LocalDateTime.parse(año + "-" + mes + "-"+ dia + " " + hora +":" + minutos + ":" + segundos);
-LocalDateTime fechaLista = LocalDateTime.parse(año + "-" + mesToFormat + "-"+ diaToFormat + " " + hora +":" + minutos + ":" + segundos, formato);
-           
-         m.setDescripcion(this.areaDescripcion.getText());
-         m.setFecha(fechaLista);
-         m.setIdPolicia(Integer.valueOf(this.textIdPolicia.getText()));
-         m.setImporte(Double.valueOf(this.textoImporte.getText()));
-         m.setNifInfractor(this.textoNifInfractor.getText());
-         m.setIdTipo(tm.getId());
-         
-           try {
-               int rows = this.datos.insertarMultas(m);
+        Multa m = new Multa();
+        TipoMulta tm = (TipoMulta) this.comboTipoMulta.getSelectedItem();
+        if (!this.textIdPolicia.getText().isEmpty() && !this.areaDescripcion.getText().isEmpty()) {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            Date convertirHora = (Date) this.hora.getValue();
+            Timestamp convertidaHora = Timestamp.from(convertirHora.toInstant());
+            Date convertirFecha = (Date) this.hora.getValue();
+            Timestamp convertidaFecha = Timestamp.from(convertirFecha.toInstant());
+            LocalDateTime fechaToGethora = convertidaHora.toLocalDateTime();
+            LocalDateTime fechaToGetFecha = convertidaFecha.toLocalDateTime();
+            int año = fechaToGetFecha.getYear();
+            int mes = fechaToGetFecha.getMonthValue();
+            int dia = fechaToGetFecha.getDayOfMonth();
+            String diaToFormat = dia + "";
+            if (dia < 10) {
+                diaToFormat = "0".concat(diaToFormat);
+            }
+            String mesToFormat = mes + "";
+            if (mes < 10) {
+                mesToFormat = "0".concat(mesToFormat);
+            }
+            int hora = fechaToGethora.getHour();
+            String horaToFormat = hora + "";
+            if (hora < 10) {
+                horaToFormat = "0".concat(horaToFormat);
+            }
+            int minutos = fechaToGethora.getMinute();
+            String minutosToFormat = minutos + "";
+            if (minutos < 10) {
+                minutosToFormat = "0".concat(minutosToFormat);
+            }
+            int segundos = fechaToGethora.getSecond();
+            String segundosToFormat = segundos + "";
+            if (segundos < 10) {
+                segundosToFormat = "0".concat(segundosToFormat);
+            }
+            LocalDateTime fechaParaIntroducir = LocalDateTime.parse(año + "-" + mesToFormat + "-" + diaToFormat + " " + horaToFormat + ":" + minutosToFormat + ":" + segundosToFormat, formato);
+            if (!fechaParaIntroducir.isAfter(LocalDateTime.now())) {
+                m.setDescripcion(this.areaDescripcion.getText());
+                m.setFecha(fechaParaIntroducir);
+                m.setIdPolicia(Integer.valueOf(this.textIdPolicia.getText()));
+                m.setImporte(Double.valueOf(this.textoImporte.getText()));
+                m.setNifInfractor(this.textoNifInfractor.getText());
+                m.setIdTipo(tm.getId());
+                try {
+                    int rows = this.datos.insertarMultas(m);
                     if (rows > 0) {
-                        JOptionPane.showMessageDialog(null, "Multa insertado", "Multa " + this.datos.getMaxIdPolicia() + " insertado", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Multa insertado", "Multa  insertado", JOptionPane.INFORMATION_MESSAGE);
                     }
-           } catch (SQLException ex ) {
-              JOptionPane.showMessageDialog(null, "Multa NO  insertado" ,"Multa No insertado", JOptionPane.INFORMATION_MESSAGE);
-           } catch (ErrorDatos es){
-               JOptionPane.showMessageDialog(null, "Multa NO  insertado","Campos descripcion o idPolicia vacios", JOptionPane.INFORMATION_MESSAGE);
-           }
-           
-         
-         
-       }else if(this.textIdPolicia.getText().isEmpty()){
-           JOptionPane.showMessageDialog(null, "Campo Idpolicia vacio","Campo Vacio" ,JOptionPane.INFORMATION_MESSAGE);
-       } else {
-            JOptionPane.showMessageDialog(null, "Campo Descripcion vacio","Campo Vacio" ,JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Multa No insertado", JOptionPane.INFORMATION_MESSAGE);
+                } catch (ErrorDatos es) {
+                    JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Campos descripcion o idPolicia vacios", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Fecha invalida, no puedes poner una multa con fecha posterior a la actual", "Error de fecha", JOptionPane.WARNING_MESSAGE);
+            }
+            
+        } else if (this.textIdPolicia.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo Idpolicia vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Campo Descripcion vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+            
+        }
 
-       }
-           
     }//GEN-LAST:event_botonInsertarActionPerformed
 
     private void comboTipoMultaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTipoMultaItemStateChanged
-       TipoMulta tm;
-       tm=(TipoMulta)this.comboTipoMulta.getSelectedItem();
-       this.textoImporte.setText(tm.getImporte().toString());
+        TipoMulta tm;
+        tm = (TipoMulta) this.comboTipoMulta.getSelectedItem();
+        this.textoImporte.setText(tm.getImporte().toString());
     }//GEN-LAST:event_comboTipoMultaItemStateChanged
-
+    
     private JDBC datos;
     private int x;
     private int y;
