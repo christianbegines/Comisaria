@@ -559,7 +559,7 @@ public class Principal extends javax.swing.JFrame {
         int registros = 0;
         try {
             final JFileChooser fc = new JFileChooser();
-            int indice = fc.showSaveDialog(null);
+            int indice = fc.showOpenDialog(this);
             if (indice == JFileChooser.APPROVE_OPTION) {
                 fichero = fc.getSelectedFile();
                 ruta = fichero.getAbsolutePath();

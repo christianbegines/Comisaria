@@ -396,12 +396,7 @@ public class MultasLista extends javax.swing.JDialog {
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Error : " + ex.getMessage() );
             }
-
         }
-      
-           
-
-      
     }//GEN-LAST:event_exportarActionPerformed
     public void rellenarTablaMultas(String orden) {
         try {

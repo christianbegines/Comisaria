@@ -29,7 +29,8 @@ public class ArchivosDAO {
 
         List<Policia> listaPolicia = new ArrayList();
         String idPolicia, nombre, numplaca, edad, departamento, foto;
-        BufferedReader br = new BufferedReader(new FileReader(fichero));
+        if (fichero!=null) {
+            BufferedReader br = new BufferedReader(new FileReader(fichero));
         Policia p;
         String linea = null;
         br.readLine();
@@ -59,6 +60,8 @@ public class ArchivosDAO {
             p.setFoto(Paths.get(foto));
 
             listaPolicia.add(p);
+        }
+        
         }
 
         return listaPolicia;
