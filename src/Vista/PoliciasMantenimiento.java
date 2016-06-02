@@ -11,6 +11,7 @@ import Datos.ManejadorDeImagenes;
 import Datos.SelectorDeArchivo;
 import Modelo.Multa;
 import Modelo.Policia;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -33,7 +34,6 @@ import javax.swing.table.DefaultTableModel;
  * @author Rubén Soler
  */
 public class PoliciasMantenimiento extends javax.swing.JDialog {
-
     /**
      * Ventana de gestion de policias
      *
@@ -396,6 +396,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
 
     private void cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseClicked
         this.setVisible(false);
+        
     }//GEN-LAST:event_cerrarMouseClicked
 
     private void textoNumeroPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNumeroPlacaActionPerformed
@@ -450,16 +451,16 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 int calculaNombreArchivo = this.datos.getMaxIdPolicia() + 1;
                 Path ruta = null;
                 try {
-                    ruta = Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(), this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/" + calculaNombreArchivo + ".jpg"));
+                    ruta = Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(),
+                            this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/" + calculaNombreArchivo + ".jpg"));
                 } catch (IOException ex) {
                     Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 this.rutaArchivo.setText(ruta.toString());
-
                 Image i = Toolkit.getDefaultToolkit().getImage(ruta.toString());
                 ImageIcon fotoPerfil = new ImageIcon(i);
                 this.ImagenL.setIcon(fotoPerfil);
+                this.ImagenL.repaint();
             } catch (SQLException ex) {
                 Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -522,12 +523,16 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                             Integer.parseInt(this.textoEdad.getText()),this.textoDepartamento.getText());
                     }
                    
-                    this.datos.actualizarPolicia(modificado);
+                    if (this.datos.actualizarPolicia(modificado)>0) {
+                     JOptionPane.showMessageDialog(null,"Policia modificado","Policia modificado",JOptionPane.INFORMATION_MESSAGE);
+                    }
+;
                 } catch (SQLException | IOException ex) {
                     Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+      
     }//GEN-LAST:event_botonInsertActionPerformed
     /**
      * Coloca un objeto policia en la ventana de gestion de policias

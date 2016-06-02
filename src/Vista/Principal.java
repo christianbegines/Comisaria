@@ -75,6 +75,7 @@ public class Principal extends javax.swing.JFrame {
         borrar = new javax.swing.JButton();
         limpiarSeleccion = new javax.swing.JButton();
         botonCargar = new javax.swing.JButton();
+        botonRecargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comisaria Rubén & Christian");
@@ -358,6 +359,13 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        botonRecargar.setLabel("Recargar");
+        botonRecargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRecargarActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout menuCerrarLayout = new org.jdesktop.layout.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
         menuCerrarLayout.setHorizontalGroup(
@@ -375,6 +383,8 @@ public class Principal extends javax.swing.JFrame {
                                         .add(borrar)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(limpiarSeleccion)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(botonRecargar)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .add(botonCargar))
                                     .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -411,7 +421,8 @@ public class Principal extends javax.swing.JFrame {
                 .add(menuCerrarLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(borrar)
                     .add(limpiarSeleccion)
-                    .add(botonCargar))
+                    .add(botonCargar)
+                    .add(botonRecargar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelConexion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -434,6 +445,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gestionarPoliciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarPoliciasActionPerformed
+        this.repaint();
         int indice;
         Policia policiaSeleccionado;
         String departamento = null;
@@ -597,7 +609,15 @@ public class Principal extends javax.swing.JFrame {
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowStateChanged
-    private void rellenarTabla(String orden) throws IOException {
+
+    private void botonRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecargarActionPerformed
+       try {
+            this.rellenarTabla(this.orden.getSelectedItem().toString());
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botonRecargarActionPerformed
+    public void rellenarTabla(String orden) throws IOException {
         try {
             String[] filas = new String[6];
             String[] titulos = {"IdPolicia", "Nombre", "NumPlaca", "Edad", "Departamento", "Foto"};
@@ -640,6 +660,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel autores;
     private javax.swing.JButton borrar;
     private javax.swing.JButton botonCargar;
+    private javax.swing.JButton botonRecargar;
     private javax.swing.JLabel cerrar;
     private javax.swing.JLabel estadoConexion;
     private javax.swing.JButton gestionarMultas;
