@@ -338,7 +338,10 @@ public class MultasLista extends javax.swing.JDialog {
     }//GEN-LAST:event_ordenActionPerformed
 
     private void ordenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ordenItemStateChanged
-        this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+        if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
+             this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+        }
+        this.rellenarTablaMultasP(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_ordenItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
