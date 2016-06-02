@@ -73,7 +73,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         textoNumeroPlaca = new javax.swing.JTextField();
         NombreL = new javax.swing.JLabel();
         textNombre = new javax.swing.JTextField();
-        textoEdad = new javax.swing.JTextField();
         edadL = new javax.swing.JLabel();
         departamentoL = new javax.swing.JLabel();
         labelIdPolicia = new javax.swing.JLabel();
@@ -83,6 +82,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         rutaArchivo = new javax.swing.JLabel();
         ImagenL = new javax.swing.JLabel();
         textoDepartamento = new javax.swing.JFormattedTextField();
+        textoEdad = new javax.swing.JFormattedTextField();
         panelpestañamultas = new javax.swing.JPanel();
         panelTablaMulta = new javax.swing.JScrollPane();
         tablaMultas = new javax.swing.JTable();
@@ -150,14 +150,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         textNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         textNombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        textoEdad.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        textoEdad.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        textoEdad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoEdadActionPerformed(evt);
-            }
-        });
-
         edadL.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         edadL.setForeground(new java.awt.Color(0, 102, 204));
         edadL.setText("Edad");
@@ -202,6 +194,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        textoEdad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
         javax.swing.GroupLayout panelPerfilLayout = new javax.swing.GroupLayout(panelPerfil);
         panelPerfil.setLayout(panelPerfilLayout);
         panelPerfilLayout.setHorizontalGroup(
@@ -222,11 +216,12 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                                     .addComponent(NumeroPlacaL, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelIdPolicia))
                                 .addGap(57, 57, 57)
-                                .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                                    .addComponent(idPoliciaL, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textoNumeroPlaca)))
+                                .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(textNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                                        .addComponent(idPoliciaL, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(textoNumeroPlaca))
+                                    .addComponent(textoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panelPerfilLayout.createSequentialGroup()
                                 .addComponent(departamentoL, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -259,9 +254,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                             .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NombreL))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edadL, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textoEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                            .addComponent(edadL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(departamentoL)
@@ -309,7 +304,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         ordenL.setText("Ordenar por:");
 
         orden.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "descripcion", "fecha", "importe", "idpolicia", "nifidentificador", "idtipo" }));
+        orden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id", "descripcion", "fecha", "importe", "idtipo" }));
         orden.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ordenItemStateChanged(evt);
@@ -402,10 +397,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private void cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_cerrarMouseClicked
-
-    private void textoEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoEdadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoEdadActionPerformed
 
     private void textoNumeroPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNumeroPlacaActionPerformed
         // TODO add your handling code here:
@@ -603,7 +594,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JTable tablaMultas;
     private javax.swing.JTextField textNombre;
     private javax.swing.JFormattedTextField textoDepartamento;
-    private javax.swing.JTextField textoEdad;
+    private javax.swing.JFormattedTextField textoEdad;
     private javax.swing.JTextField textoNumeroPlaca;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables

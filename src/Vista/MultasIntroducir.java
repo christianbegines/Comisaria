@@ -13,19 +13,13 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
 
 /**
  *
@@ -66,13 +60,10 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         menuCerrar = new javax.swing.JPanel();
         panelMain = new javax.swing.JPanel();
-        cabecera = new javax.swing.JLabel();
-        cerrar = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         labelId = new javax.swing.JLabel();
         textoNifInfractor = new javax.swing.JTextField();
         lIdPolicia = new javax.swing.JLabel();
-        textIdPolicia = new javax.swing.JTextField();
         lFecha = new javax.swing.JLabel();
         textoImporte = new javax.swing.JTextField();
         lTipo = new javax.swing.JLabel();
@@ -86,6 +77,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
         lImporte = new javax.swing.JLabel();
         hora = new javax.swing.JSpinner();
         fecha = new com.toedter.calendar.JDateChooser();
+        textIdPolicia = new javax.swing.JFormattedTextField();
+        cabecera = new javax.swing.JLabel();
+        cerrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -109,21 +103,16 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         panelMain.setBackground(new java.awt.Color(255, 255, 255));
 
-        cabecera.setBackground(new java.awt.Color(255, 255, 255));
-        cabecera.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        cabecera.setForeground(new java.awt.Color(0, 102, 204));
-        cabecera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/multa.png"))); // NOI18N
-        cabecera.setText("NUEVA MULTA");
-
-        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
-        cerrar.setToolTipText("Cerrar");
-        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cerrar.setFocusable(false);
-        cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cerrarMouseClicked(evt);
-            }
-        });
+        javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
+        panelMain.setLayout(panelMainLayout);
+        panelMainLayout.setHorizontalGroup(
+            panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelMainLayout.setVerticalGroup(
+            panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         labelId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         labelId.setForeground(new java.awt.Color(0, 102, 204));
@@ -140,9 +129,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
         lIdPolicia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lIdPolicia.setForeground(new java.awt.Color(0, 102, 204));
         lIdPolicia.setText("IdPolicia ");
-
-        textIdPolicia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        textIdPolicia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         lFecha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lFecha.setForeground(new java.awt.Color(0, 102, 204));
@@ -201,6 +187,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         fecha.setDateFormatString("dd-MM-yyyy");
 
+        textIdPolicia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -237,11 +225,11 @@ public class MultasIntroducir extends javax.swing.JDialog {
                                 .addComponent(lFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(textIdPolicia)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(hora))))))
+                                    .addComponent(hora))
+                                .addComponent(textIdPolicia)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -255,9 +243,11 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     .addComponent(textoNifInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lNifInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textIdPolicia, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lIdPolicia, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lIdPolicia, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(textIdPolicia)
+                        .addGap(7, 7, 7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -283,31 +273,21 @@ public class MultasIntroducir extends javax.swing.JDialog {
                 .addGap(15, 15, 15))
         );
 
-        javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
-        panelMain.setLayout(panelMainLayout);
-        panelMainLayout.setHorizontalGroup(
-            panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMainLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMainLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelMainLayout.createSequentialGroup()
-                        .addComponent(cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cerrar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelMainLayout.setVerticalGroup(
-            panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMainLayout.createSequentialGroup()
-                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cabecera)
-                    .addComponent(cerrar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        cabecera.setBackground(new java.awt.Color(255, 255, 255));
+        cabecera.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        cabecera.setForeground(new java.awt.Color(0, 102, 204));
+        cabecera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/multa.png"))); // NOI18N
+        cabecera.setText("NUEVA MULTA");
+
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
+        cerrar.setToolTipText("Cerrar");
+        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar.setFocusable(false);
+        cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout menuCerrarLayout = new javax.swing.GroupLayout(menuCerrar);
         menuCerrar.setLayout(menuCerrarLayout);
@@ -315,13 +295,28 @@ public class MultasIntroducir extends javax.swing.JDialog {
             menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuCerrarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuCerrarLayout.createSequentialGroup()
+                        .addComponent(cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(cerrar))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(120, 120, 120))
         );
         menuCerrarLayout.setVerticalGroup(
             menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuCerrarLayout.createSequentialGroup()
-                .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuCerrarLayout.createSequentialGroup()
+                .addGroup(menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(menuCerrarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(menuCerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cabecera)
+                            .addComponent(cerrar))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -329,7 +324,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(menuCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 456, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +470,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
     private javax.swing.JLabel labelNumeroId;
     private javax.swing.JPanel menuCerrar;
     private javax.swing.JPanel panelMain;
-    private javax.swing.JTextField textIdPolicia;
+    private javax.swing.JFormattedTextField textIdPolicia;
     private javax.swing.JTextField textoImporte;
     private javax.swing.JTextField textoNifInfractor;
     // End of variables declaration//GEN-END:variables
