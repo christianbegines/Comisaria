@@ -29,6 +29,14 @@ public class Policia {
         this.foto=foto;
        
     }
+       public Policia(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento) {
+        this.idPolicia = idPolicia;
+        this.nombre = nombre;
+        this.numPlaca = numPlaca;
+        this.edad = edad;
+        this.departamento = departamento;
+       
+    }
 
     public Policia(Integer idPolicia, String nombre, String numPlaca) {
         this.idPolicia = idPolicia;

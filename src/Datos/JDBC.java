@@ -223,14 +223,21 @@ public class JDBC {
         return listaMultasPolicia;
     }
 
-    public int actualizarPolicia(Policia p) throws SQLException {
+    public int actualizarPolicia(Policia p) throws SQLException, IOException {
+        File rutaAbsoluta = new File(".");
         String sql = "UPDATE policia SET numplaca = ?,nombre = ?, edad = ?, departamento = ?, foto = ? WHERE idpolicia = ?";
         PreparedStatement ps = this.con.prepareStatement(sql);
         ps.setString(1, p.getNumPlaca());
         ps.setString(2, p.getNombre());
         ps.setInt(3, p.getEdad());
         ps.setString(4, p.getDepartamento());
-        ps.setString(5, p.getFoto().toString());
+        if (p.getFoto()!=null) {
+             ps.setString(5, p.getFoto().toString());
+        }else{
+            Path rutaIcono = Paths.get(rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/iconoanonimo.jpg");
+            ps.setString(5, rutaIcono.toString());
+        }
+       
         ps.setInt(6, p.getIdPolicia());
         return ps.executeUpdate();
 

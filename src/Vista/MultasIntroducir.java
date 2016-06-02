@@ -378,21 +378,33 @@ this.hora.setValue(new Date());
        Multa m= new Multa() ;
        TipoMulta tm = (TipoMulta)this.comboTipoMulta.getSelectedItem();
        if(!this.textIdPolicia.getText().isEmpty() && !this.areaDescripcion.getText().isEmpty()){
-//         DateTimeFormatter formato =  DateTimeFormatter.ofPattern("DD L dd HH:mm:ss O YYYY");
-//           System.out.println(this.hora.getValue());
-//         LocalDateTime FechaToGethora =  LocalDateTime.parse(this.hora.getValue().toString(),formato);
-//         LocalDateTime FechaToGetFecha = LocalDateTime.parse(this.fecha.getDate().toString(),formato);
-//         int año = FechaToGetFecha.getYear();
-//         int mes = FechaToGetFecha.getMonthValue();
-//         Month mesObj = FechaToGetFecha.getMonth();
-//         int dia = FechaToGetFecha.getDayOfMonth();
-//         int hora = FechaToGethora.getHour();
-//         int minutos = FechaToGethora.getMinute();
-//         int segundos = FechaToGethora.getSecond();
+         DateTimeFormatter formato =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+           Date convertirHora = (Date) this.hora.getValue();
+           Timestamp convertidaHora = Timestamp.from(convertirHora.toInstant());
+           Date convertirFecha = (Date) this.hora.getValue();
+           Timestamp convertidaFecha = Timestamp.from(convertirFecha.toInstant());
+         LocalDateTime fechaToGethora =  convertidaHora.toLocalDateTime();
+         LocalDateTime fechaToGetFecha = convertidaFecha.toLocalDateTime();
+         int año = fechaToGetFecha.getYear();
+         int mes = fechaToGetFecha.getMonthValue();
+         int dia = fechaToGetFecha.getDayOfMonth();
+         String diaToFormat = dia+"";
+           if (dia<10) {
+               diaToFormat = "0".concat(diaToFormat);
+           }
+           String mesToFormat = mes+"";
+           if (dia<10) {
+               mesToFormat = "0".concat(mesToFormat);
+           }
+           System.out.println(diaToFormat);
+         int hora = fechaToGethora.getHour();
+         int minutos = fechaToGethora.getMinute();
+         int segundos = fechaToGethora.getSecond();
 //         LocalDateTime fechaLista = LocalDateTime.parse(año + "-" + mes + "-"+ dia + " " + hora +":" + minutos + ":" + segundos);
-//           System.out.println("Fecha: " + this.fecha.getDate().toString());
+LocalDateTime fechaLista = LocalDateTime.parse(año + "-" + mesToFormat + "-"+ diaToFormat + " " + hora +":" + minutos + ":" + segundos, formato);
+           
          m.setDescripcion(this.areaDescripcion.getText());
-//         m.setFecha(fechaLista);
+         m.setFecha(fechaLista);
          m.setIdPolicia(Integer.valueOf(this.textIdPolicia.getText()));
          m.setImporte(Double.valueOf(this.textoImporte.getText()));
          m.setNifInfractor(this.textoNifInfractor.getText());

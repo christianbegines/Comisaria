@@ -51,6 +51,9 @@ public class ManejadorDeImagenes {
         try {
             String format = (pathName.endsWith(".png")) ? "png" : "jpg";
             File file =new File(pathName);
+            if (file.exists()) {
+                file.delete();
+            }
             file.getParentFile().mkdirs();
             ImageIO.write(bufferedImage, format, file);
         } catch (IOException e) {

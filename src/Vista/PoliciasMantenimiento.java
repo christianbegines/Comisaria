@@ -512,12 +512,20 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null,"No puedes dejar vacios los campos nombre y numero de placa","campos obligatorios vacios", JOptionPane.WARNING_MESSAGE);
             }else{
                 try {
-                    Policia modificado = new Policia(Integer.parseInt(this.idPoliciaL.getText()),
+                    Policia modificado = new Policia();
+                    if (!this.rutaArchivo.getText().isEmpty()) {
+                        modificado = new Policia(Integer.parseInt(this.idPoliciaL.getText()),
                             this.textNombre.getText(),this.textoNumeroPlaca.getText(),
                             Integer.parseInt(this.textoEdad.getText()),this.textoDepartamento.getText(),
                             Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(),
                                 this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/"
                                 + this.idPoliciaL.getText() + ".jpg")));
+                    }else{
+                        modificado = new Policia(Integer.parseInt(this.idPoliciaL.getText()),
+                            this.textNombre.getText(),this.textoNumeroPlaca.getText(),
+                            Integer.parseInt(this.textoEdad.getText()),this.textoDepartamento.getText());
+                    }
+                   
                     this.datos.actualizarPolicia(modificado);
                 } catch (SQLException | IOException ex) {
                     Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
