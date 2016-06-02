@@ -254,40 +254,20 @@ public class JDBC {
         return listaTipos;
     }
 
-    public int obtenerPoliciasFichero(File fichero) throws FileNotFoundException, IOException, SQLException {
-        String idPolicia, nombre, numplaca, edad, departamento, foto;
+    public int insertarPoliciasPorLista(List<Policia>listaPolicias) throws  SQLException {
         int resultado = 0;
         String sql = "insert into policia (idPolicia,nombre,numplaca,edad,departamento,foto) values(?,?,?,?,?,?)";
         PreparedStatement ps;
-        BufferedReader br = new BufferedReader(new FileReader(fichero));
-        String linea = null;
-        br.readLine();
-        while ((linea = br.readLine()) != null) {
-           
-                String[] datos = new String[6];
-                datos = linea.split(",");
-                
-                idPolicia = datos[0];
-                nombre = datos[1];
-                numplaca = datos[2];
-                edad = datos[3];
-                departamento = datos[4];
-                if (!(foto = datos[5]).equalsIgnoreCase("NULL")) {
-                    foto = datos[5];
-                } else {
-                    foto = "";
-                }
-                
-                ps = this.con.prepareStatement(sql);
-                ps.setInt(1, Integer.valueOf(idPolicia));
-                ps.setString(2, nombre);
-                ps.setString(3, numplaca);
-                ps.setInt(4, Integer.valueOf(edad));
-                ps.setString(5, departamento);
-                ps.setString(6, foto);
-                resultado = ps.executeUpdate();
-            
- 
+
+        for(Policia p : listaPolicias){
+            ps = this.con.prepareStatement(sql);
+            ps.setInt(1,p.getIdPolicia());
+            ps.setString(2,p.getNombre());
+            ps.setString(3,p.getNumPlaca());
+            ps.setInt(4,p.getEdad());
+            ps.setString(5, p.getDepartamento());
+            ps.setString(6,p.getFoto().toString());
+            resultado = ps.executeUpdate();
 
         }
         return resultado;

@@ -1,5 +1,6 @@
 package Vista;
 
+import Datos.ArchivosDAO;
 import Datos.JDBC;
 import Modelo.Policia;
 import java.awt.Color;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -37,6 +39,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.gestionarMultas.setEnabled(false);
         this.gestionarPolicias.setEnabled(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -485,6 +488,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.datos = new JDBC();
+        this.archivos= new ArchivosDAO();
         try {
             this.datos.nuevaConexion();
             this.gestionarMultas.setEnabled(true);
@@ -547,6 +551,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_limpiarSeleccionActionPerformed
 
     private void botonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarActionPerformed
+        List<Policia>listaPolicias;
         try {
             final JFileChooser fc = new JFileChooser();
             int indice = fc.showSaveDialog(null);
@@ -554,7 +559,8 @@ public class Principal extends javax.swing.JFrame {
                 fichero = fc.getSelectedFile();
                 ruta=fichero.getAbsolutePath();
             }
-            int registros = datos.obtenerPoliciasFichero(fichero);
+            listaPolicias=this.archivos.obtenerPoliciasDeFicher(fichero);
+            int registros = datos.insertarPoliciasPorLista(listaPolicias);
             if (registros != 0) {
                 JOptionPane.showMessageDialog(rootPane, "Datos Cargados");
             } else {
@@ -603,6 +609,7 @@ public class Principal extends javax.swing.JFrame {
     private int y = 0;
     private File fichero;
     private String ruta;
+    private ArchivosDAO archivos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BD;
     private javax.swing.JLabel autores;
