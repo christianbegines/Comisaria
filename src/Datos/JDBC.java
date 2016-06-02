@@ -254,12 +254,10 @@ public class JDBC {
         return listaTipos;
     }
 
-    public int insertarPoliciasPorLista(List<Policia>listaPolicias) throws  SQLException {
+    public int insertarPoliciasPorLista(Policia p) throws  SQLException {
         int resultado = 0;
         String sql = "insert into policia (idPolicia,nombre,numplaca,edad,departamento,foto) values(?,?,?,?,?,?)";
-        PreparedStatement ps;
-
-        for(Policia p : listaPolicias){
+        PreparedStatement ps;       
             ps = this.con.prepareStatement(sql);
             ps.setInt(1,p.getIdPolicia());
             ps.setString(2,p.getNombre());
@@ -267,9 +265,9 @@ public class JDBC {
             ps.setInt(4,p.getEdad());
             ps.setString(5, p.getDepartamento());
             ps.setString(6,p.getFoto().toString());
+            System.out.println(p.getNumPlaca());
             resultado = ps.executeUpdate();
-
-        }
+            
         return resultado;
     }
 }

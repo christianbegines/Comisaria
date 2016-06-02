@@ -88,7 +88,7 @@ public class Policia {
 
     @Override
     public String toString() {
-        return "Policia :"  + idPolicia + "Nº "+ numeroDePlaca;
+        return "Policia :"  + idPolicia + " Nº "+ this.getNumPlaca();
                
     }
      public String obtenerDatosPolicia() {

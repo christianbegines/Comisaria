@@ -7,9 +7,11 @@ package Datos;
 
 import Modelo.Policia;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class ArchivosDAO {
                 foto = "";
             }
             p = new Policia(Integer.parseInt(idPolicia), nombre, numplaca);
+            System.out.println(p.getNumPlaca());
             if (edad != null) {
                 p.setEdad(Integer.parseInt(edad));
             }
@@ -57,5 +60,15 @@ public class ArchivosDAO {
         }
 
         return listaPolicia;
+    }
+    
+    public void generarListadoMultas() throws IOException{
+        
+        
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Polcias.txt"))){
+            
+        }
+        
+        
     }
 }

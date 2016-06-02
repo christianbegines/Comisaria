@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -431,20 +432,21 @@ public class Principal extends javax.swing.JFrame {
         int indice;
         Policia policiaSeleccionado;
         String departamento = null;
-         int edad=0;
+        int edad = 0;
         PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
         ventanaPolicias.setConexion(this.datos);
         if ((indice = this.tablaPolicias.getSelectedRow()) != (-1)) {
-           Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString());
-           String nombre = tablaPolicias.getValueAt(indice, 1).toString();
-           String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
-           try{
-           edad = Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString());
-           departamento = tablaPolicias.getValueAt(indice, 4).toString();
-           }catch(NullPointerException ex){}
-           Path foto = Paths.get(tablaPolicias.getValueAt(indice, 5).toString());
-           policiaSeleccionado = new Policia(idPolicia,nombre,numPlaca);
-            if (edad !=0) {
+            Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString());
+            String nombre = tablaPolicias.getValueAt(indice, 1).toString();
+            String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
+            try {
+                edad = Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString());
+                departamento = tablaPolicias.getValueAt(indice, 4).toString();
+            } catch (NullPointerException ex) {
+            }
+            Path foto = Paths.get(tablaPolicias.getValueAt(indice, 5).toString());
+            policiaSeleccionado = new Policia(idPolicia, nombre, numPlaca);
+            if (edad != 0) {
                 policiaSeleccionado.setEdad(edad);
             }
             if (departamento != null) {
@@ -488,7 +490,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.datos = new JDBC();
-        this.archivos= new ArchivosDAO();
+        this.archivos = new ArchivosDAO();
         try {
             this.datos.nuevaConexion();
             this.gestionarMultas.setEnabled(true);
@@ -551,25 +553,38 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_limpiarSeleccionActionPerformed
 
     private void botonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarActionPerformed
-        List<Policia>listaPolicias;
+        List<Policia> listaPolicias;
+        List<Policia> policiasNoInsertados= new ArrayList();
+        int registros = 0;
         try {
             final JFileChooser fc = new JFileChooser();
             int indice = fc.showSaveDialog(null);
             if (indice == JFileChooser.APPROVE_OPTION) {
                 fichero = fc.getSelectedFile();
-                ruta=fichero.getAbsolutePath();
+                ruta = fichero.getAbsolutePath();
             }
-            listaPolicias=this.archivos.obtenerPoliciasDeFicher(fichero);
-            int registros = datos.insertarPoliciasPorLista(listaPolicias);
+            listaPolicias = this.archivos.obtenerPoliciasDeFicher(fichero);
+            for (Policia p : listaPolicias) {
+                try {
+                    registros = datos.insertarPoliciasPorLista(p);
+                    
+                } catch (SQLException ex) {
+                    if (ex.getErrorCode() == 1062) {
+                     
+                        policiasNoInsertados.add(p);
+                    }
+                }
+            }
+            if(policiasNoInsertados.size()!=0){
+                JOptionPane.showMessageDialog(rootPane, "El Policia ya existe"+policiasNoInsertados, null, JOptionPane.WARNING_MESSAGE);
+            }
             if (registros != 0) {
                 JOptionPane.showMessageDialog(rootPane, "Datos Cargados");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Datos NO cargados :", null, JOptionPane.WARNING_MESSAGE);
             }
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Datos NO cargados"+ex.getMessage(), null, JOptionPane.WARNING_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Datos NO cargados :" + ex.getMessage(), null, JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Datos NO cargados" + ex.getMessage(), null, JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_botonCargarActionPerformed
     private void rellenarTabla(String orden) throws IOException {
@@ -582,10 +597,10 @@ public class Principal extends javax.swing.JFrame {
                 filas[0] = p.getIdPolicia().toString();
                 filas[1] = p.getNombre();
                 filas[2] = p.getNumPlaca();
-                try{
-                filas[3] = p.getEdad().toString();
-                }catch(NullPointerException ex){
-                filas[3] = 0+"";
+                try {
+                    filas[3] = p.getEdad().toString();
+                } catch (NullPointerException ex) {
+                    filas[3] = 0 + "";
                 }
                 filas[4] = p.getDepartamento();
                 if (p.getFoto() == null) {
