@@ -5,19 +5,24 @@
  */
 package Vista;
 
+import Datos.ArchivosDAO;
 import Datos.JDBC;
 import Modelo.Multa;
 import java.awt.Frame;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  *
@@ -27,22 +32,29 @@ public class MultasLista extends javax.swing.JDialog {
 
     /**
      * Creates new form NewJDialog
+     *
      * @param parent
      * @param modal
      */
     public MultasLista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+
         this.setUndecorated(true);
         this.setLocation(400, 100);
         initComponents();
     }
+
     /**
-     * @param datos 
+     * @param datos
      */
     public void setConexion(JDBC datos) {
-        this.datos=datos;
+        this.datos = datos;
     }
+
+    public void setManejadorDeArchivos(ArchivosDAO manejadorDeArchivos) {
+        this.manejadorDeArchivos = manejadorDeArchivos;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,6 +190,11 @@ public class MultasLista extends javax.swing.JDialog {
         );
 
         exportar.setText("Exportar listado");
+        exportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportarActionPerformed(evt);
+            }
+        });
 
         añadirMulta.setBackground(new java.awt.Color(0, 102, 204));
         añadirMulta.setForeground(new java.awt.Color(255, 255, 255));
@@ -322,7 +339,7 @@ public class MultasLista extends javax.swing.JDialog {
     }//GEN-LAST:event_cerrarMouseClicked
 
     private void añadirMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirMultaActionPerformed
-        MultasIntroducir ventanaIntroducir = new MultasIntroducir((Frame) super.getParent(),true);
+        MultasIntroducir ventanaIntroducir = new MultasIntroducir((Frame) super.getParent(), true);
         ventanaIntroducir.setConexion(this.datos);
         ventanaIntroducir.setVisible(true);
     }//GEN-LAST:event_añadirMultaActionPerformed
@@ -330,7 +347,7 @@ public class MultasLista extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
-       
+
     }//GEN-LAST:event_formWindowOpened
 
     private void ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenActionPerformed
@@ -339,7 +356,7 @@ public class MultasLista extends javax.swing.JDialog {
 
     private void ordenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ordenItemStateChanged
         if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
-             this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+            this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
         }
         this.rellenarTablaMultasP(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_ordenItemStateChanged
@@ -348,8 +365,46 @@ public class MultasLista extends javax.swing.JDialog {
         System.out.println(this.textoNombre.getText() + " " + this.textoNumPlaca.getText());
         this.rellenarTablaMultasP(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
+        List<Multa> listaMultas = new ArrayList<>();
+         if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
+            try {
+                listaMultas = this.datos.obtenerMultas(orden.getSelectedItem().toString());
+            } catch (SQLException ex) {
+                Logger.getLogger(MultasLista.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }else{
+            try {
+                listaMultas = this.datos.obtenerMultasPolicia(this.textoNumPlaca.getText(), this.textoNombre.getText(), orden.getSelectedItem().toString());
+            } catch (SQLException ex) {
+                Logger.getLogger(MultasLista.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        int resultado;
+        final JFileChooser fc = new JFileChooser();
+        int indice = fc.showSaveDialog(this);
+        if (indice == JFileChooser.APPROVE_OPTION) {
+            try {
+                Path rutaAguardar = fc.getSelectedFile().toPath();
+                resultado = this.manejadorDeArchivos.generarListadoMultas(listaMultas, rutaAguardar);
+                if (resultado > 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Datos Exportados");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Datos No Exportados", null, JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Error : " + ex.getMessage() );
+            }
+
+        }
+      
+           
+
+      
+    }//GEN-LAST:event_exportarActionPerformed
     public void rellenarTablaMultas(String orden) {
-        try { 
+        try {
             String[] filas = new String[7];
             String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
             tabla = new DefaultTableModel(null, titulos);
@@ -358,9 +413,9 @@ public class MultasLista extends javax.swing.JDialog {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
-                if(m.getFecha()!=null){
-                     filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
-                }             
+                if (m.getFecha() != null) {
+                    filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
+                }
                 filas[3] = m.getImporte().toString();
                 filas[4] = m.getIdPolicia().toString();
                 filas[5] = m.getNifInfractor();
@@ -372,6 +427,7 @@ public class MultasLista extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     private void rellenarTablaMultasP(String orden) {
         try {
             String[] filas = new String[7];
@@ -393,7 +449,8 @@ public class MultasLista extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
-    DefaultTableModel tabla;
+    private ArchivosDAO manejadorDeArchivos;
+    private DefaultTableModel tabla;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NombreL;
     private javax.swing.JLabel NumeroPlacaL;
@@ -412,7 +469,7 @@ public class MultasLista extends javax.swing.JDialog {
     private javax.swing.JTextField textoNombre;
     private javax.swing.JTextField textoNumPlaca;
     // End of variables declaration//GEN-END:variables
-    private int x,y;
+    private int x, y;
     private JDBC datos;
-    
+
 }

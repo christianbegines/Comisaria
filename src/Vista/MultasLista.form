@@ -318,6 +318,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exportar listado"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="a&#xf1;adirMulta">
               <Properties>

@@ -463,6 +463,7 @@ public class Principal extends javax.swing.JFrame {
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
         MultasLista ventanaMultas = new MultasLista(this, true);
         ventanaMultas.setConexion(this.datos);
+        ventanaMultas.setManejadorDeArchivos(this.manejadorDeArchivos);
         ventanaMultas.setVisible(true);
     }//GEN-LAST:event_gestionarMultasActionPerformed
 
@@ -490,7 +491,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.datos = new JDBC();
-        this.archivos = new ArchivosDAO();
+        this.manejadorDeArchivos = new ArchivosDAO();
         try {
             this.datos.nuevaConexion();
             this.gestionarMultas.setEnabled(true);
@@ -563,7 +564,7 @@ public class Principal extends javax.swing.JFrame {
                 fichero = fc.getSelectedFile();
                 ruta = fichero.getAbsolutePath();
             }
-            listaPolicias = this.archivos.obtenerPoliciasDeFicher(fichero);
+            listaPolicias = this.manejadorDeArchivos.obtenerPoliciasDeFicher(fichero);
             for (Policia p : listaPolicias) {
                 try {
                     registros = datos.insertarPoliciasPorLista(p);
@@ -624,7 +625,7 @@ public class Principal extends javax.swing.JFrame {
     private int y = 0;
     private File fichero;
     private String ruta;
-    private ArchivosDAO archivos;
+    private ArchivosDAO manejadorDeArchivos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BD;
     private javax.swing.JLabel autores;

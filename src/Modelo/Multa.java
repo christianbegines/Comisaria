@@ -98,13 +98,14 @@ public class Multa {
         this.idTipo = idTipo;
     }
        
-    public String datosMulta(){
-        return "Multa Nº: "+ this.id + "\r\n"+
-               "Descripcion :"+this.descripcion + "\r\n"+
-               "Fecha :"+ this.fecha+"\r\n"+
-               "Importe :"+this.importe+"\r\n"+
-               "IdPolicia :"+this.idPolicia+"\r\n"+
-               "NifInfractor :"+this.nifInfractor+"\r\n"+
+    @Override
+    public String toString(){
+        return "Multa Nº: "+ this.id + ";"+
+               "Descripcion :"+this.descripcion + ";"+
+               "Fecha :"+ this.fecha+";"+
+               "Importe :"+this.importe+";"+
+               "IdPolicia :"+this.idPolicia+";"+
+               "NifInfractor :"+this.nifInfractor+";"+
                "IdTipo :" + this.idTipo;
         
     }

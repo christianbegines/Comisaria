@@ -5,6 +5,7 @@
  */
 package Datos;
 
+import Modelo.Multa;
 import Modelo.Policia;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +64,16 @@ public class ArchivosDAO {
         return listaPolicia;
     }
     
-    public void generarListadoMultas() throws IOException{
-        
-        
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Polcias.txt"))){
-            
+    public int generarListadoMultas(List<Multa> listaMultas, Path rutaAguardar) throws IOException{
+        int res=0;
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(rutaAguardar.toString()))){
+            for (Multa m : listaMultas) {
+                bw.write(m.toString());
+                res++;
+                bw.newLine();
+            }
         }
         
         
-    }
+    return res;}
 }
