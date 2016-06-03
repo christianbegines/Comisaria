@@ -499,7 +499,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     }
                     
                 } catch (SQLException ex) {
-                    Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                      JOptionPane.showMessageDialog(null, "Datos vacios","Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
+
                 }catch(ErrorDatos es){
                     JOptionPane.showMessageDialog(null, "Policia no insertado","Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -558,7 +559,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
-                filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
+                if(m.getFecha()!=null){
+                    filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
+                }              
                 filas[3] = m.getImporte().toString();
                 filas[4] = m.getIdPolicia().toString();
                 filas[5] = m.getNifInfractor();
