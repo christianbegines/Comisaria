@@ -429,7 +429,7 @@ public class MultasLista extends javax.swing.JDialog {
     }//GEN-LAST:event_ordenItemStateChanged
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-
+        this.listaPolicias.clearSelection();
         this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_botonBuscarActionPerformed
 
