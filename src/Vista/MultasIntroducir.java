@@ -410,7 +410,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
                 segundosToFormat = "0".concat(segundosToFormat);
             }
             LocalDateTime fechaParaIntroducir = LocalDateTime.parse(año + "-" + mesToFormat + "-" + diaToFormat + " " + horaToFormat + ":" + minutosToFormat + ":" + segundosToFormat, formato);
-            System.out.println(fechaParaIntroducir.toString());
             if (!fechaParaIntroducir.isAfter(LocalDateTime.now())) {
                 m.setDescripcion(this.areaDescripcion.getText());
                 m.setFecha(fechaParaIntroducir);
