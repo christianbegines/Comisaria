@@ -346,12 +346,14 @@ public class MultasLista extends javax.swing.JDialog {
     }//GEN-LAST:event_añadirMultaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(hayPolicia==true){
-            this.rellenarTablaMultasP(this.orden.getSelectedItem().toString(),policia); 
-        }else{
-             this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
+        if (hayPolicia == true) {
+            this.rellenarTablaMultasP(this.orden.getSelectedItem().toString(), policia);
+            this.textoNombre.setText(policia.getNombre());
+            this.textoNumPlaca.setText(policia.getNumPlaca());
+        } else {
+            this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
         }
-       
+
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -373,33 +375,35 @@ public class MultasLista extends javax.swing.JDialog {
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
         List<Multa> listaMultas = new ArrayList<>();
-         if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
+        if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
             try {
                 listaMultas = this.datos.obtenerMultas(orden.getSelectedItem().toString());
             } catch (SQLException ex) {
-                Logger.getLogger(MultasLista.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(rootPane, "DatosNo Cargados, no existen ");
+
             }
-            }else{
+        } else {
             try {
                 listaMultas = this.datos.obtenerMultasPolicia(this.textoNumPlaca.getText(), this.textoNombre.getText(), orden.getSelectedItem().toString());
             } catch (SQLException ex) {
-                Logger.getLogger(MultasLista.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(rootPane, "Datos No Cargados, no existen ");
+
             }
-            }
-        int resultado;
-        final JFileChooser fc = new JFileChooser();
-        int indice = fc.showSaveDialog(this);
-        if (indice == JFileChooser.APPROVE_OPTION) {
-            try {
-                Path rutaAguardar = fc.getSelectedFile().toPath();
-                resultado = this.manejadorDeArchivos.generarListadoMultas(listaMultas, rutaAguardar);
-                if (resultado > 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Datos Exportados");
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Datos No Exportados", null, JOptionPane.WARNING_MESSAGE);
+            int resultado;
+            final JFileChooser fc = new JFileChooser();
+            int indice = fc.showSaveDialog(this);
+            if (indice == JFileChooser.APPROVE_OPTION) {
+                try {
+                    Path rutaAguardar = fc.getSelectedFile().toPath();
+                    resultado = this.manejadorDeArchivos.generarListadoMultas(listaMultas, rutaAguardar);
+                    if (resultado > 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Datos Exportados");
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Datos No Exportados", null, JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Error : " + ex.getMessage());
                 }
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Error : " + ex.getMessage() );
             }
         }
     }//GEN-LAST:event_exportarActionPerformed
@@ -427,8 +431,7 @@ public class MultasLista extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
+
     private void rellenarTablaPorBusqueda(String orden) {
         try {
             String[] filas = new String[7];
@@ -438,9 +441,9 @@ public class MultasLista extends javax.swing.JDialog {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
-                if(m.getFecha()!=null){
+                if (m.getFecha() != null) {
                     filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
-                }                            
+                }
                 filas[3] = m.getImporte().toString();
                 filas[4] = m.getIdPolicia().toString();
                 filas[5] = m.getNifInfractor();
@@ -450,20 +453,21 @@ public class MultasLista extends javax.swing.JDialog {
             this.tablaMultasPolicias.setModel(tabla);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
-        }        
+        }
     }
-     private void rellenarTablaMultasP(String orden,Policia policia) {
+
+    private void rellenarTablaMultasP(String orden, Policia policia) {
         try {
             String[] filas = new String[7];
             String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
             tabla = new DefaultTableModel(null, titulos);
-            for (Multa m : this.datos.obtenerMultasPolicia(policia.getNumPlaca(),policia.getNombre() , orden)) {
+            for (Multa m : this.datos.obtenerMultasPolicia(policia.getNumPlaca(), policia.getNombre(), orden)) {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
-                if(m.getFecha()!=null){
+                if (m.getFecha() != null) {
                     filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
-                }                            
+                }
                 filas[3] = m.getImporte().toString();
                 filas[4] = m.getIdPolicia().toString();
                 filas[5] = m.getNifInfractor();
@@ -473,14 +477,15 @@ public class MultasLista extends javax.swing.JDialog {
             this.tablaMultasPolicias.setModel(tabla);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
-        }        
+        }
     }
+
     public void setPolicia(Policia policia) {
         this.hayPolicia = true;
         this.policia = policia;
     }
     private Policia policia;
-    private boolean hayPolicia=false;
+    private boolean hayPolicia = false;
     private ArchivosDAO manejadorDeArchivos;
     private DefaultTableModel tabla;
     // Variables declaration - do not modify//GEN-BEGIN:variables

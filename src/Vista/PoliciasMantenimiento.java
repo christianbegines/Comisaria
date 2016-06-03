@@ -492,6 +492,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                                 this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/"
                                 + calculaNombreArchivo + ".jpg")));
                     } catch (IOException ex) {
+                    
                     }
                     int rows = this.datos.insertaPolicia(this.policia);
                     if (rows > 0) {
@@ -529,7 +530,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     }
 ;
                 } catch (SQLException | IOException ex) {
-                    Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "Policia imposible de cargar ");
                 }
             }
         }

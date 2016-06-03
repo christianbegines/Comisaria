@@ -549,7 +549,7 @@ public class Principal extends javax.swing.JFrame {
             this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(rootPane, "No ha sido posible de conectar ");
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -567,7 +567,8 @@ public class Principal extends javax.swing.JFrame {
         try {
             this.rellenarTabla(this.orden.getSelectedItem().toString());
         } catch (IOException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "No es posible ordenar los datos"+"\n" +"no existe algun campo");
+
         }
     }//GEN-LAST:event_ordenItemStateChanged
 
@@ -586,7 +587,7 @@ public class Principal extends javax.swing.JFrame {
                 this.datos.borrarPorIdPolicia(Integer.parseInt(this.tablaPolicias.getValueAt(seleccionado, 0).toString()));
                 this.rellenarTabla(this.orden.getSelectedItem().toString());
             } catch (SQLException | IOException ex) {
-                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(rootPane, "El policia no se encunetra en la base de datos");
             }
         } else {
             JOptionPane.showMessageDialog(null, "No has seleccionado ningun policia", "No has seleccionado ningun policia", JOptionPane.INFORMATION_MESSAGE);
