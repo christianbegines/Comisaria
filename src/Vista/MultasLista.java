@@ -385,34 +385,30 @@ public class MultasLista extends javax.swing.JDialog {
     }//GEN-LAST:event_añadirMultaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        DefaultListModel modelo= new DefaultListModel();
-        List<Policia>todosLosPolicias=new ArrayList();
+        DefaultListModel modelo = new DefaultListModel();
+        List<Policia> todosLosPolicias = new ArrayList();
         try {
             todosLosPolicias = this.datos.obtenerPolicias();
         } catch (SQLException ex) {
             Logger.getLogger(MultasLista.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(Policia p:todosLosPolicias){
+        for (Policia p : todosLosPolicias) {
             modelo.addElement(p);
         }
         this.listaPolicias.setModel(modelo);
-        if (this.listaPoliciasSeleccionados==null) {
-             if(hayPolicia==true){
+        if (this.listaPoliciasSeleccionados == null) {
+            if (hayPolicia == true) {
                 this.rellenarTablaMultasP(this.orden.getSelectedItem().toString(), policia);
                 this.textoNombre.setText(policia.getNombre());
                 this.textoNumPlaca.setText(policia.getNumPlaca());
-            }else {
-                 this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
-            } 
-           
-        } else if(this.listaPoliciasSeleccionados!=null){
-                 this.rellenarTablaMultasPorListaPolis(this.orden.getSelectedItem().toString(),this.listaPoliciasSeleccionados);
-            
+            } else {
+                this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+            }
+
+        } else if (this.listaPoliciasSeleccionados != null) {
+            this.rellenarTablaMultasPorListaPolis(this.orden.getSelectedItem().toString(), this.listaPoliciasSeleccionados);
+
         }
-           
-        
-    
-    
 
 
     }//GEN-LAST:event_formWindowOpened
@@ -422,10 +418,15 @@ public class MultasLista extends javax.swing.JDialog {
     }//GEN-LAST:event_ordenActionPerformed
 
     private void ordenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ordenItemStateChanged
-        if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
-            this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+        if (this.listaPolicias.getSelectedValuesList().isEmpty()) {
+            if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
+                this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+            }else{
+            this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
+            }
+        } else {
+            this.rellenarTablaMultasPorListaPolis(this.orden.getSelectedItem().toString(),policiasSeleccionadosEnLista);
         }
-        this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_ordenItemStateChanged
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
@@ -469,15 +470,15 @@ public class MultasLista extends javax.swing.JDialog {
     }//GEN-LAST:event_exportarActionPerformed
 
     private void listaPoliciasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPoliciasValueChanged
-        
-        List<Policia>policiasSeleccionadosEnLista= new ArrayList();
-               policiasSeleccionadosEnLista =this.listaPolicias.getSelectedValuesList();
+
+       
+        policiasSeleccionadosEnLista = this.listaPolicias.getSelectedValuesList();
         this.rellenarTablaMultasPorListaPolis(this.orden.getSelectedItem().toString(), policiasSeleccionadosEnLista);
     }//GEN-LAST:event_listaPoliciasValueChanged
 
     private void añadirMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirMulta1ActionPerformed
-         this.listaPolicias.clearSelection();
-         this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+        this.listaPolicias.clearSelection();
+        this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_añadirMulta1ActionPerformed
     public void rellenarTablaMultas(String orden) {
         try {
@@ -582,10 +583,12 @@ public class MultasLista extends javax.swing.JDialog {
         this.hayPolicia = true;
         this.policia = policia;
     }
-    public void setListaPolicias(List<Policia>lista){
-        this.listaPoliciasSeleccionados=lista;
+
+    public void setListaPolicias(List<Policia> lista) {
+        this.listaPoliciasSeleccionados = lista;
     }
-    List<Policia>listaPoliciasSeleccionados;
+     List<Policia> policiasSeleccionadosEnLista = new ArrayList();
+    List<Policia> listaPoliciasSeleccionados;
     private Policia policia;
     private boolean hayPolicia = false;
     private ArchivosDAO manejadorDeArchivos;
