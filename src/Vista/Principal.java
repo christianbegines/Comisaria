@@ -479,12 +479,13 @@ public class Principal extends javax.swing.JFrame {
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
         this.repaint();
         MultasLista ventanaMultas = new MultasLista(this, true);
+        List<Policia>listaPolis=new ArrayList();
         ventanaMultas.setConexion(this.datos);
         ventanaMultas.setManejadorDeArchivos(this.manejadorDeArchivos);
         int indice;
         String departamento = null;
         int edad = 0;
-        if ((indice = this.tablaPolicias.getSelectedRow()) != (-1)) {
+        if (((indice = this.tablaPolicias.getSelectedRow()) != (-1) )&& ((indice= this.tablaPolicias.getSelectedRow())==1)) {
             Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString());
             String nombre = tablaPolicias.getValueAt(indice, 1).toString();
             String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
@@ -506,8 +507,35 @@ public class Principal extends javax.swing.JFrame {
             }
 
             ventanaMultas.setPolicia(policiaSeleccionado);
-            
+
+        } else {
+            if ((indice = this.tablaPolicias.getSelectedRowCount())> 1) {
+                for (int i = 0; i < indice; i++) {
+                    Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(i, 0).toString());
+                    String nombre = tablaPolicias.getValueAt(i, 1).toString();
+                    String numPlaca = tablaPolicias.getValueAt(i, 2).toString();
+                    try {
+                        edad = Integer.parseInt(tablaPolicias.getValueAt(i, 3).toString());
+                        departamento = tablaPolicias.getValueAt(i, 4).toString();
+                    } catch (NullPointerException ex) {
+                    }
+                    Path foto = Paths.get(tablaPolicias.getValueAt(i, 5).toString());
+                    policiaSeleccionado = new Policia(idPolicia, nombre, numPlaca);
+                    if (edad != 0) {
+                        policiaSeleccionado.setEdad(edad);
+                    }
+                    if (departamento != null) {
+                        policiaSeleccionado.setDepartamento(departamento);
+                    }
+                    if (foto != null) {
+                        policiaSeleccionado.setFoto(foto);
+                    }
+                    listaPolis.add(policiaSeleccionado);
+                }
+                ventanaMultas.setListaPolicias(listaPolis);
+            }
         }
+
         ventanaMultas.setVisible(true);
     }//GEN-LAST:event_gestionarMultasActionPerformed
 
@@ -549,7 +577,7 @@ public class Principal extends javax.swing.JFrame {
             this.estadoConexion.setToolTipText("Comprueba tu conexión a la BD");
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar conectar con la base de datos, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
-           JOptionPane.showMessageDialog(rootPane, "No ha sido posible de conectar ");
+            JOptionPane.showMessageDialog(rootPane, "No ha sido posible de conectar ");
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -567,7 +595,7 @@ public class Principal extends javax.swing.JFrame {
         try {
             this.rellenarTabla(this.orden.getSelectedItem().toString());
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(rootPane, "No es posible ordenar los datos"+"\n" +"no existe algun campo");
+            JOptionPane.showMessageDialog(rootPane, "No es posible ordenar los datos" + "\n" + "no existe algun campo");
 
         }
     }//GEN-LAST:event_ordenItemStateChanged
@@ -587,7 +615,7 @@ public class Principal extends javax.swing.JFrame {
                 this.datos.borrarPorIdPolicia(Integer.parseInt(this.tablaPolicias.getValueAt(seleccionado, 0).toString()));
                 this.rellenarTabla(this.orden.getSelectedItem().toString());
             } catch (SQLException | IOException ex) {
-               JOptionPane.showMessageDialog(rootPane, "El policia no se encunetra en la base de datos");
+                JOptionPane.showMessageDialog(rootPane, "El policia no se encunetra en la base de datos");
             }
         } else {
             JOptionPane.showMessageDialog(null, "No has seleccionado ningun policia", "No has seleccionado ningun policia", JOptionPane.INFORMATION_MESSAGE);

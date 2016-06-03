@@ -454,7 +454,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     ruta = Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(),
                             this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/" + calculaNombreArchivo + ".jpg"));
                 } catch (IOException ex) {
-                    Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "imagen no cargada ");
                 }
                 this.rutaArchivo.setText(ruta.toString());
                 Image i = Toolkit.getDefaultToolkit().getImage(ruta.toString());

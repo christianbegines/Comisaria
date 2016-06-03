@@ -26,7 +26,6 @@ import java.util.List;
 public class ArchivosDAO {
 
     public List<Policia> obtenerPoliciasDeFicher(File fichero) throws FileNotFoundException, IOException {
-
         List<Policia> listaPolicia = new ArrayList();
         String idPolicia, nombre, numplaca, edad, departamento, foto;
         if (fichero!=null) {
@@ -75,8 +74,6 @@ public class ArchivosDAO {
                 res++;
                 bw.newLine();
             }
-        }
-        
-        
+        }            
     return res;}
 }

@@ -52,7 +52,6 @@ public class JDBC {
            
             ps.setString(6, p.getDepartamento());
         } else {
-           
             throw new ErrorDatos();
         
         }
@@ -98,6 +97,34 @@ public class JDBC {
 
         List<Policia> listaPolis = new ArrayList<>();
         PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policia ORDER BY " + orden);
+        ResultSet res = ps.executeQuery();
+        while (res.next()) {
+            String nombre = res.getString("nombre");
+            Integer idPolicia = Integer.parseInt(res.getString("idPolicia"));
+            String numPlaca = res.getString("numPlaca");
+            Policia p = new Policia(idPolicia, nombre, numPlaca);
+            if (res.getString("edad") != null) {
+                p.setEdad(Integer.parseInt(res.getString("edad")));
+            }
+            if (res.getString("departamento") != null) {
+                p.setDepartamento(res.getString("departamento"));
+            }
+            if (res.getString("foto") != null) {
+                String foto = res.getString("foto");
+                p.setFoto(Paths.get(foto));
+            } else {
+                Path rutaIcono = null;
+                p.setFoto(rutaIcono);
+            }
+            listaPolis.add(p);
+        }
+        return listaPolis;
+    }
+    
+    public List<Policia> obtenerPolicias() throws SQLException {
+
+        List<Policia> listaPolis = new ArrayList<>();
+        PreparedStatement ps = this.con.prepareStatement("SELECT * FROM policia");
         ResultSet res = ps.executeQuery();
         while (res.next()) {
             String nombre = res.getString("nombre");
