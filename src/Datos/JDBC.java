@@ -46,10 +46,15 @@ public class JDBC {
             ps.setString(2, p.getNumPlaca());
             ps.setString(3, p.getNombre());
             ps.setString(4, p.getFoto().toString());
-            ps.setInt(5, p.getEdad());
+            if(p.getEdad()!=null){
+                 ps.setInt(5, p.getEdad());
+            }
+           
             ps.setString(6, p.getDepartamento());
         } else {
+           
             throw new ErrorDatos();
+        
         }
 
         return ps.executeUpdate();
