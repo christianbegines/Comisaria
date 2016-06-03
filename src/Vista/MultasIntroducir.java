@@ -380,8 +380,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             Date convertirHora = (Date) this.hora.getValue();
             Timestamp convertidaHora = Timestamp.from(convertirHora.toInstant());
-            Date convertirFecha = (Date) this.hora.getValue();
-            Timestamp convertidaFecha = Timestamp.from(convertirFecha.toInstant());
+            Timestamp convertidaFecha = Timestamp.from(this.fecha.getDate().toInstant());
             LocalDateTime fechaToGethora = convertidaHora.toLocalDateTime();
             LocalDateTime fechaToGetFecha = convertidaFecha.toLocalDateTime();
             int año = fechaToGetFecha.getYear();
@@ -411,6 +410,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
                 segundosToFormat = "0".concat(segundosToFormat);
             }
             LocalDateTime fechaParaIntroducir = LocalDateTime.parse(año + "-" + mesToFormat + "-" + diaToFormat + " " + horaToFormat + ":" + minutosToFormat + ":" + segundosToFormat, formato);
+            System.out.println(fechaParaIntroducir.toString());
             if (!fechaParaIntroducir.isAfter(LocalDateTime.now())) {
                 m.setDescripcion(this.areaDescripcion.getText());
                 m.setFecha(fechaParaIntroducir);
