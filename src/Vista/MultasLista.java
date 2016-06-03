@@ -79,7 +79,7 @@ public class MultasLista extends javax.swing.JDialog {
         orden = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaPolicias = new javax.swing.JList<Policia>();
+        listaPolicias = new javax.swing.JList<>();
         NumeroPlacaL1 = new javax.swing.JLabel();
         cerrar = new javax.swing.JLabel();
         cabecera = new javax.swing.JLabel();
@@ -229,8 +229,9 @@ public class MultasLista extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(NumeroPlacaL1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
@@ -249,16 +250,20 @@ public class MultasLista extends javax.swing.JDialog {
                 .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelMainLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(NumeroPlacaL1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(orden, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35))
                     .addGroup(panelMainLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
+                        .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelMainLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(NumeroPlacaL1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelMainLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -421,11 +426,11 @@ public class MultasLista extends javax.swing.JDialog {
         if (this.listaPolicias.getSelectedValuesList().isEmpty()) {
             if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
                 this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
-            }else{
-            this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
+            } else {
+                this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
             }
         } else {
-            this.rellenarTablaMultasPorListaPolis(this.orden.getSelectedItem().toString(),policiasSeleccionadosEnLista);
+            this.rellenarTablaMultasPorListaPolis(this.orden.getSelectedItem().toString(), policiasSeleccionadosEnLista);
         }
     }//GEN-LAST:event_ordenItemStateChanged
 
@@ -436,42 +441,51 @@ public class MultasLista extends javax.swing.JDialog {
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
         List<Multa> listaMultas = new ArrayList<>();
-        if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
+        if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty() && this.policiasSeleccionadosEnLista.isEmpty()) {
             try {
                 listaMultas = this.datos.obtenerMultas(orden.getSelectedItem().toString());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "DatosNo Cargados, no existen ");
 
             }
+        } else if (!this.policiasSeleccionadosEnLista.isEmpty()) {
+            for (Policia policia : this.policiasSeleccionadosEnLista) {
+                try {
+                    for (Multa m : this.datos.obtenerMultasPolicia(policia.getNumPlaca(), policia.getNombre(), this.orden.getSelectedItem().toString())) {
+                        listaMultas.add(m);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MultasLista.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         } else {
             try {
-                listaMultas = this.datos.obtenerMultasPolicia(this.textoNumPlaca.getText(), this.textoNombre.getText(), orden.getSelectedItem().toString());
+                listaMultas = this.datos.obtenerMultasPolicia(this.textoNumPlaca.getText(), this.textoNombre.getText(), this.orden.getSelectedItem().toString());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Datos No Cargados, no existen ");
 
             }
-            int resultado;
-            final JFileChooser fc = new JFileChooser();
-            int indice = fc.showSaveDialog(this);
-            if (indice == JFileChooser.APPROVE_OPTION) {
-                try {
-                    Path rutaAguardar = fc.getSelectedFile().toPath();
-                    resultado = this.manejadorDeArchivos.generarListadoMultas(listaMultas, rutaAguardar);
-                    if (resultado > 0) {
-                        JOptionPane.showMessageDialog(rootPane, "Datos Exportados");
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Datos No Exportados", null, JOptionPane.WARNING_MESSAGE);
-                    }
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "Error : " + ex.getMessage());
+        }
+        int resultado;
+        final JFileChooser fc = new JFileChooser();
+        int indice = fc.showSaveDialog(this);
+        if (indice == JFileChooser.APPROVE_OPTION) {
+            try {
+                Path rutaAguardar = fc.getSelectedFile().toPath();
+                resultado = this.manejadorDeArchivos.generarListadoMultas(listaMultas, rutaAguardar);
+                if (resultado > 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Datos Exportados");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Datos No Exportados", null, JOptionPane.WARNING_MESSAGE);
                 }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Error : " + ex.getMessage());
             }
         }
+
     }//GEN-LAST:event_exportarActionPerformed
 
     private void listaPoliciasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPoliciasValueChanged
-
-       
         policiasSeleccionadosEnLista = this.listaPolicias.getSelectedValuesList();
         this.rellenarTablaMultasPorListaPolis(this.orden.getSelectedItem().toString(), policiasSeleccionadosEnLista);
     }//GEN-LAST:event_listaPoliciasValueChanged
@@ -587,7 +601,7 @@ public class MultasLista extends javax.swing.JDialog {
     public void setListaPolicias(List<Policia> lista) {
         this.listaPoliciasSeleccionados = lista;
     }
-     List<Policia> policiasSeleccionadosEnLista = new ArrayList();
+    List<Policia> policiasSeleccionadosEnLista = new ArrayList();
     List<Policia> listaPoliciasSeleccionados;
     private Policia policia;
     private boolean hayPolicia = false;
