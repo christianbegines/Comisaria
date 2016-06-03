@@ -447,7 +447,6 @@ public class Principal extends javax.swing.JFrame {
     private void gestionarPoliciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarPoliciasActionPerformed
         this.repaint();
         int indice;
-        Policia policiaSeleccionado;
         String departamento = null;
         int edad = 0;
         PoliciasMantenimiento ventanaPolicias = new PoliciasMantenimiento(this, true);
@@ -478,9 +477,37 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
+        this.repaint();
         MultasLista ventanaMultas = new MultasLista(this, true);
         ventanaMultas.setConexion(this.datos);
         ventanaMultas.setManejadorDeArchivos(this.manejadorDeArchivos);
+        int indice;
+        String departamento = null;
+        int edad = 0;
+        if ((indice = this.tablaPolicias.getSelectedRow()) != (-1)) {
+            Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString());
+            String nombre = tablaPolicias.getValueAt(indice, 1).toString();
+            String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
+            try {
+                edad = Integer.parseInt(tablaPolicias.getValueAt(indice, 3).toString());
+                departamento = tablaPolicias.getValueAt(indice, 4).toString();
+            } catch (NullPointerException ex) {
+            }
+            Path foto = Paths.get(tablaPolicias.getValueAt(indice, 5).toString());
+            policiaSeleccionado = new Policia(idPolicia, nombre, numPlaca);
+            if (edad != 0) {
+                policiaSeleccionado.setEdad(edad);
+            }
+            if (departamento != null) {
+                policiaSeleccionado.setDepartamento(departamento);
+            }
+            if (foto != null) {
+                policiaSeleccionado.setFoto(foto);
+            }
+
+            ventanaMultas.setPolicia(policiaSeleccionado);
+            
+        }
         ventanaMultas.setVisible(true);
     }//GEN-LAST:event_gestionarMultasActionPerformed
 
@@ -572,7 +599,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void botonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarActionPerformed
         List<Policia> listaPolicias;
-        List<Policia> policiasNoInsertados= new ArrayList();
+        List<Policia> policiasNoInsertados = new ArrayList();
         int registros = 0;
         try {
             final JFileChooser fc = new JFileChooser();
@@ -585,16 +612,14 @@ public class Principal extends javax.swing.JFrame {
             for (Policia p : listaPolicias) {
                 try {
                     registros = datos.insertarPoliciasPorLista(p);
-                    
                 } catch (SQLException ex) {
                     if (ex.getErrorCode() == 1062) {
-                     
                         policiasNoInsertados.add(p);
                     }
                 }
             }
-            if(policiasNoInsertados.size()!=0){
-                JOptionPane.showMessageDialog(rootPane, "El Policia ya existe"+policiasNoInsertados, null, JOptionPane.WARNING_MESSAGE);
+            if (policiasNoInsertados.size() != 0) {
+                JOptionPane.showMessageDialog(rootPane, "El Policia ya existe" + policiasNoInsertados, null, JOptionPane.WARNING_MESSAGE);
             }
             if (registros != 0) {
                 JOptionPane.showMessageDialog(rootPane, "Datos Cargados");
@@ -611,10 +636,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowStateChanged
 
     private void botonRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecargarActionPerformed
-       try {
+        try {
             this.rellenarTabla(this.orden.getSelectedItem().toString());
         } catch (IOException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Datos No ordenados");
         }
     }//GEN-LAST:event_botonRecargarActionPerformed
     public void rellenarTabla(String orden) throws IOException {
@@ -646,6 +671,7 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
+    Policia policiaSeleccionado;
     private File rutaAbsoluta = new File(".");
     private DefaultTableModel tabla;
     private JDBC datos;

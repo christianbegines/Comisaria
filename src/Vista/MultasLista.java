@@ -8,6 +8,7 @@ package Vista;
 import Datos.ArchivosDAO;
 import Datos.JDBC;
 import Modelo.Multa;
+import Modelo.Policia;
 import java.awt.Frame;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -73,7 +74,7 @@ public class MultasLista extends javax.swing.JDialog {
         NombreL = new javax.swing.JLabel();
         textoNombre = new javax.swing.JTextField();
         textoNumPlaca = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        botonBuscar = new javax.swing.JButton();
         exportar = new javax.swing.JButton();
         añadirMulta = new javax.swing.JButton();
         orden = new javax.swing.JComboBox();
@@ -145,13 +146,13 @@ public class MultasLista extends javax.swing.JDialog {
         textoNumPlaca.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textoNumPlaca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 204));
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonBuscar.setBackground(new java.awt.Color(0, 102, 204));
+        botonBuscar.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        botonBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        botonBuscar.setText("Buscar");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonBuscarActionPerformed(evt);
             }
         });
 
@@ -169,7 +170,7 @@ public class MultasLista extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
         panelBuscarLayout.setVerticalGroup(
@@ -180,7 +181,7 @@ public class MultasLista extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(NombreL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textoNombre)
-                        .addComponent(jButton1))
+                        .addComponent(botonBuscar))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBuscarLayout.createSequentialGroup()
                         .addGroup(panelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(NumeroPlacaL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -345,8 +346,12 @@ public class MultasLista extends javax.swing.JDialog {
     }//GEN-LAST:event_añadirMultaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
-        this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+        if(hayPolicia==true){
+            this.rellenarTablaMultasP(this.orden.getSelectedItem().toString(),policia); 
+        }else{
+             this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
+        }
+       
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -358,13 +363,13 @@ public class MultasLista extends javax.swing.JDialog {
         if (this.textoNumPlaca.getText().isEmpty() && this.textoNombre.getText().isEmpty()) {
             this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
         }
-        this.rellenarTablaMultasP(this.orden.getSelectedItem().toString());
+        this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
     }//GEN-LAST:event_ordenItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(this.textoNombre.getText() + " " + this.textoNumPlaca.getText());
-        this.rellenarTablaMultasP(this.orden.getSelectedItem().toString());
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+
+        this.rellenarTablaPorBusqueda(this.orden.getSelectedItem().toString());
+    }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
         List<Multa> listaMultas = new ArrayList<>();
@@ -422,8 +427,9 @@ public class MultasLista extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void rellenarTablaMultasP(String orden) {
+    
+    
+    private void rellenarTablaPorBusqueda(String orden) {
         try {
             String[] filas = new String[7];
             String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
@@ -434,8 +440,7 @@ public class MultasLista extends javax.swing.JDialog {
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
                 if(m.getFecha()!=null){
                     filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
-                }                
-                
+                }                            
                 filas[3] = m.getImporte().toString();
                 filas[4] = m.getIdPolicia().toString();
                 filas[5] = m.getNifInfractor();
@@ -445,18 +450,47 @@ public class MultasLista extends javax.swing.JDialog {
             this.tablaMultasPolicias.setModel(tabla);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
-        }
+        }        
     }
+     private void rellenarTablaMultasP(String orden,Policia policia) {
+        try {
+            String[] filas = new String[7];
+            String[] titulos = {"id", "descripcion", "fecha", "importe", "idPolicia", "nifinfractor", "idtipo"};
+            tabla = new DefaultTableModel(null, titulos);
+            for (Multa m : this.datos.obtenerMultasPolicia(policia.getNumPlaca(),policia.getNombre() , orden)) {
+                filas[0] = m.getId().toString();
+                filas[1] = m.getDescripcion();
+                SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
+                if(m.getFecha()!=null){
+                    filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
+                }                            
+                filas[3] = m.getImporte().toString();
+                filas[4] = m.getIdPolicia().toString();
+                filas[5] = m.getNifInfractor();
+                filas[6] = m.getIdTipo().toString();
+                this.tabla.addRow(filas);
+            }
+            this.tablaMultasPolicias.setModel(tabla);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
+        }        
+    }
+    public void setPolicia(Policia policia) {
+        this.hayPolicia = true;
+        this.policia = policia;
+    }
+    private Policia policia;
+    private boolean hayPolicia=false;
     private ArchivosDAO manejadorDeArchivos;
     private DefaultTableModel tabla;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NombreL;
     private javax.swing.JLabel NumeroPlacaL;
     private javax.swing.JButton añadirMulta;
+    private javax.swing.JButton botonBuscar;
     private javax.swing.JLabel cabecera;
     private javax.swing.JLabel cerrar;
     private javax.swing.JButton exportar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel menuCerrar;
     private javax.swing.JComboBox orden;
