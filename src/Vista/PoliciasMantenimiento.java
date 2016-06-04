@@ -11,7 +11,6 @@ import Datos.ManejadorDeImagenes;
 import Datos.SelectorDeArchivo;
 import Modelo.Multa;
 import Modelo.Policia;
-import java.awt.Frame;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -34,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Rubén Soler
  */
 public class PoliciasMantenimiento extends javax.swing.JDialog {
+
     /**
      * Ventana de gestion de policias
      *
@@ -396,7 +396,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
 
     private void cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseClicked
         this.setVisible(false);
-        
+
     }//GEN-LAST:event_cerrarMouseClicked
 
     private void textoNumeroPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNumeroPlacaActionPerformed
@@ -416,6 +416,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             try {
                 Image i = Toolkit.getDefaultToolkit().getImage(this.policia.getFoto().toString());
                 ImageIcon fotoPerfil = new ImageIcon(i);
+                fotoPerfil.getImage().flush();
                 this.ImagenL.setIcon(fotoPerfil);
             } catch (NullPointerException ex) {
                 Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
@@ -459,6 +460,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 this.rutaArchivo.setText(ruta.toString());
                 Image i = Toolkit.getDefaultToolkit().getImage(ruta.toString());
                 ImageIcon fotoPerfil = new ImageIcon(i);
+                fotoPerfil.getImage().flush();
                 this.ImagenL.setIcon(fotoPerfil);
                 this.ImagenL.repaint();
             } catch (SQLException ex) {
@@ -492,49 +494,47 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                                 this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/"
                                 + calculaNombreArchivo + ".jpg")));
                     } catch (IOException ex) {
-                    
+
                     }
                     int rows = this.datos.insertaPolicia(this.policia);
                     if (rows > 0) {
                         JOptionPane.showMessageDialog(null, "Policia insertado", "Policia " + this.datos.getMaxIdPolicia() + " insertado", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    
-                } catch (SQLException ex) {
-                      JOptionPane.showMessageDialog(null, "Datos vacios","Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
 
-                }catch(ErrorDatos es){
-                    JOptionPane.showMessageDialog(null, "Policia no insertado","Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Datos vacios", "Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (ErrorDatos es) {
+                    JOptionPane.showMessageDialog(null, "Policia no insertado", "Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
+        } else if (this.textoNumeroPlaca.getText().isEmpty() | this.textNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No puedes dejar vacios los campos nombre y numero de placa", "campos obligatorios vacios", JOptionPane.WARNING_MESSAGE);
         } else {
-            if (this.textoNumeroPlaca.getText().isEmpty() | this.textNombre.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null,"No puedes dejar vacios los campos nombre y numero de placa","campos obligatorios vacios", JOptionPane.WARNING_MESSAGE);
-            }else{
-                try {
-                    Policia modificado = new Policia();
-                    if (!this.rutaArchivo.getText().isEmpty()) {
-                        modificado = new Policia(Integer.parseInt(this.idPoliciaL.getText()),
-                            this.textNombre.getText(),this.textoNumeroPlaca.getText(),
-                            Integer.parseInt(this.textoEdad.getText()),this.textoDepartamento.getText(),
+            try {
+                Policia modificado = new Policia();
+                if (!this.rutaArchivo.getText().isEmpty()) {
+                    modificado = new Policia(Integer.parseInt(this.idPoliciaL.getText()),
+                            this.textNombre.getText(), this.textoNumeroPlaca.getText(),
+                            Integer.parseInt(this.textoEdad.getText()), this.textoDepartamento.getText(),
                             Paths.get(ManejadorDeImagenes.copyImage(this.rutaArchivo.getText(),
-                                this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/"
-                                + this.idPoliciaL.getText() + ".jpg")));
-                    }else{
-                        modificado = new Policia(Integer.parseInt(this.idPoliciaL.getText()),
-                            this.textNombre.getText(),this.textoNumeroPlaca.getText(),
-                            Integer.parseInt(this.textoEdad.getText()),this.textoDepartamento.getText());
-                    }
-                   
-                    if (this.datos.actualizarPolicia(modificado)>0) {
-                     JOptionPane.showMessageDialog(null,"Policia modificado","Policia modificado",JOptionPane.INFORMATION_MESSAGE);
-                    }
-;
-                } catch (SQLException | IOException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "Policia imposible de cargar ");
+                                    this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/policias/"
+                                    + this.idPoliciaL.getText() + ".jpg")));
+                } else {
+                    modificado = new Policia(Integer.parseInt(this.idPoliciaL.getText()),
+                            this.textNombre.getText(), this.textoNumeroPlaca.getText(),
+                            Integer.parseInt(this.textoEdad.getText()), this.textoDepartamento.getText());
                 }
+
+                if (this.datos.actualizarPolicia(modificado) > 0) {
+                    JOptionPane.showMessageDialog(null, "Policia modificado", "Policia modificado", JOptionPane.INFORMATION_MESSAGE);
+                }
+                ;
+            } catch (SQLException | IOException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Policia imposible de cargar ");
             }
         }
-      
+
     }//GEN-LAST:event_botonInsertActionPerformed
     /**
      * Coloca un objeto policia en la ventana de gestion de policias
@@ -560,9 +560,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 filas[0] = m.getId().toString();
                 filas[1] = m.getDescripcion();
                 SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd -- HH:mm");
-                if(m.getFecha()!=null){
+                if (m.getFecha() != null) {
                     filas[2] = sf.format(Timestamp.valueOf(m.getFecha()));
-                }              
+                }
                 filas[3] = m.getImporte().toString();
                 filas[4] = m.getIdPolicia().toString();
                 filas[5] = m.getNifInfractor();
