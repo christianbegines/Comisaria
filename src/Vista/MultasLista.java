@@ -404,8 +404,8 @@ public class MultasLista extends javax.swing.JDialog {
         if (this.listaPoliciasSeleccionados == null) {
             if (hayPolicia == true) {
                 this.rellenarTablaMultasP(this.orden.getSelectedItem().toString(), policia);
-                this.textoNombre.setText(policia.getNombre());
-                this.textoNumPlaca.setText(policia.getNumPlaca());
+                this.textoNombre.setText(this.policia.getNombre());
+                this.textoNumPlaca.setText(this.policia.getNumPlaca());
             } else {
                 this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
             }

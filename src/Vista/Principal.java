@@ -477,7 +477,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_gestionarPoliciasActionPerformed
 
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
-        this.repaint();
         MultasLista ventanaMultas = new MultasLista(this, true);
         List<Policia> listaPolis = new ArrayList();
         ventanaMultas.setConexion(this.datos);
@@ -485,7 +484,8 @@ public class Principal extends javax.swing.JFrame {
         int indice;
         String departamento = null;
         int edad = 0;
-        if (((indice = this.tablaPolicias.getSelectedRow()) != (-1)) && ((indice = this.tablaPolicias.getSelectedRow()) == 1)) {
+        if (this.tablaPolicias.getSelectedRowCount()== 1) {
+            indice = this.tablaPolicias.getSelectedRow();
             Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString());
             String nombre = tablaPolicias.getValueAt(indice, 1).toString();
             String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
@@ -509,7 +509,7 @@ public class Principal extends javax.swing.JFrame {
             ventanaMultas.setPolicia(policiaSeleccionado);
 
         } else if ((indice = this.tablaPolicias.getSelectedRowCount()) > 1) {
-            for (int i = 0; i < indice; i++) {
+            for (int i = 0; i <indice; i++) {
                 Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(i, 0).toString());
                 String nombre = tablaPolicias.getValueAt(i, 1).toString();
                 String numPlaca = tablaPolicias.getValueAt(i, 2).toString();
@@ -517,6 +517,7 @@ public class Principal extends javax.swing.JFrame {
                     edad = Integer.parseInt(tablaPolicias.getValueAt(i, 3).toString());
                     departamento = tablaPolicias.getValueAt(i, 4).toString();
                 } catch (NullPointerException ex) {
+                    System.out.println(ex.getMessage());
                 }
                 Path foto = Paths.get(tablaPolicias.getValueAt(i, 5).toString());
                 policiaSeleccionado = new Policia(idPolicia, nombre, numPlaca);
