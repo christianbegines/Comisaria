@@ -613,7 +613,7 @@ public class Principal extends javax.swing.JFrame {
             try {
                 idPolicia = Integer.parseInt(this.tablaPolicias.getValueAt(seleccionado, 0).toString());
                 if (this.datos.preguntarSiTieneMultas(idPolicia)) {
-                    int confirmado = JOptionPane.showConfirmDialog(null, "El policia que quieres borrar tiene multas, si lo borras se borraran también todas sus multas. \n ¿Estas seguro?", "Warning", 1);
+                    int confirmado = JOptionPane.showConfirmDialog(null, "El policia que quieres borrar tiene multas, si lo borras se borraran también todas sus multas. \n ¿Estas seguro?", "Cuidado", 1);
                     if (confirmado == JOptionPane.YES_OPTION) {
                         try {
                             this.datos.borrarPorIdPolicia(idPolicia);
