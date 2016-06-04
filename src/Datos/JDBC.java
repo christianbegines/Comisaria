@@ -3,10 +3,7 @@ package Datos;
 import Modelo.Multa;
 import Modelo.Policia;
 import Modelo.TipoMulta;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,7 +33,18 @@ public class JDBC {
         this.con = DriverManager.getConnection(url, usr, pass);
         return this.con;
     }
-
+    public boolean preguntarSiExiste(int idPolicia) throws SQLException{
+    boolean respuesta = false;
+        String sql = "SELECT count(*) AS 'cuenta' FROM policia WHERE idPolicia = ?";
+        PreparedStatement ps = this.con.prepareStatement(sql);
+        ps.setInt(1, idPolicia);
+        ResultSet res = ps.executeQuery();
+        res.next();
+        if (res.getInt("cuenta")>0) {
+            respuesta = true;
+        }
+        return respuesta;
+    }
     public boolean preguntarSiTieneMultas(int idPolicia) throws SQLException {
         boolean respuesta = false;
         String sql = "SELECT count(*) AS 'cuentaMultas' FROM multas WHERE idPolicia = ?";
