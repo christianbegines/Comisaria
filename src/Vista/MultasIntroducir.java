@@ -443,7 +443,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Campo fecha vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(null, "Campo Descripcion vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
-
         }
 
     }//GEN-LAST:event_botonInsertarActionPerformed
