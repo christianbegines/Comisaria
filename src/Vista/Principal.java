@@ -479,13 +479,13 @@ public class Principal extends javax.swing.JFrame {
     private void gestionarMultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarMultasActionPerformed
         this.repaint();
         MultasLista ventanaMultas = new MultasLista(this, true);
-        List<Policia>listaPolis=new ArrayList();
+        List<Policia> listaPolis = new ArrayList();
         ventanaMultas.setConexion(this.datos);
         ventanaMultas.setManejadorDeArchivos(this.manejadorDeArchivos);
         int indice;
         String departamento = null;
         int edad = 0;
-        if (((indice = this.tablaPolicias.getSelectedRow()) != (-1) )&& ((indice= this.tablaPolicias.getSelectedRow())==1)) {
+        if (((indice = this.tablaPolicias.getSelectedRow()) != (-1)) && ((indice = this.tablaPolicias.getSelectedRow()) == 1)) {
             Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(indice, 0).toString());
             String nombre = tablaPolicias.getValueAt(indice, 1).toString();
             String numPlaca = tablaPolicias.getValueAt(indice, 2).toString();
@@ -508,32 +508,30 @@ public class Principal extends javax.swing.JFrame {
 
             ventanaMultas.setPolicia(policiaSeleccionado);
 
-        } else {
-            if ((indice = this.tablaPolicias.getSelectedRowCount())> 1) {
-                for (int i = 0; i < indice; i++) {
-                    Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(i, 0).toString());
-                    String nombre = tablaPolicias.getValueAt(i, 1).toString();
-                    String numPlaca = tablaPolicias.getValueAt(i, 2).toString();
-                    try {
-                        edad = Integer.parseInt(tablaPolicias.getValueAt(i, 3).toString());
-                        departamento = tablaPolicias.getValueAt(i, 4).toString();
-                    } catch (NullPointerException ex) {
-                    }
-                    Path foto = Paths.get(tablaPolicias.getValueAt(i, 5).toString());
-                    policiaSeleccionado = new Policia(idPolicia, nombre, numPlaca);
-                    if (edad != 0) {
-                        policiaSeleccionado.setEdad(edad);
-                    }
-                    if (departamento != null) {
-                        policiaSeleccionado.setDepartamento(departamento);
-                    }
-                    if (foto != null) {
-                        policiaSeleccionado.setFoto(foto);
-                    }
-                    listaPolis.add(policiaSeleccionado);
+        } else if ((indice = this.tablaPolicias.getSelectedRowCount()) > 1) {
+            for (int i = 0; i < indice; i++) {
+                Integer idPolicia = Integer.parseInt(tablaPolicias.getValueAt(i, 0).toString());
+                String nombre = tablaPolicias.getValueAt(i, 1).toString();
+                String numPlaca = tablaPolicias.getValueAt(i, 2).toString();
+                try {
+                    edad = Integer.parseInt(tablaPolicias.getValueAt(i, 3).toString());
+                    departamento = tablaPolicias.getValueAt(i, 4).toString();
+                } catch (NullPointerException ex) {
                 }
-                ventanaMultas.setListaPolicias(listaPolis);
+                Path foto = Paths.get(tablaPolicias.getValueAt(i, 5).toString());
+                policiaSeleccionado = new Policia(idPolicia, nombre, numPlaca);
+                if (edad != 0) {
+                    policiaSeleccionado.setEdad(edad);
+                }
+                if (departamento != null) {
+                    policiaSeleccionado.setDepartamento(departamento);
+                }
+                if (foto != null) {
+                    policiaSeleccionado.setFoto(foto);
+                }
+                listaPolis.add(policiaSeleccionado);
             }
+            ventanaMultas.setListaPolicias(listaPolis);
         }
 
         ventanaMultas.setVisible(true);
@@ -609,14 +607,33 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ordenActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
+        int idPolicia;
         int seleccionado = this.tablaPolicias.getSelectedRow();
         if (seleccionado != -1) {
             try {
-                this.datos.borrarPorIdPolicia(Integer.parseInt(this.tablaPolicias.getValueAt(seleccionado, 0).toString()));
-                this.rellenarTabla(this.orden.getSelectedItem().toString());
-            } catch (SQLException | IOException ex) {
-                JOptionPane.showMessageDialog(rootPane, "El policia no se encunetra en la base de datos");
+                idPolicia = Integer.parseInt(this.tablaPolicias.getValueAt(seleccionado, 0).toString());
+                if (this.datos.preguntarSiTieneMultas(idPolicia)) {
+                    int confirmado = JOptionPane.showConfirmDialog(null, "El policia que quieres borrar tiene multas, si lo borras se borraran también todas sus multas. \n ¿Estas seguro?", "Warning", 1);
+                    if (confirmado == JOptionPane.YES_OPTION) {
+                        try {
+                            this.datos.borrarPorIdPolicia(idPolicia);
+                            this.rellenarTabla(this.orden.getSelectedItem().toString());
+                        } catch (SQLException | IOException ex) {
+                            JOptionPane.showMessageDialog(rootPane, "El policia no se encunetra en la base de datos");
+                        }
+                    }
+                } else {
+                    try {
+                        this.datos.borrarPorIdPolicia(idPolicia);
+                        this.rellenarTabla(this.orden.getSelectedItem().toString());
+                    } catch (SQLException | IOException ex) {
+                        JOptionPane.showMessageDialog(rootPane, "El policia no se encunetra en la base de datos");
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "No has seleccionado ningun policia", "No has seleccionado ningun policia", JOptionPane.INFORMATION_MESSAGE);
         }

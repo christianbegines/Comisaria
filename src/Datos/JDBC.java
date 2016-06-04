@@ -37,6 +37,19 @@ public class JDBC {
         return this.con;
     }
 
+    public boolean preguntarSiTieneMultas(int idPolicia) throws SQLException {
+        boolean respuesta = false;
+        String sql = "SELECT count(*) AS 'cuentaMultas' FROM multas WHERE idPolicia = ?";
+        PreparedStatement ps = this.con.prepareStatement(sql);
+        ps.setInt(1, idPolicia);
+        ResultSet res = ps.executeQuery();
+        res.next();
+        if (res.getInt("cuentaMultas")>0) {
+            respuesta = true;
+        }
+        return respuesta;
+    }
+
     public int insertaPolicia(Policia p) throws SQLException {
         PreparedStatement ps = null;
         if (p.getIdPolicia() != null && p.getNumPlaca() != null && p.getNombre() != null) {
@@ -46,14 +59,14 @@ public class JDBC {
             ps.setString(2, p.getNumPlaca());
             ps.setString(3, p.getNombre());
             ps.setString(4, p.getFoto().toString());
-            if(p.getEdad()!=null){
-                 ps.setInt(5, p.getEdad());
+            if (p.getEdad() != null) {
+                ps.setInt(5, p.getEdad());
             }
-           
+
             ps.setString(6, p.getDepartamento());
         } else {
             throw new ErrorDatos();
-        
+
         }
 
         return ps.executeUpdate();
@@ -120,7 +133,7 @@ public class JDBC {
         }
         return listaPolis;
     }
-    
+
     public List<Policia> obtenerPolicias() throws SQLException {
 
         List<Policia> listaPolis = new ArrayList<>();
@@ -263,13 +276,13 @@ public class JDBC {
         ps.setString(2, p.getNombre());
         ps.setInt(3, p.getEdad());
         ps.setString(4, p.getDepartamento());
-        if (p.getFoto()!=null) {
-             ps.setString(5, p.getFoto().toString());
-        }else{
+        if (p.getFoto() != null) {
+            ps.setString(5, p.getFoto().toString());
+        } else {
             Path rutaIcono = Paths.get(rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/iconoanonimo.jpg");
             ps.setString(5, rutaIcono.toString());
         }
-       
+
         ps.setInt(6, p.getIdPolicia());
         return ps.executeUpdate();
 
@@ -293,20 +306,20 @@ public class JDBC {
         return listaTipos;
     }
 
-    public int insertarPoliciasPorLista(Policia p) throws  SQLException {
+    public int insertarPoliciasPorLista(Policia p) throws SQLException {
         int resultado = 0;
         String sql = "insert into policia (idPolicia,nombre,numplaca,edad,departamento,foto) values(?,?,?,?,?,?)";
-        PreparedStatement ps;       
-            ps = this.con.prepareStatement(sql);
-            ps.setInt(1,p.getIdPolicia());
-            ps.setString(2,p.getNombre());
-            ps.setString(3,p.getNumPlaca());
-            ps.setInt(4,p.getEdad());
-            ps.setString(5, p.getDepartamento());
-            ps.setString(6,p.getFoto().toString());
-            System.out.println(p.getNumPlaca());
-            resultado = ps.executeUpdate();
-            
+        PreparedStatement ps;
+        ps = this.con.prepareStatement(sql);
+        ps.setInt(1, p.getIdPolicia());
+        ps.setString(2, p.getNombre());
+        ps.setString(3, p.getNumPlaca());
+        ps.setInt(4, p.getEdad());
+        ps.setString(5, p.getDepartamento());
+        ps.setString(6, p.getFoto().toString());
+        System.out.println(p.getNumPlaca());
+        resultado = ps.executeUpdate();
+
         return resultado;
     }
 }
