@@ -114,11 +114,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         textoNifInfractor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         textoNifInfractor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        textoNifInfractor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoNifInfractorActionPerformed(evt);
-            }
-        });
 
         lIdPolicia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lIdPolicia.setForeground(new java.awt.Color(0, 102, 204));
@@ -140,11 +135,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
         comboTipoMulta.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboTipoMultaItemStateChanged(evt);
-            }
-        });
-        comboTipoMulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTipoMultaActionPerformed(evt);
             }
         });
 
@@ -333,10 +323,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
         this.y = evt.getY();
     }//GEN-LAST:event_menuCerrarMousePressed
 
-    private void comboTipoMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoMultaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboTipoMultaActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         TipoMulta tm = new TipoMulta();
         try {
@@ -350,11 +336,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "dato no valido");
         }
     }//GEN-LAST:event_formWindowOpened
-
-    private void textoNifInfractorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNifInfractorActionPerformed
-
-
-    }//GEN-LAST:event_textoNifInfractorActionPerformed
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         Multa m = new Multa();
@@ -421,13 +402,13 @@ public class MultasIntroducir extends javax.swing.JDialog {
                 } catch (ErrorDatos es) {
                     JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Campos descripcion o idPolicia vacios", JOptionPane.INFORMATION_MESSAGE);
                 } catch (NumberFormatException exception) {
-                    JOptionPane.showMessageDialog(null, "id policia no valido");
+                    JOptionPane.showMessageDialog(null, "id policia  o importeno valido");
                 }
 
         } else if (this.textIdPolicia.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo Idpolicia vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
         } else if (this.fecha.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Campo fecha vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Campo fecha no valido", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Campo Descripcion vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
         }

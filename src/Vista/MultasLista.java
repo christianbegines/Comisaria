@@ -452,7 +452,7 @@ public class MultasLista extends javax.swing.JDialog {
                         listaMultas.add(m);
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(MultasLista.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Lista no cargada");
                 }
             }
         } else {

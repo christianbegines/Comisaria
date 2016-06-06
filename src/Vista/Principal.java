@@ -632,7 +632,7 @@ public class Principal extends javax.swing.JFrame {
                     }
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                 JOptionPane.showMessageDialog(null, "Imposible Borrar");
             }
 
         } else {
@@ -694,7 +694,6 @@ public class Principal extends javax.swing.JFrame {
             String[] filas = new String[6];
             String[] titulos = {"IdPolicia", "Nombre", "NumPlaca", "Edad", "Departamento", "Foto"};
             tabla = new DefaultTableModel(null, titulos);
-
             for (Policia p : this.datos.obtenerPolicias(orden)) {
                 filas[0] = p.getIdPolicia().toString();
                 filas[1] = p.getNombre();

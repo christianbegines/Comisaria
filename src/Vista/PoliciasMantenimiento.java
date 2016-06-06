@@ -138,11 +138,6 @@ private Principal padre;
 
         textoNumeroPlaca.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         textoNumeroPlaca.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        textoNumeroPlaca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoNumeroPlacaActionPerformed(evt);
-            }
-        });
 
         NombreL.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         NombreL.setForeground(new java.awt.Color(0, 102, 204));
@@ -400,13 +395,9 @@ private Principal padre;
         this.setVisible(false);
         padre.rellenarTabla(padre.getOrden());
     } catch (IOException ex) {
-        Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, "Tabla no rellenada");
     }
     }//GEN-LAST:event_cerrarMouseClicked
-
-    private void textoNumeroPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNumeroPlacaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoNumeroPlacaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         if (this.hayPolicia) {
@@ -424,14 +415,14 @@ private Principal padre;
                 fotoPerfil.getImage().flush();
                 this.ImagenL.setIcon(fotoPerfil);
             } catch (NullPointerException ex) {
-                Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Imagen no cargada");
             }
             this.idPoliciaL.setText(this.policia.getIdPolicia().toString());
         } else {
             try {
                 this.rutaArchivo.setText(this.rutaAbsoluta.getCanonicalPath() + "/src/Imagenes/iconoanonimo.jpg");
             } catch (IOException ex) {
-                Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                 JOptionPane.showMessageDialog(null, "Imagen no cargada");
             }
             this.panelPestañas.removeTabAt(1);
             this.botonInsert.setText("Insertar");
@@ -469,7 +460,7 @@ private Principal padre;
                 this.ImagenL.setIcon(fotoPerfil);
                 this.ImagenL.repaint();
             } catch (SQLException ex) {
-                Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+                 JOptionPane.showMessageDialog(null, "Imagen no cargada");
             }
         }
     }//GEN-LAST:event_botonImagenActionPerformed
