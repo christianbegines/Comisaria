@@ -485,6 +485,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     if (!this.textoEdad.getText().isEmpty()) {
                         this.policia.setEdad(Integer.parseInt(this.textoEdad.getText()));
                     }
+                        
+                    
                     if (!this.textoDepartamento.getText().isEmpty()) {
                         this.policia.setDepartamento(this.textoDepartamento.getText());
                     }
@@ -502,10 +504,12 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                     }
 
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Datos vacios", "Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (ErrorDatos es) {
                     JOptionPane.showMessageDialog(null, "Policia no insertado", "Campos nombre,numplaca o idpolicia vacios", JOptionPane.INFORMATION_MESSAGE);
+                }catch(NumberFormatException numberFormatException){
+                    JOptionPane.showMessageDialog(null, "Edad no valida", "Campos nulos", JOptionPane.INFORMATION_MESSAGE);
+
                 }
             }
         } else if (this.textoNumeroPlaca.getText().isEmpty() | this.textNombre.getText().isEmpty()) {
