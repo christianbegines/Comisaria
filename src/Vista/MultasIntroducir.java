@@ -375,15 +375,20 @@ public class MultasIntroducir extends javax.swing.JDialog {
             }
             LocalDateTime fechaParaIntroducir = LocalDateTime.parse(año + "-" + mesToFormat + "-" + diaToFormat + " " + horaToFormat + ":" + minutosToFormat + ":" + segundosToFormat, formato);
             try {
-            if (!fechaParaIntroducir.isAfter(LocalDateTime.now())) {
-                m.setDescripcion(this.areaDescripcion.getText());
-                m.setFecha(fechaParaIntroducir);
-                m.setIdPolicia(Integer.valueOf(this.textIdPolicia.getText()));
-                m.setImporte(Double.valueOf(this.textoImporte.getText()));
-                m.setNifInfractor(this.textoNifInfractor.getText());
-                m.setIdTipo(tm.getId());
-                int rows = 0;
-                
+                if (!fechaParaIntroducir.isAfter(LocalDateTime.now())) {
+                    m.setDescripcion(this.areaDescripcion.getText());
+                    m.setFecha(fechaParaIntroducir);
+                    m.setIdPolicia(Integer.valueOf(this.textIdPolicia.getText()));
+                    try {
+                        m.setImporte(Double.valueOf(this.textoImporte.getText()));
+                    
+                    } catch (NumberFormatException exception) {
+                        JOptionPane.showMessageDialog(null, "importe no valido");
+                    }
+                    m.setNifInfractor(this.textoNifInfractor.getText());
+                    m.setIdTipo(tm.getId());
+                    int rows = 0;
+
                     if (this.datos.preguntarSiExiste(m.getIdPolicia())) {
                         rows = this.datos.insertarMultas(m);
                     } else {
@@ -393,17 +398,17 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     if (rows > 0) {
                         JOptionPane.showMessageDialog(null, "Multa insertado", "Multa  insertado", JOptionPane.INFORMATION_MESSAGE);
                     }
-               
-            } else {
-                JOptionPane.showMessageDialog(null, "Fecha invalida, no puedes poner una multa con fecha posterior a la actual", "Error de fecha", JOptionPane.WARNING_MESSAGE);
-            } 
-            } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Multa No insertado", JOptionPane.INFORMATION_MESSAGE);
-                } catch (ErrorDatos es) {
-                    JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Campos descripcion o idPolicia vacios", JOptionPane.INFORMATION_MESSAGE);
-                } catch (NumberFormatException exception) {
-                    JOptionPane.showMessageDialog(null, "id policia  o importeno valido");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fecha invalida, no puedes poner una multa con fecha posterior a la actual", "Error de fecha", JOptionPane.WARNING_MESSAGE);
                 }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Multa No insertado", JOptionPane.INFORMATION_MESSAGE);
+            } catch (ErrorDatos es) {
+                JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Campos descripcion o idPolicia vacios", JOptionPane.INFORMATION_MESSAGE);
+            } catch (NumberFormatException exception) {
+                JOptionPane.showMessageDialog(null, "id policia  valido");
+            }
 
         } else if (this.textIdPolicia.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo Idpolicia vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
