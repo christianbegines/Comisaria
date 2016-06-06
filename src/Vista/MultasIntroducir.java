@@ -61,7 +61,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
         menuCerrar = new javax.swing.JPanel();
         panelMain = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        labelId = new javax.swing.JLabel();
         textoNifInfractor = new javax.swing.JTextField();
         lIdPolicia = new javax.swing.JLabel();
         lFecha = new javax.swing.JLabel();
@@ -73,7 +72,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
         areaDescripcion = new javax.swing.JTextArea();
         lNifInfractor = new javax.swing.JLabel();
         botonInsertar = new javax.swing.JButton();
-        labelNumeroId = new javax.swing.JLabel();
         lImporte = new javax.swing.JLabel();
         hora = new javax.swing.JSpinner();
         fecha = new com.toedter.calendar.JDateChooser();
@@ -113,10 +111,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-
-        labelId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        labelId.setForeground(new java.awt.Color(0, 102, 204));
-        labelId.setText("Id Multa");
 
         textoNifInfractor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         textoNifInfractor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -176,9 +170,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
             }
         });
 
-        labelNumeroId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelNumeroId.setText("---");
-
         lImporte.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lImporte.setForeground(new java.awt.Color(0, 102, 204));
         lImporte.setText("Importe");
@@ -196,10 +187,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelNumeroId, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(botonInsertar)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -235,10 +222,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelNumeroId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoNifInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lNifInfractor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,7 +232,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(textIdPolicia)
                         .addGap(7, 7, 7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -364,7 +347,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
             this.textoImporte.setText(tm.getImporte().toString());
 
         } catch (SQLException ex) {
-            Logger.getLogger(MultasIntroducir.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "dato no valido");
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -376,7 +359,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         Multa m = new Multa();
         TipoMulta tm = (TipoMulta) this.comboTipoMulta.getSelectedItem();
-        if (!this.textIdPolicia.getText().isEmpty() && !this.areaDescripcion.getText().isEmpty() && this.fecha.getDate()!=null) {
+        if (!this.textIdPolicia.getText().isEmpty() && !this.areaDescripcion.getText().isEmpty() && this.fecha.getDate() != null) {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             Date convertirHora = (Date) this.hora.getValue();
             Timestamp convertidaHora = Timestamp.from(convertirHora.toInstant());
@@ -410,6 +393,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
                 segundosToFormat = "0".concat(segundosToFormat);
             }
             LocalDateTime fechaParaIntroducir = LocalDateTime.parse(año + "-" + mesToFormat + "-" + diaToFormat + " " + horaToFormat + ":" + minutosToFormat + ":" + segundosToFormat, formato);
+            try {
             if (!fechaParaIntroducir.isAfter(LocalDateTime.now())) {
                 m.setDescripcion(this.areaDescripcion.getText());
                 m.setFecha(fechaParaIntroducir);
@@ -418,7 +402,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
                 m.setNifInfractor(this.textoNifInfractor.getText());
                 m.setIdTipo(tm.getId());
                 int rows = 0;
-                try {
+                
                     if (this.datos.preguntarSiExiste(m.getIdPolicia())) {
                         rows = this.datos.insertarMultas(m);
                     } else {
@@ -428,20 +412,23 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     if (rows > 0) {
                         JOptionPane.showMessageDialog(null, "Multa insertado", "Multa  insertado", JOptionPane.INFORMATION_MESSAGE);
                     }
-                } catch (SQLException ex) {
+               
+            } else {
+                JOptionPane.showMessageDialog(null, "Fecha invalida, no puedes poner una multa con fecha posterior a la actual", "Error de fecha", JOptionPane.WARNING_MESSAGE);
+            } 
+            } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Multa No insertado", JOptionPane.INFORMATION_MESSAGE);
                 } catch (ErrorDatos es) {
                     JOptionPane.showMessageDialog(null, "Multa NO  insertado", "Campos descripcion o idPolicia vacios", JOptionPane.INFORMATION_MESSAGE);
+                } catch (NumberFormatException exception) {
+                    JOptionPane.showMessageDialog(null, "id policia no valido");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Fecha invalida, no puedes poner una multa con fecha posterior a la actual", "Error de fecha", JOptionPane.WARNING_MESSAGE);
-            }
 
         } else if (this.textIdPolicia.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo Idpolicia vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
-        } else if(this.fecha.getDate()==null){
+        } else if (this.fecha.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Campo fecha vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Campo Descripcion vacio", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
         }
 
@@ -472,8 +459,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
     private javax.swing.JLabel lImporte;
     private javax.swing.JLabel lNifInfractor;
     private javax.swing.JLabel lTipo;
-    private javax.swing.JLabel labelId;
-    private javax.swing.JLabel labelNumeroId;
     private javax.swing.JPanel menuCerrar;
     private javax.swing.JPanel panelMain;
     private javax.swing.JFormattedTextField textIdPolicia;

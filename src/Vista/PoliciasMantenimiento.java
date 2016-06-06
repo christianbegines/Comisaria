@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Rubén Soler
  */
 public class PoliciasMantenimiento extends javax.swing.JDialog {
-
+private Principal padre;
     /**
      * Ventana de gestion de policias
      *
@@ -42,6 +42,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
      */
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.padre = (Principal) parent;
         this.setUndecorated(true);
         this.setLocation(400, 100);
         initComponents();
@@ -395,8 +396,12 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     }//GEN-LAST:event_menuCerrarMouseDragged
 
     private void cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseClicked
+    try {
         this.setVisible(false);
-
+        padre.rellenarTabla(padre.getOrden());
+    } catch (IOException ex) {
+        Logger.getLogger(PoliciasMantenimiento.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_cerrarMouseClicked
 
     private void textoNumeroPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNumeroPlacaActionPerformed
@@ -536,6 +541,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 ;
             } catch (SQLException | IOException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Policia imposible de cargar ");
+            } catch (NumberFormatException exception){
+                 JOptionPane.showMessageDialog(rootPane, "Edad no valida ");
             }
         }
 

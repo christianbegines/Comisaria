@@ -490,6 +490,8 @@ public class MultasLista extends javax.swing.JDialog {
     private void añadirMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirMulta1ActionPerformed
         this.listaPolicias.clearSelection();
         this.rellenarTablaMultas(this.orden.getSelectedItem().toString());
+        this.textoNombre.setText("");
+        this.textoNumPlaca.setText("");
     }//GEN-LAST:event_añadirMulta1ActionPerformed
     public void rellenarTablaMultas(String orden) {
         try {

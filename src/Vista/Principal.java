@@ -718,6 +718,9 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getErrorCode() + " " + ex.getMessage() + " " + ex.getSQLState() + "Ha habido un problema al intentar rellenar la tabla, comprueba la conexión", "Error conectando a la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
+    public String getOrden(){
+    return this.orden.getSelectedItem().toString();}
+    
     Policia policiaSeleccionado;
     private File rutaAbsoluta = new File(".");
     private DefaultTableModel tabla;
