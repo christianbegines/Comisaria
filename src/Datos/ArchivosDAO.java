@@ -73,7 +73,20 @@ public class ArchivosDAO {
                 bw.write(m.toString());
                 res++;
                 bw.newLine();
+                
             }
+            bw.write("Importe Total :"+sumarImporte(listaMultas).toString());
         }            
-    return res;}
+    return res;    
+    }
+    
+    
+    public Double sumarImporte(List<Multa>listaMultas){
+        Double importe, importeTotal=0.0;
+        for(Multa m: listaMultas){
+            importe=m.getImporte();
+            importeTotal+=importe;
+        }
+        return importeTotal;
+    }
 }
